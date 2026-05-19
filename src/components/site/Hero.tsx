@@ -23,7 +23,7 @@ export function Hero() {
         <div className="absolute inset-y-0 left-0 w-full md:w-[50%] bg-gradient-to-r from-white via-white/65 to-transparent hidden md:block rtl:bg-gradient-to-l" />
         
         {/* Mobile-only overlay to ensure text is fully readable on small screens */}
-        <div className="absolute inset-0 bg-white/70 block md:hidden" />
+        <div className="absolute inset-0 bg-white/35 block md:hidden" />
 
         {/* Bottom fading gradient to blend with features section */}
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
