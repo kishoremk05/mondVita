@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Star, MessageSquare } from "lucide-react";
-import waitingRoom from "@/assets/waiting-room.jpg";
+import imgSetupPlace from "@/assets/new client images/dental setup place.png";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Reviews — MondVita" },
-      { name: "description", content: "Lees ervaringen van patiënten van MondVita en deel uw eigen review." },
-      { property: "og:title", content: "Reviews — MondVita" },
+      { title: "Reviews MondVita | Tandartspraktijk Rotterdam" },
+      { name: "description", content: "Lees de ervaringen en reviews van onze patiënten over MondVita Rotterdam. Uw betrouwbare tandarts voor persoonlijke mondzorg." },
+      { property: "og:title", content: "Reviews MondVita | Tandartspraktijk Rotterdam" },
     ],
     links: [{ rel: "canonical", href: "/reviews" }],
   }),
@@ -39,7 +39,7 @@ function Page() {
       <PageHeader
         title={t("reviews.title")}
         intro={t("reviews.intro")}
-        bgImage={waitingRoom}
+        bgImage={imgSetupPlace}
       />
 
       <section className="bg-secondary/40 py-20">

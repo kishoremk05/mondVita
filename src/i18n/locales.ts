@@ -62,7 +62,7 @@ export const resources = {
         write: "Schrijf een review",
         r1_q: "Fijne praktijk met hele vriendelijke mensen. Er wordt altijd duidelijk in de uitleg, ik ben zeer tevreden.", r1_n: "Lisa de Jong",
         r2_q: "Professioneel, zorgvuldig en altijd duidelijk in de uitleg. Echt de tijd voor je genomen.", r2_n: "Mark van Dijk",
-        r3_q: "Na jaren weer ontspannen op de stoel. Echt een aanrader!", r3_n: "Sanne uit Amsterdam",
+        r3_q: "Na jaren weer ontspannen op de stoel. Echt een aanrader!", r3_n: "Sanne uit Rotterdam",
       },
       over: {
         title: "Over MondVita",
@@ -74,13 +74,13 @@ export const resources = {
         title: "Contact",
         intro: "Heeft u een vraag of wilt u een afspraak maken? Wij staan voor u klaar.",
         address: "Adres", phone: "Telefoon", email: "E-mail", hours: "Openingstijden",
-        address_v: "Hoofdweg 123, 1234 AB Amsterdam",
-        phone_v: "020 - 123 45 67",
+        address_v: "Marinus Bolkplein 39, 3067 AK Rotterdam",
+        phone_v: "010-3602998",
         email_v: "info@mondvita.nl",
         hours_v: "Maandag t/m vrijdag, 08:00 - 17:00",
         first: "Voornaam", last: "Achternaam", subject: "Onderwerp", subject_p: "Kies een onderwerp", message: "Uw bericht", submit: "Verstuur bericht",
       },
-      footer: { rights: "Alle rechten voorbehouden", tagline: "Persoonlijke mondzorg in Amsterdam.", quick: "Snel naar", contact_h: "Contact" },
+      footer: { rights: "Alle rechten voorbehouden", tagline: "Persoonlijke mondzorg in Rotterdam.", quick: "Snel naar", contact_h: "Contact" },
       admin: {
         title: "Beheerpaneel", content: "Tekstinhoud", services_tab: "Diensten", gallery_tab: "Galerij", contact_tab: "Contact",
         save: "Opslaan", saved: "Opgeslagen", upload: "Uploaden", delete: "Verwijderen", add: "Toevoegen", icon: "Icoon", order: "Volgorde",
@@ -138,7 +138,7 @@ export const resources = {
         title: "Stories from our patients", intro: "We are proud of our patients' satisfaction. Read their experiences below.", write: "Write a review",
         r1_q: "Lovely practice with very friendly people. Always clear in explanations, very happy.", r1_n: "Lisa de Jong",
         r2_q: "Professional, careful and always clear. They really took the time for me.", r2_n: "Mark van Dijk",
-        r3_q: "Relaxed in the chair again after years. Truly recommended!", r3_n: "Sanne from Amsterdam",
+        r3_q: "Relaxed in the chair again after years. Truly recommended!", r3_n: "Sanne from Rotterdam",
       },
       over: {
         title: "About MondVita", p1: "At MondVita, personal attention and professional care come first.",
@@ -147,11 +147,11 @@ export const resources = {
       contact: {
         title: "Contact", intro: "Have a question or want to book an appointment? We're here for you.",
         address: "Address", phone: "Phone", email: "Email", hours: "Opening hours",
-        address_v: "Hoofdweg 123, 1234 AB Amsterdam", phone_v: "020 - 123 45 67", email_v: "info@mondvita.nl",
+        address_v: "Marinus Bolkplein 39, 3067 AK Rotterdam", phone_v: "010-3602998", email_v: "info@mondvita.nl",
         hours_v: "Monday to Friday, 08:00 - 17:00",
         first: "First name", last: "Last name", subject: "Subject", subject_p: "Choose a subject", message: "Your message", submit: "Send message",
       },
-      footer: { rights: "All rights reserved", tagline: "Personal dental care in Amsterdam.", quick: "Quick links", contact_h: "Contact" },
+      footer: { rights: "All rights reserved", tagline: "Personal dental care in Rotterdam.", quick: "Quick links", contact_h: "Contact" },
       admin: {
         title: "Admin Panel", content: "Text Content", services_tab: "Services", gallery_tab: "Gallery", contact_tab: "Contact",
         save: "Save", saved: "Saved", upload: "Upload", delete: "Delete", add: "Add", icon: "Icon", order: "Order",
@@ -208,7 +208,7 @@ export const resources = {
         title: "تجارب مرضانا", intro: "نحن فخورون برضا مرضانا. اقرأ تجاربهم أدناه.", write: "اكتب رأياً",
         r1_q: "عيادة رائعة وأشخاص لطفاء. الشرح دائماً واضح، أنا راضية جداً.", r1_n: "ليزا دي يونغ",
         r2_q: "احترافي ودقيق وشرح واضح دائماً. منحوني وقتهم حقاً.", r2_n: "مارك فان دايك",
-        r3_q: "بعد سنوات أصبحت مرتاحة على الكرسي مجدداً. أنصح بها!", r3_n: "سانة من أمستردام",
+        r3_q: "بعد سنوات أصبحت مرتاحة على الكرسي مجدداً. أنصح بها!", r3_n: "سانة من روتردام",
       },
       over: {
         title: "عن موندفيتا", p1: "في موندفيتا، الاهتمام الشخصي والرعاية الاحترافية في المقام الأول.",
@@ -217,11 +217,11 @@ export const resources = {
       contact: {
         title: "تواصل معنا", intro: "هل لديك سؤال أو ترغب بحجز موعد؟ نحن هنا من أجلك.",
         address: "العنوان", phone: "الهاتف", email: "البريد", hours: "ساعات العمل",
-        address_v: "Hoofdweg 123, 1234 AB Amsterdam", phone_v: "020 - 123 45 67", email_v: "info@mondvita.nl",
+        address_v: "Marinus Bolkplein 39, 3067 AK Rotterdam", phone_v: "010-3602998", email_v: "info@mondvita.nl",
         hours_v: "الإثنين إلى الجمعة، 08:00 - 17:00",
         first: "الاسم", last: "اللقب", subject: "الموضوع", subject_p: "اختر موضوعاً", message: "رسالتك", submit: "إرسال",
       },
-      footer: { rights: "جميع الحقوق محفوظة", tagline: "رعاية أسنان شخصية في أمستردام.", quick: "روابط سريعة", contact_h: "تواصل" },
+      footer: { rights: "جميع الحقوق محفوظة", tagline: "رعاية أسنان شخصية في روتردام.", quick: "روابط سريعة", contact_h: "تواصل" },
       admin: {
         title: "لوحة الإدارة", content: "المحتوى النصي", services_tab: "الخدمات", gallery_tab: "المعرض", contact_tab: "تواصل",
         save: "حفظ", saved: "تم الحفظ", upload: "رفع", delete: "حذف", add: "إضافة", icon: "أيقونة", order: "ترتيب",

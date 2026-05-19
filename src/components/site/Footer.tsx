@@ -3,6 +3,14 @@ import { Link } from "@tanstack/react-router";
 import { Instagram, Facebook, Linkedin, MapPin, Phone, Mail } from "lucide-react";
 import { Logo } from "./Logo";
 
+function TiktokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+    </svg>
+  );
+}
+
 export function Footer() {
   const { t } = useTranslation();
   return (
@@ -15,10 +23,15 @@ export function Footer() {
             {t("footer.tagline")}
           </p>
           <div className="flex gap-2 pt-2">
-            {[Instagram, Facebook, Linkedin].map((Icon, i) => (
+            {[
+              { Icon: Instagram, href: "#" },
+              { Icon: TiktokIcon, href: "#" },
+              { Icon: Facebook, href: "#" },
+              { Icon: Linkedin, href: "#" },
+            ].map(({ Icon, href }, i) => (
               <a
                 key={i}
-                href="#"
+                href={href}
                 aria-label="Social"
                 className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 text-white/60 transition duration-200 hover:border-brand-accent hover:bg-white/10 hover:text-brand-accent"
               >

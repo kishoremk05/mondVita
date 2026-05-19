@@ -7,10 +7,10 @@ import { Services } from "@/components/site/Services";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MondVita — Persoonlijke mondzorg in Amsterdam" },
-      { name: "description", content: "MondVita biedt persoonlijke en professionele tandheelkundige zorg voor het hele gezin. Maak vandaag nog een afspraak." },
-      { property: "og:title", content: "MondVita — Persoonlijke mondzorg in Amsterdam" },
-      { property: "og:description", content: "Persoonlijke en professionele mondzorg voor een gezonde en stralende lach." },
+      { title: "Tandarts Rotterdam | MondVita — Persoonlijke Mondzorg" },
+      { name: "description", content: "Welkom bij tandartspraktijk MondVita Rotterdam (Prins Alexander). Uw tandarts voor algemene mondzorg, implantaten, klikgebitten en protheses." },
+      { property: "og:title", content: "Tandarts Rotterdam | MondVita — Persoonlijke Mondzorg" },
+      { property: "og:description", content: "Uw tandarts in Rotterdam Prins Alexander voor complete mondzorg, implantaten, klikgebitten en protheses." },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),

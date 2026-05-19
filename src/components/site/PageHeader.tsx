@@ -34,7 +34,7 @@ export function PageHeader({
           <div className="space-y-4">
             {/* Styled category micro-tag */}
             <div className="inline-flex items-center gap-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-accent backdrop-blur-sm">
-              MondVita Amsterdam
+              MondVita Rotterdam
             </div>
             <h1 className="font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl uppercase leading-tight">
               {title}

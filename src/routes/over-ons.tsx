@@ -2,15 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
-import aboutClinic from "@/assets/about-clinic.png";
 import { CalendarDays } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+
+// Import client images
+import imgSetupPlace from "@/assets/new client images/dental setup place.png";
+import imgDesktopTable from "@/assets/new client images/doctor desktop table with some components.png";
 
 export const Route = createFileRoute("/over-ons")({
   head: () => ({
     meta: [
       { title: "Over MondVita" },
-      { name: "description", content: "Persoonlijke aandacht en professionele tandheelkundige zorg in Amsterdam. Leer ons team kennen." },
+      { name: "description", content: "Persoonlijke aandacht en professionele tandheelkundige zorg in Rotterdam. Leer ons team kennen." },
       { property: "og:title", content: "Over MondVita" },
     ],
     links: [{ rel: "canonical", href: "/over-ons" }],
@@ -20,8 +23,8 @@ export const Route = createFileRoute("/over-ons")({
 
 function Page() {
   const { t } = useTranslation();
-  const aboutBg = useSiteImage("images.about_bg", aboutClinic);
-  const aboutFloating = useSiteImage("images.about_floating", aboutClinic);
+  const aboutBg = useSiteImage("images.about_bg", imgSetupPlace);
+  const aboutFloating = useSiteImage("images.about_floating", imgDesktopTable);
 
   return (
     <SiteShell>

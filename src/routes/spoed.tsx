@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Globe, Phone, Clock } from "lucide-react";
-import svcSpoed from "@/assets/svc-spoed.jpg";
+import imgSpoe1 from "@/assets/new client images/spoe 1.png";
 
 export const Route = createFileRoute("/spoed")({
   head: () => ({
     meta: [
-      { title: "Spoed — MondVita" },
-      { name: "description", content: "Spoedhulp bij acute tandklachten. MondVita werkt samen met Dental365 voor spoedgevallen." },
-      { property: "og:title", content: "Spoed — MondVita" },
+      { title: "Spoedtandarts Rotterdam | MondVita" },
+      { name: "description", content: "Heeft u met spoed een tandarts nodig in Rotterdam? Neem direct contact op met MondVita of Dental365 voor snelle spoedtandheelkunde." },
+      { property: "og:title", content: "Spoedtandarts Rotterdam | MondVita" },
     ],
     links: [{ rel: "canonical", href: "/spoed" }],
   }),
@@ -24,7 +24,7 @@ function Page() {
       <PageHeader
         title={t("spoed.title")}
         intro={t("spoed.intro")}
-        bgImage={svcSpoed}
+        bgImage={imgSpoe1}
       />
 
       <section className="bg-white py-20">

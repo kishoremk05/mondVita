@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 import type { LucideIcon } from "lucide-react";
-import { Sparkles, Users, Smile } from "lucide-react";
+import { Calendar, Users, Smile } from "lucide-react";
 import { ToothMark } from "./Logo";
 
 export function Features() {
   const { t } = useTranslation();
   const items: { Icon: LucideIcon | typeof ToothMark; t: string; d: string }[] = [
     { Icon: ToothMark, t: t("features.f1_t"), d: t("features.f1_d") },
-    { Icon: Sparkles, t: t("features.f2_t"), d: t("features.f2_d") },
+    { Icon: Calendar, t: t("features.f2_t"), d: t("features.f2_d") },
     { Icon: Users, t: t("features.f3_t"), d: t("features.f3_d") },
     { Icon: Smile, t: t("features.f4_t"), d: t("features.f4_d") },
   ];

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import contactDesk from "@/assets/contact-desk.png";
+import imgAddress from "@/assets/new client images/address image.png";
 import { useSiteImage } from "@/hooks/useSiteImage";
 
 export const Route = createFileRoute("/contact")({
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/contact")({
 
 function Page() {
   const { t } = useTranslation();
-  const contactBg = useSiteImage("images.contact_bg", contactDesk);
+  const contactBg = useSiteImage("images.contact_bg", imgAddress);
 
   return (
     <SiteShell>
@@ -36,7 +36,7 @@ function Page() {
           {/* Left Column: Coordinates */}
           <div className="space-y-6 animate-fade-up">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// MondVita Amsterdam
+              /// MondVita Rotterdam
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
               Onze Praktijkgegevens

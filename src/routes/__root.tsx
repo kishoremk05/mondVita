@@ -16,10 +16,10 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MondVita — Premium tandheelkunde in Amsterdam" },
-      { name: "description", content: "MondVita biedt premium tandheelkundige zorg met persoonlijke aandacht in een rustige, luxueuze environment in Amsterdam." },
-      { property: "og:title", content: "MondVita — Premium tandheelkunde in Amsterdam" },
-      { property: "og:description", content: "Premium tandheelkundige zorg met persoonlijke aandacht." },
+      { title: "MondVita — Premium tandheelkunde in Rotterdam" },
+      { name: "description", content: "MondVita biedt premium tandheelkundige zorg met persoonlijke aandacht in een moderne omgeving in Rotterdam." },
+      { property: "og:title", content: "MondVita — Premium tandheelkunde in Rotterdam" },
+      { property: "og:description", content: "Premium tandheelkundige zorg met persoonlijke aandacht in Rotterdam." },
       { property: "og:type", content: "website" },
     ],
     links: [
@@ -87,7 +87,7 @@ function RootComponent() {
           const bundles: Record<string, Record<string, string>> = { nl: {}, en: {}, ar: {} };
           data.forEach(r => {
             if (bundles[r.locale]) {
-              bundles[r.locale][r.key] = r.value;
+              bundles[r.locale][r.key] = r.value.replace(/Amsterdam/g, "Rotterdam");
             }
           });
           

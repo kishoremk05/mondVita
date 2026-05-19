@@ -1,18 +1,18 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import svcMondzorg from "@/assets/svc-mondzorg.jpg";
-import svcImplant from "@/assets/svc-implant.jpg";
-import svcProthese from "@/assets/svc-prothese.jpg";
-import svcSpoed from "@/assets/svc-spoed.jpg";
+import imgDoctorExplaining from "@/assets/new client images/doctor explaining teeth to patient.png";
+import imgTeeth from "@/assets/new client images/teeth.png";
+import imgTeethCap from "@/assets/new client images/teeth cap.png";
+import imgSpoedImg from "@/assets/new client images/spoe.png";
 import { useSiteImage } from "@/hooks/useSiteImage";
 
 export function Services() {
   const { t } = useTranslation();
-  const imgMondzorg = useSiteImage("images.services_mondzorg", svcMondzorg);
-  const imgImplant = useSiteImage("images.services_implant", svcImplant);
-  const imgProthese = useSiteImage("images.services_prothese", svcProthese);
-  const imgSpoed = useSiteImage("images.services_spoed", svcSpoed);
+  const imgMondzorg = useSiteImage("images.services_mondzorg", imgDoctorExplaining);
+  const imgImplant = useSiteImage("images.services_implant", imgTeeth);
+  const imgProthese = useSiteImage("images.services_prothese", imgTeethCap);
+  const imgSpoed = useSiteImage("images.services_spoed", imgSpoedImg);
 
   const cards = [
     { img: imgMondzorg, label: t("svc.mondzorg"), to: "/behandelingen" as const },
