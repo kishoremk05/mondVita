@@ -15,14 +15,18 @@ export function ToothMark({ className = "h-7 w-7" }: { className?: string }) {
   );
 }
 
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({ className = "", isNavbar = false }: { className?: string; isNavbar?: boolean }) {
   const isWhite = className.includes("text-white") || className.includes("white");
   return (
     <div className={`flex items-center ${className}`}>
       <img
         src={logoImg}
         alt="MondVita Logo"
-        className={`h-24 md:h-28 w-auto max-w-[220px] md:max-w-[280px] object-contain -my-6 md:-my-7 ${isWhite ? "brightness-0 invert" : ""}`}
+        className={`w-auto object-contain ${
+          isNavbar
+            ? "h-22 md:h-24 max-w-[180px] md:max-w-[240px] -my-5 md:-my-6"
+            : "h-24 md:h-28 max-w-[220px] md:max-w-[280px] -my-6 md:-my-7"
+        } ${isWhite ? "brightness-0 invert" : ""}`}
       />
     </div>
   );

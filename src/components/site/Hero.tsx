@@ -9,7 +9,7 @@ export function Hero() {
   const heroBg = useSiteImage("images.hero_bg", imgInterior);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-16">
       {/* Full-bleed Background Image with Soft Fading Gradients */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <img
@@ -19,8 +19,8 @@ export function Hero() {
           className="h-full w-full object-cover object-[80%_center] md:object-[right_center] scale-102 animate-scale-reveal"
         />
 
-        {/* Soft white gradient overlay on the left 70% of the screen, fading to transparent on the right */}
-        <div className="absolute inset-y-0 left-0 w-full md:w-[70%] bg-gradient-to-r from-white via-white/80 to-transparent hidden md:block rtl:bg-gradient-to-l" />
+        {/* Soft white gradient overlay on the left 50% of the screen, fading to transparent on the right */}
+        <div className="absolute inset-y-0 left-0 w-full md:w-[50%] bg-gradient-to-r from-white via-white/65 to-transparent hidden md:block rtl:bg-gradient-to-l" />
         
         {/* Mobile-only overlay to ensure text is fully readable on small screens */}
         <div className="absolute inset-0 bg-white/70 block md:hidden" />
@@ -29,7 +29,7 @@ export function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-8 pb-16">
         <div className="max-w-2xl space-y-6 md:space-y-8 animate-fade-up">
           {/* Micro-badge accent */}
           <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary backdrop-blur-sm">

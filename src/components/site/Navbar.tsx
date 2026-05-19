@@ -38,15 +38,15 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-lg border-b border-border/80 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 bg-white/97 backdrop-blur-lg border-b border-border/60 shadow-[0_2px_12px_rgba(12,35,64,0.04)] ${
         scrolled
-          ? "shadow-[0_4px_24px_rgba(12,35,64,0.03)] h-16"
-          : "h-20"
+          ? "h-14"
+          : "h-16"
       }`}
     >
       <nav className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 transition-all duration-300">
         <Link to="/" aria-label="MondVita home" className="flex-shrink-0 transition-transform duration-200 hover:scale-[0.98]">
-          <Logo className="text-primary" />
+          <Logo className="text-primary" isNavbar={true} />
         </Link>
 
         {/* Desktop Menu links */}
