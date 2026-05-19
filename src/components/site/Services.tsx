@@ -32,7 +32,7 @@ export function Services() {
           {/* Section Header Left */}
           <div className="space-y-4 lg:sticky lg:top-28 animate-fade-up">
             <div className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// Mondzorg & specialismen
+              /// {t("help.badge")}
             </div>
             <h2 className="font-display text-4xl font-extrabold leading-tight text-primary md:text-5xl uppercase tracking-tight">
               {t("help.title")}

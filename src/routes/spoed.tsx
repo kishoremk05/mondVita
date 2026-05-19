@@ -32,10 +32,10 @@ function Page() {
           {/* Left Column: Guidelines & Dental365 callout */}
           <div className="space-y-6 animate-fade-up">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-destructive">
-              /// Acute Hulp & Spoed
+              /// {t("spoed.badge")}
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
-              Wat te doen bij een noodgeval?
+              {t("spoed.emergency_q")}
             </h2>
             <div className="space-y-4 text-sm text-foreground/80 leading-relaxed font-light">
               <p className="border-l-2 border-brand-accent pl-4 py-0.5">{t("spoed.p1")}</p>
@@ -86,31 +86,31 @@ function Page() {
               <div className="flex items-center gap-3">
                 <Clock className="h-5.5 w-5.5 text-brand-accent" />
                 <h3 className="font-display text-lg font-bold text-primary uppercase tracking-wider">
-                  Bereikbaarheid Spoedhulp
+                  {t("spoed.hours_title")}
                 </h3>
               </div>
               
               <p className="text-sm text-muted-foreground mt-3 leading-relaxed font-light">
-                Onze spoedlijn is 24 uur per dag, 7 dagen per week bereikbaar voor acute en ernstige noodgevallen.
+                {t("spoed.hours_desc")}
               </p>
               
               <div className="mt-6 space-y-4">
                 <div className="flex justify-between border-b border-border/55 pb-2 text-sm">
-                  <span className="font-medium text-foreground/80">Maandag - Vrijdag</span>
+                  <span className="font-medium text-foreground/80">{t("spoed.hours_wd")}</span>
                   <span className="font-bold text-primary">08:00 - 22:00</span>
                 </div>
                 <div className="flex justify-between border-b border-border/55 pb-2 text-sm">
-                  <span className="font-medium text-foreground/80">Weekend (Za - Zo)</span>
-                  <span className="font-bold text-primary">24 UUR SPOED</span>
+                  <span className="font-medium text-foreground/80">{t("spoed.hours_we")}</span>
+                  <span className="font-bold text-primary">{t("spoed.hours_24")}</span>
                 </div>
                 <div className="flex justify-between border-b border-border/55 pb-2 text-sm">
-                  <span className="font-medium text-foreground/80">Feestdagen</span>
-                  <span className="font-bold text-primary">24 UUR SPOED</span>
+                  <span className="font-medium text-foreground/80">{t("spoed.hours_h")}</span>
+                  <span className="font-bold text-primary">{t("spoed.hours_24")}</span>
                 </div>
               </div>
               
               <div className="mt-8 rounded-xl bg-primary text-primary-foreground p-5 text-center shadow-md">
-                <p className="text-xs uppercase tracking-widest opacity-70">Direct bellen</p>
+                <p className="text-xs uppercase tracking-widest opacity-70">{t("spoed.call_now")}</p>
                 <a
                   href="tel:09001515"
                   className="block text-2xl font-black text-white hover:text-brand-accent transition mt-1 tracking-wider"

@@ -35,13 +35,13 @@ function Page() {
           {/* Left Column - Benefits & Information */}
           <div className="space-y-6 md:sticky md:top-28 animate-fade-up">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// Patiëntgerichte Zorg
+              /// {t("afspraak.badge")}
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
-              Eenvoudig online uw bezoek plannen
+              {t("afspraak.sub")}
             </h2>
             <p className="text-muted-foreground leading-relaxed font-light text-base max-w-lg">
-              Met onze online planner plant u binnen een minuut uw periodieke controle of eerste consult. Wij reserveren direct een plekje voor u in onze moderne praktijk in Rotterdam.
+              {t("afspraak.desc")}
             </p>
             <ul className="space-y-4 pt-2">
               {[t("afspraak.b1"), t("afspraak.b2"), t("afspraak.b3")].map((b) => (
@@ -60,13 +60,13 @@ function Page() {
             {/* Option 1: Existing Patients */}
             <div className="rounded-2xl rounded-tr-none border border-border/80 bg-white p-8 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.04)] animate-fade-up">
               <span className="font-display text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                Optie 1
+                {t("afspraak.opt1")}
               </span>
               <h3 className="font-display text-xl font-bold text-primary uppercase mt-1 tracking-tight">
-                Bestaande patiënt
+                {t("afspraak.opt1_t")}
               </h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-                Bent u al patiënt bij MondVita? Maak eenvoudig online uw afspraak voor een periodieke controle of behandeling.
+                {t("afspraak.opt1_d")}
               </p>
               <div className="mt-6">
                 <a
@@ -75,21 +75,21 @@ function Page() {
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-xs font-bold uppercase tracking-widest text-primary-foreground shadow transition duration-200 hover:bg-primary/95 active:scale-[0.98]"
                 >
-                  Afspraak inplannen
+                  {t("afspraak.opt1_btn")}
                 </a>
               </div>
             </div>
-
+ 
             {/* Option 2: New Patients */}
             <div className="rounded-2xl rounded-tr-none border border-border/80 bg-white p-8 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.04)] animate-fade-up">
               <span className="font-display text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                Optie 2
+                {t("afspraak.opt2")}
               </span>
               <h3 className="font-display text-xl font-bold text-primary uppercase mt-1 tracking-tight">
-                Nieuwe patiënt
+                {t("afspraak.opt2_t")}
               </h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-                Wilt u zich inschrijven als nieuwe patiënt bij MondVita? Vul direct het inschrijfformulier in om u aan te melden.
+                {t("afspraak.opt2_d")}
               </p>
               <div className="mt-6">
                 <a
@@ -98,7 +98,7 @@ function Page() {
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary/45 bg-white py-4 text-xs font-bold uppercase tracking-widest text-primary transition duration-200 hover:bg-secondary active:scale-[0.98]"
                 >
-                  Inschrijven bij praktijk
+                  {t("afspraak.opt2_btn")}
                 </a>
               </div>
             </div>

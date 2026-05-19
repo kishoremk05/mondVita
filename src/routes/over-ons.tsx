@@ -30,7 +30,7 @@ function Page() {
     <SiteShell>
       <PageHeader
         title={t("over.title")}
-        intro="Maak kennis met ons moderne behandelcentrum, onze filosofie en het professionele team achter uw glimlach."
+        intro={t("over.intro")}
         bgImage={aboutBg}
       />
 
@@ -39,10 +39,10 @@ function Page() {
           {/* Left: Content */}
           <div className="space-y-6 animate-fade-up">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// Onze Filosofie
+              /// {t("over.badge")}
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
-              Kwaliteit, comfort & persoonlijke aandacht
+              {t("over.sub")}
             </h2>
             <div className="space-y-4 text-sm text-foreground/80 leading-relaxed font-light">
               <p>{t("over.p1")}</p>

@@ -47,10 +47,10 @@ function Page() {
           {/* Section info tag */}
           <div className="mb-8 animate-fade-up">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// Patiëntentevredenheid
+              /// {t("reviews.badge")}
             </div>
             <h2 className="font-display text-2xl font-extrabold text-primary uppercase mt-1 tracking-tight">
-              Wat onze patiënten ervaren
+              {t("reviews.sub")}
             </h2>
           </div>
 

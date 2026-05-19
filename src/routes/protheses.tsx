@@ -46,16 +46,16 @@ function Page() {
         {/* Floating Glassmorphic Repair Card on Header Right */}
         <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md shadow-xl max-w-sm md:ml-auto animate-fade-up">
           <h4 className="font-display font-bold text-lg text-white uppercase tracking-wider">
-            Snelle Reparatie
+            {t("protheses.repair_title")}
           </h4>
           <p className="mt-2 text-sm text-white/80 leading-relaxed font-light">
-            Kunstgebit of prothese gebroken? Wij verzorgen vakkundige en snelle reparaties in ons eigen lab in Rotterdam.
+            {t("protheses.repair_text")}
           </p>
           <Link
             to="/contact"
             className="group mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-white hover:text-white/80 transition duration-200"
           >
-            <span>Neem contact op</span>
+            <span>{t("protheses.repair_link")}</span>
             <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
           </Link>
         </div>

@@ -36,10 +36,10 @@ function Page() {
           {/* Left Column: Coordinates */}
           <div className="space-y-6 animate-fade-up">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// MondVita Rotterdam
+              /// {t("contact.badge")}
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
-              Onze Praktijkgegevens
+              {t("contact.sub")}
             </h2>
             <ul className="space-y-6 pt-2">
               {[

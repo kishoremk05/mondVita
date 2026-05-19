@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import defaultBg from "@/assets/clinic-interior.jpg";
+import { useTranslation } from "react-i18next";
 
 export function PageHeader({
   title,
@@ -12,6 +13,7 @@ export function PageHeader({
   bgImage?: string;
   children?: ReactNode;
 }) {
+  const { t } = useTranslation();
   return (
     <section className="relative min-h-[320px] md:min-h-[380px] flex items-center pt-32 pb-16 overflow-hidden bg-primary text-white">
       {/* Full-bleed Background Image with Premium Multi-stop Overlay */}
@@ -34,7 +36,7 @@ export function PageHeader({
           <div className="space-y-4">
             {/* Styled category micro-tag */}
             <div className="inline-flex items-center gap-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-accent backdrop-blur-sm">
-              MondVita Rotterdam
+              {t("contact.badge")}
             </div>
             <h1 className="font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl uppercase leading-tight">
               {title}
