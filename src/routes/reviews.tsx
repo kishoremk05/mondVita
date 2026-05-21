@@ -58,11 +58,11 @@ function Page() {
             {reviews.map((r, idx) => (
               <article
                 key={r.n}
-                className="group relative flex flex-col items-start rounded-2xl rounded-tr-none border border-border/70 bg-white p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-accent/50 hover:shadow-[0_16px_40px_-16px_rgba(12,35,64,0.08)] animate-fade-up"
+                className="group relative flex flex-col items-start rounded-2xl rounded-tr-none border border-border/70 bg-white p-8 transition-[border-color,box-shadow] duration-300 hover:border-brand-accent/50 hover:shadow-[0_16px_40px_-16px_rgba(12,35,64,0.08)] animate-fade-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {/* Decorative floating quote icon */}
-                <div className="absolute bottom-6 end-8 text-secondary/30 select-none pointer-events-none transition-transform duration-300 group-hover:scale-110">
+                <div className="absolute bottom-6 end-8 text-secondary/30 select-none pointer-events-none transition-colors duration-300 group-hover:text-secondary/20">
                   <MessageSquare className="h-10 w-10 text-brand-accent/10" strokeWidth={1} />
                 </div>
 

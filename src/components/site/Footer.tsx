@@ -84,12 +84,12 @@ export function Footer() {
               <span>{t("contact.email_v")}</span>
             </li>
           </ul>
-          <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/70 font-light">
-            <p className="text-xs font-bold uppercase tracking-wider text-brand-accent">Opening hours</p>
-            <p className="mt-2 font-medium text-white/85">Monday - Saturday</p>
-            <p className="mt-1">{morning}</p>
-            <p>Lunch break: {lunch}</p>
-            <p>{afternoon}</p>
+          <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/85 font-light">
+            <p className="text-xs font-bold uppercase tracking-wider text-white">Opening hours</p>
+            <p className="mt-2 font-medium text-white">Monday - Saturday</p>
+            <p className="mt-1 text-white/90">{morning}</p>
+            <p className="text-white/80">Lunch break: {lunch}</p>
+            <p className="text-white/90">{afternoon}</p>
           </div>
         </div>
       </div>

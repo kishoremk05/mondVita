@@ -23,11 +23,11 @@ export function Features() {
           {items.map(({ Icon, t: title, d }, idx) => (
             <article
               key={title}
-              className="group relative flex flex-col items-start rounded-2xl rounded-tr-none border border-border/60 bg-secondary/30 p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-accent/50 hover:bg-secondary/60 hover:shadow-[0_12px_30px_-10px_rgba(12,35,64,0.06)] animate-fade-up"
+              className="group relative flex flex-col items-start rounded-2xl rounded-tr-none border border-border/60 bg-secondary/30 p-8 transition-[border-color,background-color,box-shadow] duration-300 hover:border-brand-accent/50 hover:bg-secondary/60 hover:shadow-[0_12px_30px_-10px_rgba(12,35,64,0.06)] animate-fade-up"
               style={{ animationDelay: `${idx * 150}ms` }}
             >
               {/* Circular Icon Wrapper with Adaptive Hover Ring */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white shadow-sm border border-border/50 text-primary transition-all duration-300 group-hover:scale-[1.05] group-hover:border-brand-accent/40 group-hover:text-brand-accent">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white shadow-sm border border-border/50 text-primary transition-[border-color,color] duration-300 group-hover:border-brand-accent/40 group-hover:text-brand-accent">
                 <Icon className="h-7 w-7 transition duration-300" strokeWidth={1.5} />
               </div>
 

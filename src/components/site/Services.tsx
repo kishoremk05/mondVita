@@ -93,7 +93,7 @@ export function Services() {
                 <a
                   key={c.id}
                   href={link}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-accent/50 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.12)] animate-fade-up"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-brand-accent/50 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.12)] animate-fade-up"
                   style={{ animationDelay: `${idx * 150}ms` }}
                 >
                   <div className="aspect-[4/3] w-full overflow-hidden bg-primary/5 relative">
@@ -103,7 +103,7 @@ export function Services() {
                       loading="lazy"
                       width={768}
                       height={768}
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="h-full w-full object-cover transition-opacity duration-300 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
@@ -112,9 +112,9 @@ export function Services() {
                       <p className="font-display text-sm font-bold text-primary tracking-tight">{c.title}</p>
                       <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{c.desc}</p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-all duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
+                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-colors duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
                       <span>{t("help.more")}</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                      <ArrowRight className="h-3.5 w-3.5 transition-colors duration-300 rtl:rotate-180" />
                     </div>
                   </div>
                 </a>
@@ -122,7 +122,7 @@ export function Services() {
                 <Link
                   key={c.id}
                   to={link as never}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-accent/50 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.12)] animate-fade-up"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-brand-accent/50 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.12)] animate-fade-up"
                   style={{ animationDelay: `${idx * 150}ms` }}
                 >
                   <div className="aspect-[4/3] w-full overflow-hidden bg-primary/5 relative">
@@ -132,7 +132,7 @@ export function Services() {
                       loading="lazy"
                       width={768}
                       height={768}
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="h-full w-full object-cover transition-opacity duration-300 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
@@ -141,9 +141,9 @@ export function Services() {
                       <p className="font-display text-sm font-bold text-primary tracking-tight">{c.title}</p>
                       <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{c.desc}</p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-all duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
+                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-colors duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
                       <span>{t("help.more")}</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                      <ArrowRight className="h-3.5 w-3.5 transition-colors duration-300 rtl:rotate-180" />
                     </div>
                   </div>
                 </Link>

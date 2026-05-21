@@ -33,12 +33,54 @@ function Page() {
   const treatmentsBg = useSiteImage("images.treatments_bg", imgDesktopTable);
 
   const items = [
-    { t: t("svc.mondzorg"), d: t("svc.mondzorg_d"), Icon: ToothMark, img: imgDoctorExplaining },
-    { t: t("svc.implant"), d: t("svc.implant_d"), Icon: Layers, img: imgTeeth },
-    { t: t("svc.prothese"), d: t("svc.prothese_d"), Icon: Smile, img: imgTeethCap },
-    { t: t("svc.esth"), d: t("svc.esth_d"), Icon: Sparkles, img: imgUvLight },
-    { t: t("svc.wortel"), d: t("svc.wortel_d"), Icon: Activity, img: imgTools },
-    { t: t("svc.kinder"), d: t("svc.kinder_d"), Icon: Heart, img: imgChild },
+    {
+      t: t("svc.mondzorg"),
+      d: t("svc.mondzorg_d"),
+      Icon: ToothMark,
+      img: imgDoctorExplaining,
+      note: "Routine care keeps small problems from turning into more complex treatment.",
+      details: ["Check-ups and cleanings", "Fillings and preventive care", "Tailored advice for daily oral health"],
+    },
+    {
+      t: t("svc.implant"),
+      d: t("svc.implant_d"),
+      Icon: Layers,
+      img: imgTeeth,
+      note: "A replacement option designed for long-term stability, comfort, and natural chewing function.",
+      details: ["Single tooth and multi-tooth replacement", "Stable, long-term support", "Personal treatment planning"],
+    },
+    {
+      t: t("svc.prothese"),
+      d: t("svc.prothese_d"),
+      Icon: Smile,
+      img: imgTeethCap,
+      note: "We focus on fit, comfort, and a natural look so the denture feels easier to wear every day.",
+      details: ["Full and partial dentures", "Comfort and fit adjustments", "Options for removable solutions"],
+    },
+    {
+      t: t("svc.esth"),
+      d: t("svc.esth_d"),
+      Icon: Sparkles,
+      img: imgUvLight,
+      note: "Cosmetic care is planned carefully so the result stays natural and fits your smile.",
+      details: ["Whitening and cosmetic improvements", "Natural-looking finishing", "Subtle enhancement options"],
+    },
+    {
+      t: t("svc.wortel"),
+      d: t("svc.wortel_d"),
+      Icon: Activity,
+      img: imgTools,
+      note: "Root canal care helps save a tooth that would otherwise be at risk from infection or deep decay.",
+      details: ["Relief for deep decay or infection", "Tooth-saving treatment approach", "Careful follow-up after treatment"],
+    },
+    {
+      t: t("svc.kinder"),
+      d: t("svc.kinder_d"),
+      Icon: Heart,
+      img: imgChild,
+      note: "We keep appointments calm and friendly so children feel confident returning for future visits.",
+      details: ["Friendly care for younger patients", "Prevention and habit guidance", "A calm, reassuring visit experience"],
+    },
   ];
 
   return (
@@ -54,8 +96,7 @@ function Page() {
           {items.map((it, idx) => (
             <article
               key={it.t}
-              className="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white rounded-2xl rounded-tr-none border border-border/80 p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] transition-all duration-300 hover:border-primary/45 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.06)] md:even:flex-row-reverse animate-fade-up"
-              style={{ animationDelay: `${idx * 100}ms` }}
+              className="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white rounded-2xl rounded-tr-none border border-border/80 p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] transition-[border-color,box-shadow] duration-300 hover:border-primary/45 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.06)] md:even:flex-row-reverse animate-fade-in"
             >
               {/* Image beside the text box */}
               <div className="w-full md:w-1/2 aspect-[4/3] rounded-xl overflow-hidden bg-secondary/50 border border-border/50 relative">
@@ -63,13 +104,13 @@ function Page() {
                   src={it.img}
                   alt={it.t}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  className="h-full w-full object-cover transition-opacity duration-300 ease-out"
                 />
               </div>
 
               {/* Text / service information box */}
               <div className="w-full md:w-1/2 space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
                   {it.Icon === ToothMark ? (
                     <ToothMark className="h-6 w-6" />
                   ) : (
@@ -84,13 +125,26 @@ function Page() {
                   {it.d}
                 </p>
 
+                <p className="rounded-2xl border border-primary/10 bg-primary/5 px-4 py-3 text-sm leading-relaxed text-foreground/80">
+                  {it.note}
+                </p>
+
+                <ul className="grid gap-2 pt-1 sm:grid-cols-2">
+                  {it.details.map((detail) => (
+                    <li key={detail} className="flex items-start gap-2 rounded-xl border border-border/50 bg-secondary/30 px-3 py-2 text-xs leading-relaxed text-foreground/75">
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-accent shrink-0" />
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+
                 <div className="pt-2">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary transition duration-200 hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary transition-colors duration-200 hover:underline"
                   >
                     <span>{t("help.more")}</span>
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="h-3.5 w-3.5 transition-colors duration-300" />
                   </Link>
                 </div>
               </div>

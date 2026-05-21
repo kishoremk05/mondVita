@@ -56,7 +56,7 @@ function Page() {
             className="group mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-white hover:text-white/80 transition duration-200"
           >
             <span>{t("protheses.repair_link")}</span>
-            <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
+            <ArrowRight className="h-3.5 w-3.5 transition-colors duration-200" />
           </Link>
         </div>
       </PageHeader>
@@ -68,7 +68,7 @@ function Page() {
             {items.map((it, idx) => (
               <article
                 key={it.t}
-                className="group flex flex-col sm:flex-row gap-6 rounded-2xl rounded-tr-none border border-border/40 bg-white p-6 transition-all duration-300 hover:border-primary/40 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.05)] animate-fade-up"
+                className="group flex flex-col sm:flex-row gap-6 rounded-2xl rounded-tr-none border border-border/40 bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.05)] animate-fade-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {/* Image beside the service box info */}
@@ -77,14 +77,14 @@ function Page() {
                     src={it.img}
                     alt={it.t}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="h-full w-full object-cover transition-opacity duration-300 ease-out"
                   />
                 </div>
 
                 {/* Text content */}
                 <div className="flex flex-col justify-between py-1">
                   <div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white mb-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white mb-3">
                       {it.Icon === ToothMark ? (
                         <ToothMark className="h-5 w-5" />
                       ) : (

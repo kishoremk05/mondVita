@@ -13,7 +13,7 @@ function PartnerTile({ name, domain }: { name: string; domain: string }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    <div className="group relative overflow-hidden rounded-3xl border border-border/70 bg-white/95 p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-accent/30 hover:shadow-lg">
+    <div className="group relative overflow-hidden rounded-3xl border border-border/70 bg-white/95 p-4 shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-brand-accent/30 hover:shadow-lg">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-accent/60 to-transparent opacity-70" />
       <div className="flex min-h-28 flex-col items-center justify-center gap-3 text-center">
         <div className="flex h-14 w-full items-center justify-center rounded-2xl bg-secondary/40 px-3 ring-1 ring-inset ring-border/60 transition duration-300 group-hover:bg-white group-hover:ring-brand-accent/25">
