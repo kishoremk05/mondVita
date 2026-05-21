@@ -56,12 +56,12 @@ export function Footer() {
             {t("footer.quick")}
           </h4>
           <ul className="mt-4 space-y-2 text-sm text-white/70 font-light">
-            <li><Link to="/behandelingen" className="transition duration-150 hover:text-brand-accent">{t("nav.behandelingen")}</Link></li>
-            <li><Link to="/protheses" className="transition duration-150 hover:text-brand-accent">{t("nav.protheses")}</Link></li>
-            <li><Link to="/spoed" className="transition duration-150 hover:text-brand-accent">{t("nav.spoed")}</Link></li>
-            <li><Link to="/declaraties" className="transition duration-150 hover:text-brand-accent">{declarationsLabel}</Link></li>
-            <li><Link to="/reviews" className="transition duration-150 hover:text-brand-accent">{t("nav.reviews")}</Link></li>
-            <li><Link to="/over-ons" className="transition duration-150 hover:text-brand-accent">{t("nav.over")}</Link></li>
+            <li><Link to="/behandelingen" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{t("nav.behandelingen")}</Link></li>
+            <li><Link to="/protheses" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{t("nav.protheses")}</Link></li>
+            <li><Link to="/spoed" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{t("nav.spoed")}</Link></li>
+            <li><Link to="/declaraties" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{declarationsLabel}</Link></li>
+            <li><Link to="/reviews" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{t("nav.reviews")}</Link></li>
+            <li><Link to="/over-ons" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{t("nav.over")}</Link></li>
           </ul>
         </div>
 
