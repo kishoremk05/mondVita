@@ -17,11 +17,11 @@ export function Footer() {
   const { t } = useTranslation();
   const { data: contact } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
   const socials = contact?.socials ?? {};
-  const declarationsLabel = "Declaraties";
+  const declarationsLabel = t("footer.declarations");
   const hours = contact?.hours ?? {};
-  const morning = hours.morning ?? hours.mon_fri ?? "09:00 - 12:00";
-  const lunch = hours.lunch ?? hours.sat ?? "12:00 - 13:00";
-  const afternoon = hours.afternoon ?? hours.sun ?? "13:00 - 17:00";
+  const morning = hours.morning ?? "09:00 - 12:00";
+  const lunch = hours.lunch ?? "12:00 - 13:00";
+  const afternoon = hours.afternoon ?? "13:00 - 17:00";
   return (
     <footer className="border-t border-brand-accent/20 bg-primary pt-16 pb-8 text-white/80">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-3">
@@ -85,10 +85,10 @@ export function Footer() {
             </li>
           </ul>
           <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/85 font-light">
-            <p className="text-xs font-bold uppercase tracking-wider text-white">Opening hours</p>
-            <p className="mt-2 font-medium text-white">Monday - Saturday</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-white">{t("generalCare.hours_title")}</p>
+            <p className="mt-2 font-medium text-white">{t("generalCare.hours_day")}</p>
             <p className="mt-1 text-white/90">{morning}</p>
-            <p className="text-white/80">Lunch break: {lunch}</p>
+            <p className="text-white/80">{t("generalCare.hours_break_label")}: {lunch}</p>
             <p className="text-white/90">{afternoon}</p>
           </div>
         </div>

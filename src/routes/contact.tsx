@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
@@ -34,6 +35,7 @@ function Page() {
   const contactBg = useSiteImage("images.contact_bg", imgAddress);
   const hours = normalizeHours(contact?.hours);
   const mapEmbed = contact?.map_embed?.trim() ?? "";
+  const [mapMode, setMapMode] = useState<"interactive" | "screenshot">("interactive");
 
   return (
     <SiteShell>
@@ -59,7 +61,7 @@ function Page() {
                 { Icon: MapPin, label: t("contact.address"), v: contact?.address ?? t("contact.address_v") },
                 { Icon: Phone, label: t("contact.phone"), v: contact?.phone ?? t("contact.phone_v") },
                 { Icon: Mail, label: t("contact.email"), v: contact?.email ?? t("contact.email_v") },
-                { Icon: Clock, label: t("contact.hours"), v: `Monday - Saturday\n${hours.morning}\n${hours.lunch}\n${hours.afternoon}` },
+                { Icon: Clock, label: t("contact.hours"), v: `${t("generalCare.hours_day")}\n${hours.morning}\n${hours.lunch}\n${hours.afternoon}` },
               ].map(({ Icon, label, v }) => (
                 <li key={label} className="flex items-start gap-4">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white border border-border shadow-sm text-primary">
@@ -132,18 +134,71 @@ function Page() {
 
       <section className="bg-white py-16">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
-          <div className="overflow-hidden rounded-3xl border border-border/80 bg-secondary/20 shadow-[0_16px_40px_-20px_rgba(12,35,64,0.12)]">
-            {mapEmbed ? (
-              <div className="aspect-[16/10] [&_iframe]:h-full [&_iframe]:w-full" dangerouslySetInnerHTML={{ __html: mapEmbed }} />
-            ) : (
-              <iframe
-                title={t("contact.title")}
-                src={`https://www.google.com/maps?q=${encodeURIComponent(contact?.address ?? t("contact.address_v"))}&output=embed`}
-                className="h-[420px] w-full"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            )}
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
+                /// {t("contact.map_title")}
+              </div>
+              <div className="flex gap-1 rounded-full bg-secondary/40 p-1 border border-border/80">
+                <button
+                  type="button"
+                  onClick={() => setMapMode("interactive")}
+                  className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+                    mapMode === "interactive"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  {t("contact.map_interactive")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMapMode("screenshot")}
+                  className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
+                    mapMode === "screenshot"
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  {t("contact.map_screenshot")}
+                </button>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-3xl border border-border/80 bg-secondary/20 shadow-[0_16px_40px_-20px_rgba(12,35,64,0.12)]">
+              {mapMode === "interactive" ? (
+                mapEmbed ? (
+                  <div className="aspect-[16/10] [&_iframe]:h-full [&_iframe]:w-full" dangerouslySetInnerHTML={{ __html: mapEmbed }} />
+                ) : (
+                  <iframe
+                    title={t("contact.title")}
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(contact?.address ?? t("contact.address_v"))}&output=embed`}
+                    className="h-[420px] w-full border-0"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                )
+              ) : (
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(contact?.address ?? t("contact.address_v"))}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block aspect-[16/10] overflow-hidden"
+                >
+                  <img
+                    src={imgAddress}
+                    alt={contact?.address ?? t("contact.address_v")}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="rounded-xl bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary shadow-lg border border-border flex items-center gap-2 transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
+                      <MapPin className="h-4 w-4 text-brand-accent animate-bounce" />
+                      {t("contact.open_in_google_maps")}
+                    </span>
+                  </div>
+                </a>
+              )}
+            </div>
           </div>
 
           <div className="space-y-4 rounded-3xl border border-border/80 bg-white p-8 shadow-sm">
@@ -159,7 +214,7 @@ function Page() {
             <div className="rounded-2xl bg-secondary/40 p-5">
               <p className="text-xs font-bold uppercase tracking-wider text-primary">{t("contact.hours")}</p>
               <p className="mt-2 text-sm text-foreground/80 whitespace-pre-line">
-                Monday - Saturday
+                {t("generalCare.hours_day")}
                 {"\n"}{hours.morning}
                 {"\n"}{hours.lunch}
                 {"\n"}{hours.afternoon}

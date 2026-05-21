@@ -50,9 +50,9 @@ function Page() {
 
             <div className="grid gap-4 md:grid-cols-3">
               {[
-                { title: "Crowns", desc: "Restoring strength and shape with carefully matched crowns." },
-                { title: "Bridges", desc: "Replacing missing teeth with a stable, natural-looking bridge." },
-                { title: "Prevention", desc: "Regular check-ups and hygiene guidance to stop issues early." },
+                { title: t("generalCare.item1_t"), desc: t("generalCare.item1_d") },
+                { title: t("generalCare.item2_t"), desc: t("generalCare.item2_d") },
+                { title: t("generalCare.item3_t"), desc: t("generalCare.item3_d") },
               ].map((item) => (
                 <div key={item.title} className="rounded-2xl border border-border/80 bg-white p-6 shadow-sm">
                   <p className="text-xs font-bold uppercase tracking-widest text-brand-accent">{item.title}</p>
@@ -82,10 +82,10 @@ function Page() {
             <div className="rounded-2xl border border-border/80 bg-white p-6 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-widest text-brand-accent">{t("generalCare.map_title")}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground font-light">
-                Marinus Bolkplein 39, 3067 AK Rotterdam
+                {t("contact.address_v")}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground font-light">
-                The practice map and location details are also available on the Contact/Klachten page.
+                {t("generalCare.map_desc")}
               </p>
             </div>
           </div>

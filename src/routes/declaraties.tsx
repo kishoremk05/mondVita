@@ -48,7 +48,7 @@ function Page() {
             <div className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-widest text-brand-accent">{t("declaraties.knmt_label")}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground font-light">
-                De officiële KNMT-prijslijst wordt hier geopend zodat patiënten de actuele tarieven kunnen bekijken.
+                {t("declaraties.knmt_desc")}
               </p>
               <a
                 href={t("declaraties.knmt_url")}
@@ -81,7 +81,7 @@ function Page() {
             <div className="rounded-2xl border border-border/80 bg-white p-6 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-widest text-brand-accent">{t("declaraties.title")}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground font-light">
-                Deze pagina is bedoeld voor declaraties, tarieven en uitleg over vergoeding en betaling.
+                {t("declaraties.page_desc")}
               </p>
             </div>
           </div>

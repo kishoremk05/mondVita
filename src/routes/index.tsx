@@ -3,6 +3,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { Hero } from "@/components/site/Hero";
 import { Features } from "@/components/site/Features";
 import { Services } from "@/components/site/Services";
+import { PartnerBand } from "@/components/site/PartnerBand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,6 +24,7 @@ function HomePage() {
       <Hero />
       <Features />
       <Services />
+      <PartnerBand />
     </SiteShell>
   );
 }

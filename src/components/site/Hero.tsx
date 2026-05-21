@@ -33,7 +33,7 @@ export function Hero() {
         <div className="max-w-2xl space-y-6 md:space-y-8 animate-fade-up">
           {/* Micro-badge accent */}
           <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary backdrop-blur-sm">
-            Praktijk in Rotterdam (Prins Alexander)
+            {t("hero.badge")}
           </div>
 
           {/* Heading using Outfit Display typography */}

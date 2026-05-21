@@ -32,54 +32,59 @@ function Page() {
   const { t } = useTranslation();
   const treatmentsBg = useSiteImage("images.treatments_bg", imgDesktopTable);
 
+  const getDetails = (key: string): string[] => {
+    const res = t(key, { returnObjects: true });
+    return Array.isArray(res) ? res : [];
+  };
+
   const items = [
     {
       t: t("svc.mondzorg"),
       d: t("svc.mondzorg_d"),
       Icon: ToothMark,
       img: imgDoctorExplaining,
-      note: "Routine care keeps small problems from turning into more complex treatment.",
-      details: ["Check-ups and cleanings", "Fillings and preventive care", "Tailored advice for daily oral health"],
+      note: t("svc.mondzorg_n"),
+      details: getDetails("svc.mondzorg_det"),
     },
     {
       t: t("svc.implant"),
       d: t("svc.implant_d"),
       Icon: Layers,
       img: imgTeeth,
-      note: "A replacement option designed for long-term stability, comfort, and natural chewing function.",
-      details: ["Single tooth and multi-tooth replacement", "Stable, long-term support", "Personal treatment planning"],
+      note: t("svc.implant_n"),
+      details: getDetails("svc.implant_det"),
     },
     {
       t: t("svc.prothese"),
       d: t("svc.prothese_d"),
       Icon: Smile,
       img: imgTeethCap,
-      note: "We focus on fit, comfort, and a natural look so the denture feels easier to wear every day.",
-      details: ["Full and partial dentures", "Comfort and fit adjustments", "Options for removable solutions"],
+      note: t("svc.prothese_n"),
+      details: getDetails("svc.prothese_det"),
     },
     {
       t: t("svc.esth"),
       d: t("svc.esth_d"),
       Icon: Sparkles,
       img: imgUvLight,
-      note: "Cosmetic care is planned carefully so the result stays natural and fits your smile.",
-      details: ["Whitening and cosmetic improvements", "Natural-looking finishing", "Subtle enhancement options"],
+      note: t("svc.esth_n"),
+      details: getDetails("svc.esth_det"),
     },
     {
       t: t("svc.wortel"),
       d: t("svc.wortel_d"),
       Icon: Activity,
       img: imgTools,
-      note: "Root canal care helps save a tooth that would otherwise be at risk from infection or deep decay.",
-      details: ["Relief for deep decay or infection", "Tooth-saving treatment approach", "Careful follow-up after treatment"],
+      note: t("svc.wortel_n"),
+      details: getDetails("svc.wortel_det"),
     },
     {
       t: t("svc.kinder"),
       d: t("svc.kinder_d"),
       Icon: Heart,
       img: imgChild,
-      note: "We keep appointments calm and friendly so children feel confident returning for future visits.",
-      details: ["Friendly care for younger patients", "Prevention and habit guidance", "A calm, reassuring visit experience"],
+      note: t("svc.kinder_n"),
+      details: getDetails("svc.kinder_det"),
     },
   ];
 

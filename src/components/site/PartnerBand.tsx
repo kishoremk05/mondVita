@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const partners = [
   { name: "infomedics", domain: "infomedics.nl" },
@@ -38,16 +39,19 @@ function PartnerTile({ name, domain }: { name: string; domain: string }) {
   );
 }
 
-export function PartnerBand({ title = "Partner network" }: { title?: string }) {
+export function PartnerBand({ title }: { title?: string }) {
+  const { t } = useTranslation();
+  const displayTitle = title || t("generalCare.partner_title");
+
   return (
     <section className="relative overflow-hidden border-y border-border/60 bg-gradient-to-b from-secondary/40 via-white to-secondary/20 py-14">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.16),_transparent_65%)]" />
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-brand-accent">Trusted network</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{title}</h2>
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-brand-accent">{t("partner.badge")}</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{displayTitle}</h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
-            A curated group of partners we rely on for administration, memberships, and dental support services.
+            {t("partner.desc")}
           </p>
         </div>
 

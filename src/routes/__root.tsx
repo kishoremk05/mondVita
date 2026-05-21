@@ -47,7 +47,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 // Helper to convert flat dot-separated keys to a deep nested object structure for i18next
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function nestBundle(flat: Record<string, string>): Record<string, any> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const nested: Record<string, any> = {};
   Object.entries(flat).forEach(([key, val]) => {
     const parts = key.split(".");

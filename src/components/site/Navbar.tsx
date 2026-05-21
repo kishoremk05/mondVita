@@ -12,7 +12,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
-  const contactLabel = "Contact/Klachten";
+  const contactLabel = t("nav.contact");
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,6 +32,7 @@ export function Navbar() {
     { to: "/behandelingen", label: t("nav.behandelingen"), hasDropdown: true },
     { to: "/protheses", label: t("nav.protheses"), hasDropdown: true },
     { to: "/spoed", label: t("nav.spoed"), hasDropdown: false },
+    { to: "/declaraties", label: t("nav.declaraties"), hasDropdown: false },
     { to: "/reviews", label: t("nav.reviews"), hasDropdown: false },
     { to: "/over-ons", label: t("nav.over"), hasDropdown: false },
     { to: "/contact", label: contactLabel, hasDropdown: false },
@@ -51,7 +52,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Menu links */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-8">
           {links.map((l) => (
             <Link
               key={l.to}

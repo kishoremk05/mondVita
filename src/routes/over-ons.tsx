@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { CalendarDays } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { PartnerBand } from "@/components/site/PartnerBand";
 
 // Import client images
 import imgSetupPlace from "@/assets/new client images/dental setup place.png";
@@ -77,6 +78,7 @@ function Page() {
         </div>
       </section>
 
+      <PartnerBand />
     </SiteShell>
   );
 }

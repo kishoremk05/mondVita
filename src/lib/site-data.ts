@@ -25,7 +25,12 @@ export async function fetchSiteContent(): Promise<Record<string, Record<Locale, 
 
 export async function fetchServices(): Promise<ServiceRow[]> {
   const { data } = await supabase.from("services").select("*").order("sort_order");
-  return (data ?? []) as unknown as ServiceRow[];
+  const list = (data ?? []) as unknown as ServiceRow[];
+  return list.filter((s) => {
+    const enTitle = s.translations?.en?.title?.toLowerCase();
+    const nlTitle = s.translations?.nl?.title?.toLowerCase();
+    return enTitle !== "orthodontics" && nlTitle !== "orthodontie";
+  });
 }
 
 export async function fetchGallery(): Promise<GalleryRow[]> {
@@ -35,6 +40,23 @@ export async function fetchGallery(): Promise<GalleryRow[]> {
 
 export async function fetchContact(): Promise<ContactRow | null> {
   const { data } = await supabase.from("contact_info").select("*").eq("id", 1).maybeSingle();
+  if (!data) return null;
+  const isAmsterdamSeed = data.address?.includes("Amsterdam") || data.phone?.includes("+31 20");
+  if (isAmsterdamSeed) {
+    return {
+      id: 1,
+      address: "Marinus Bolkplein 39, 3067 AK Rotterdam",
+      phone: "010-3602998",
+      email: "info@mondvita.nl",
+      hours: {
+        morning: "09:00 - 12:00",
+        lunch: "12:00 - 13:00",
+        afternoon: "13:00 - 17:00",
+      },
+      map_embed: data.map_embed || "",
+      socials: data.socials ?? {},
+    };
+  }
   return data as ContactRow | null;
 }
 
