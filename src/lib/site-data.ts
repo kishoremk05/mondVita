@@ -5,11 +5,13 @@ export type SiteContentRow = { key: string; locale: string; value: string };
 export type ServiceRow = {
   id: string;
   icon: string;
+  image_url: string;
+  link_path: string;
   sort_order: number;
   translations: Record<string, { title: string; desc: string }>;
 };
 export type GalleryRow = { id: string; storage_path: string; alt: string; sort_order: number };
-export type ContactRow = { id: number; address: string; phone: string; email: string; hours: Record<string, string>; map_embed: string };
+export type ContactRow = { id: number; address: string; phone: string; email: string; hours: Record<string, string>; map_embed: string; socials: Record<string, string> };
 
 export async function fetchSiteContent(): Promise<Record<string, Record<Locale, string>>> {
   const { data } = await supabase.from("site_content").select("key, locale, value");

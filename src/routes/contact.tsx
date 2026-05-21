@@ -1,17 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import imgAddress from "@/assets/new client images/address image.png";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { fetchContact } from "@/lib/site-data";
+
+function normalizeHours(hours: Record<string, string> | undefined) {
+  return {
+    morning: hours?.morning ?? hours?.mon_fri ?? "09:00 - 12:00",
+    lunch: hours?.lunch ?? hours?.sat ?? "12:00 - 13:00",
+    afternoon: hours?.afternoon ?? hours?.sun ?? "13:00 - 17:00",
+  };
+}
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — MondVita" },
+      { title: "Contact/Klachten — MondVita" },
       { name: "description", content: "Neem contact op met MondVita voor vragen of een afspraak. Adres, telefoon, e-mail en openingstijden." },
-      { property: "og:title", content: "Contact — MondVita" },
+      { property: "og:title", content: "Contact/Klachten — MondVita" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
   }),
@@ -20,7 +30,10 @@ export const Route = createFileRoute("/contact")({
 
 function Page() {
   const { t } = useTranslation();
+  const { data: contact } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
   const contactBg = useSiteImage("images.contact_bg", imgAddress);
+  const hours = normalizeHours(contact?.hours);
+  const mapEmbed = contact?.map_embed?.trim() ?? "";
 
   return (
     <SiteShell>
@@ -43,10 +56,10 @@ function Page() {
             </h2>
             <ul className="space-y-6 pt-2">
               {[
-                { Icon: MapPin, label: t("contact.address"), v: t("contact.address_v") },
-                { Icon: Phone, label: t("contact.phone"), v: t("contact.phone_v") },
-                { Icon: Mail, label: t("contact.email"), v: t("contact.email_v") },
-                { Icon: Clock, label: t("contact.hours"), v: t("contact.hours_v") },
+                { Icon: MapPin, label: t("contact.address"), v: contact?.address ?? t("contact.address_v") },
+                { Icon: Phone, label: t("contact.phone"), v: contact?.phone ?? t("contact.phone_v") },
+                { Icon: Mail, label: t("contact.email"), v: contact?.email ?? t("contact.email_v") },
+                { Icon: Clock, label: t("contact.hours"), v: `Monday - Saturday\n${hours.morning}\n${hours.lunch}\n${hours.afternoon}` },
               ].map(({ Icon, label, v }) => (
                 <li key={label} className="flex items-start gap-4">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white border border-border shadow-sm text-primary">
@@ -57,7 +70,7 @@ function Page() {
                       {label}
                     </p>
                     <p className="text-sm font-semibold text-primary mt-0.5 leading-relaxed">
-                      {v}
+                      <span className="whitespace-pre-line">{v}</span>
                     </p>
                   </div>
                 </li>
@@ -114,6 +127,45 @@ function Page() {
               </button>
             </div>
           </form>
+        </div>
+      </section>
+
+      <section className="bg-white py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
+          <div className="overflow-hidden rounded-3xl border border-border/80 bg-secondary/20 shadow-[0_16px_40px_-20px_rgba(12,35,64,0.12)]">
+            {mapEmbed ? (
+              <div className="aspect-[16/10] [&_iframe]:h-full [&_iframe]:w-full" dangerouslySetInnerHTML={{ __html: mapEmbed }} />
+            ) : (
+              <iframe
+                title={t("contact.title")}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(contact?.address ?? t("contact.address_v"))}&output=embed`}
+                className="h-[420px] w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            )}
+          </div>
+
+          <div className="space-y-4 rounded-3xl border border-border/80 bg-white p-8 shadow-sm">
+            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
+              /// {t("contact.sub")}
+            </div>
+            <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
+              {t("contact.title")}
+            </h2>
+            <p className="text-sm leading-relaxed text-muted-foreground font-light">
+              {t("contact.intro")}
+            </p>
+            <div className="rounded-2xl bg-secondary/40 p-5">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">{t("contact.hours")}</p>
+              <p className="mt-2 text-sm text-foreground/80 whitespace-pre-line">
+                Monday - Saturday
+                {"\n"}{hours.morning}
+                {"\n"}{hours.lunch}
+                {"\n"}{hours.afternoon}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </SiteShell>

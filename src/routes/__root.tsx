@@ -5,6 +5,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
+import { setLocale } from "@/i18n";
 import "@/i18n";
 
 import appCss from "../styles.css?url";
@@ -68,6 +69,14 @@ function nestBundle(flat: Record<string, string>): Record<string, any> {
 
 function RootComponent() {
   const { i18n } = useTranslation();
+  const STORAGE_KEY = "mondvita-locale";
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored && stored !== i18n.language && ["nl", "en", "ar"].includes(stored)) {
+      setLocale(stored as "nl" | "en" | "ar");
+    }
+  }, [i18n]);
   
   useEffect(() => {
     document.documentElement.lang = i18n.language;

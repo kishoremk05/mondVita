@@ -1,25 +1,68 @@
-import { useTranslation } from "react-i18next";
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import imgDoctorExplaining from "@/assets/new client images/doctor explaining teeth to patient.png";
 import imgTeeth from "@/assets/new client images/teeth.png";
 import imgTeethCap from "@/assets/new client images/teeth cap.png";
 import imgSpoedImg from "@/assets/new client images/spoe.png";
-import { useSiteImage } from "@/hooks/useSiteImage";
+import imgUvLight from "@/assets/new client images/doctor fixing the teeth using uv light.png";
+import imgChild from "@/assets/new client images/child in dental office.png";
+import { fetchServices, publicUrl, type ServiceRow } from "@/lib/site-data";
+
+const fallbackImages = [imgDoctorExplaining, imgTeeth, imgTeethCap, imgSpoedImg, imgUvLight, imgChild];
+
+function getLocale(language: string) {
+  const locale = language.slice(0, 2);
+  return locale === "nl" || locale === "en" || locale === "ar" ? locale : "en";
+}
+
+function resolveCardImage(row: ServiceRow, index: number) {
+  const imageUrl = row.image_url?.trim();
+  if (imageUrl) {
+    return imageUrl.startsWith("http://") || imageUrl.startsWith("https://") || imageUrl.startsWith("/")
+      ? imageUrl
+      : publicUrl(imageUrl);
+  }
+
+  return fallbackImages[index % fallbackImages.length];
+}
+
+function getCardCopy(row: ServiceRow, locale: ReturnType<typeof getLocale>) {
+  const translations = row.translations ?? {};
+  const current = translations[locale] ?? translations.en ?? translations.nl ?? translations.ar;
+  return {
+    title: current?.title ?? "",
+    desc: current?.desc ?? "",
+  };
+}
+
+function normalizeLink(linkPath?: string | null) {
+  const value = linkPath?.trim() ?? "";
+  if (!value) return "/behandelingen";
+  if (value.startsWith("http://") || value.startsWith("https://") || value.startsWith("mailto:") || value.startsWith("tel:")) {
+    return value;
+  }
+  return value.startsWith("/") ? value : `/${value}`;
+}
 
 export function Services() {
-  const { t } = useTranslation();
-  const imgMondzorg = useSiteImage("images.services_mondzorg", imgDoctorExplaining);
-  const imgImplant = useSiteImage("images.services_implant", imgTeeth);
-  const imgProthese = useSiteImage("images.services_prothese", imgTeethCap);
-  const imgSpoed = useSiteImage("images.services_spoed", imgSpoedImg);
-
-  const cards = [
-    { img: imgMondzorg, label: t("svc.mondzorg"), to: "/behandelingen" as const },
-    { img: imgImplant, label: t("svc.implant"), to: "/behandelingen" as const },
-    { img: imgProthese, label: t("svc.prothese"), to: "/protheses" as const },
-    { img: imgSpoed, label: t("svc.spoed"), to: "/spoed" as const },
-  ];
+  const { t, i18n } = useTranslation();
+  const { data: services = [] } = useQuery({ queryKey: ["services"], queryFn: fetchServices });
+  const locale = getLocale(i18n.language);
+  const cards = services.length > 0
+    ? services.map((row, index) => ({
+        id: row.id,
+        image: resolveCardImage(row, index),
+        link: normalizeLink(row.link_path),
+        ...getCardCopy(row, locale),
+      }))
+    : [
+        { id: "mondzorg", image: imgDoctorExplaining, title: t("svc.mondzorg"), desc: t("svc.mondzorg_d"), link: "/general-dental-care" },
+        { id: "implant", image: imgTeeth, title: t("svc.implant"), desc: t("svc.implant_d"), link: "/behandelingen" },
+        { id: "prothese", image: imgTeethCap, title: t("svc.prothese"), desc: t("svc.prothese_d"), link: "/protheses" },
+        { id: "spoed", image: imgSpoedImg, title: t("svc.spoed"), desc: t("svc.spoed_d"), link: "/spoed" },
+      ];
 
 
   return (
@@ -41,38 +84,71 @@ export function Services() {
           </div>
 
           {/* Cards Grid Right */}
-          <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-6">
             {cards.map((c, idx) => (
-              <Link
-                key={c.label}
-                to={c.to}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-accent/50 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.12)] animate-fade-up"
-                style={{ animationDelay: `${idx * 150}ms` }}
-              >
-                {/* Image Container with Hover Zoom */}
-                <div className="aspect-square w-full overflow-hidden bg-primary/5 relative">
-                  <img
-                    src={c.img}
-                    alt={c.label}
-                    loading="lazy"
-                    width={768}
-                    height={768}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  {/* Subtle vignette layer overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
-
-                {/* Content Overlay/Tag at bottom */}
-                <div className="flex items-center justify-between bg-white px-5 py-4 border-t border-border/50 transition-colors duration-300 group-hover:bg-secondary/40">
-                  <p className="font-display text-xs sm:text-sm font-bold text-primary tracking-tight transition duration-200 group-hover:text-primary">
-                    {c.label}
-                  </p>
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-secondary text-primary transition-all duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+              (() => {
+                const link = normalizeLink(c.link);
+                const isExternal = link.startsWith("http") || link.startsWith("mailto:") || link.startsWith("tel:");
+                return isExternal ? (
+                <a
+                  key={c.id}
+                  href={link}
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-accent/50 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.12)] animate-fade-up"
+                  style={{ animationDelay: `${idx * 150}ms` }}
+                >
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-primary/5 relative">
+                    <img
+                      src={c.image}
+                      alt={c.title}
+                      loading="lazy"
+                      width={768}
+                      height={768}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
-                </div>
-              </Link>
+                  <div className="flex items-center justify-between gap-4 bg-white px-5 py-4 border-t border-border/50 transition-colors duration-300 group-hover:bg-secondary/40">
+                    <div className="min-w-0">
+                      <p className="font-display text-sm font-bold text-primary tracking-tight">{c.title}</p>
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{c.desc}</p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-all duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
+                      <span>{t("help.more")}</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                    </div>
+                  </div>
+                </a>
+                ) : (
+                <Link
+                  key={c.id}
+                  to={link as never}
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-accent/50 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.12)] animate-fade-up"
+                  style={{ animationDelay: `${idx * 150}ms` }}
+                >
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-primary/5 relative">
+                    <img
+                      src={c.image}
+                      alt={c.title}
+                      loading="lazy"
+                      width={768}
+                      height={768}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  </div>
+                  <div className="flex items-center justify-between gap-4 bg-white px-5 py-4 border-t border-border/50 transition-colors duration-300 group-hover:bg-secondary/40">
+                    <div className="min-w-0">
+                      <p className="font-display text-sm font-bold text-primary tracking-tight">{c.title}</p>
+                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{c.desc}</p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-all duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
+                      <span>{t("help.more")}</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
+                    </div>
+                  </div>
+                </Link>
+                );
+              })()
             ))}
           </div>
         </div>

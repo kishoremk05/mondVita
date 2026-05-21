@@ -12,6 +12,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const contactLabel = "Contact/Klachten";
 
   useEffect(() => {
     const onScroll = () => {
@@ -33,7 +34,7 @@ export function Navbar() {
     { to: "/spoed", label: t("nav.spoed"), hasDropdown: false },
     { to: "/reviews", label: t("nav.reviews"), hasDropdown: false },
     { to: "/over-ons", label: t("nav.over"), hasDropdown: false },
-    { to: "/contact", label: t("nav.contact"), hasDropdown: false },
+    { to: "/contact", label: contactLabel, hasDropdown: false },
   ] as const;
 
   return (

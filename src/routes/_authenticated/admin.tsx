@@ -43,6 +43,37 @@ const PAGE_GROUPS = [
     ]
   },
   {
+    id: "general_care",
+    name: "Algemene Mondzorg Pagina",
+    keys: [
+      "generalCare.title",
+      "generalCare.intro",
+      "generalCare.body1",
+      "generalCare.body2",
+      "generalCare.hours_title",
+      "generalCare.hours_day",
+      "generalCare.hours_morning",
+      "generalCare.hours_break",
+      "generalCare.hours_afternoon",
+      "generalCare.cta_declaraties",
+      "generalCare.partner_title",
+      "generalCare.map_title"
+    ]
+  },
+  {
+    id: "declaraties",
+    name: "Declaraties Pagina",
+    keys: [
+      "declaraties.title",
+      "declaraties.intro",
+      "declaraties.body1",
+      "declaraties.body2",
+      "declaraties.knmt_label",
+      "declaraties.knmt_cta",
+      "declaraties.knmt_url"
+    ]
+  },
+  {
     id: "protheses",
     name: "Protheses Pagina",
     keys: [
@@ -347,7 +378,7 @@ function ServicesEditor() {
 
   const updateRow = useMutation({
     mutationFn: async (row: ServiceRow) => {
-      const { error } = await supabase.from("services").update({ icon: row.icon, sort_order: row.sort_order, translations: row.translations }).eq("id", row.id);
+      const { error } = await supabase.from("services").update({ icon: row.icon, image_url: row.image_url, link_path: row.link_path, sort_order: row.sort_order, translations: row.translations }).eq("id", row.id);
       if (error) throw error;
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["services"] }); toast.success("Saved"); },
@@ -361,7 +392,7 @@ function ServicesEditor() {
 
   const addRow = useMutation({
     mutationFn: async () => {
-      const { error } = await supabase.from("services").insert({ icon: "Sparkles", sort_order: services.length + 1, translations: { nl: { title: "Nieuwe dienst", desc: "" }, en: { title: "New service", desc: "" }, ar: { title: "خدمة جديدة", desc: "" } } });
+      const { error } = await supabase.from("services").insert({ icon: "Sparkles", image_url: "", link_path: "/behandelingen", sort_order: services.length + 1, translations: { nl: { title: "Nieuwe dienst", desc: "" }, en: { title: "New service", desc: "" }, ar: { title: "خدمة جديدة", desc: "" } } });
       if (error) throw error;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["services"] }),
@@ -378,6 +409,7 @@ function ServicesEditor() {
 }
 
 function ServiceRowEditor({ row, onSave, onDelete }: { row: ServiceRow; onSave: (r: ServiceRow) => void; onDelete: () => void }) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState(row);
   useEffect(() => setDraft(row), [row]);
 
@@ -393,6 +425,18 @@ function ServiceRowEditor({ row, onSave, onDelete }: { row: ServiceRow; onSave: 
           <label className="text-xs uppercase tracking-wider text-muted-foreground">Order</label>
           <input type="number" value={draft.sort_order} onChange={e => setDraft({ ...draft, sort_order: Number(e.target.value) })}
             className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-sm" />
+        </div>
+      </div>
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <div>
+          <label className="text-xs uppercase tracking-wider text-muted-foreground">{t("admin.image")}</label>
+          <input value={draft.image_url ?? ""} onChange={e => setDraft({ ...draft, image_url: e.target.value })}
+            className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-sm" placeholder="https://... or storage path" />
+        </div>
+        <div>
+          <label className="text-xs uppercase tracking-wider text-muted-foreground">{t("admin.link")}</label>
+          <input value={draft.link_path ?? ""} onChange={e => setDraft({ ...draft, link_path: e.target.value })}
+            className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-sm" placeholder="/general-dental-care" />
         </div>
       </div>
       <div className="mt-4 grid gap-4 md:grid-cols-3">
@@ -492,12 +536,30 @@ function GalleryEditor() {
 function ContactEditor() {
   const qc = useQueryClient();
   const { data } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
-  const [draft, setDraft] = useState({ address: "", phone: "", email: "", hours: { mon_fri: "", sat: "", sun: "" }, map_embed: "" });
-  useEffect(() => { if (data) setDraft({ address: data.address, phone: data.phone, email: data.email, hours: { mon_fri: data.hours?.mon_fri ?? "", sat: data.hours?.sat ?? "", sun: data.hours?.sun ?? "" }, map_embed: data.map_embed }); }, [data]);
+  const [draft, setDraft] = useState({ address: "", phone: "", email: "", hours: { morning: "", lunch: "", afternoon: "" }, socials: { instagram: "", tiktok: "" }, map_embed: "" });
+  useEffect(() => {
+    if (data) {
+      setDraft({
+        address: data.address,
+        phone: data.phone,
+        email: data.email,
+        hours: {
+          morning: data.hours?.morning ?? data.hours?.mon_fri ?? "09:00 - 12:00",
+          lunch: data.hours?.lunch ?? data.hours?.sat ?? "12:00 - 13:00",
+          afternoon: data.hours?.afternoon ?? data.hours?.sun ?? "13:00 - 17:00",
+        },
+        socials: {
+          instagram: data.socials?.instagram ?? "",
+          tiktok: data.socials?.tiktok ?? "",
+        },
+        map_embed: data.map_embed,
+      });
+    }
+  }, [data]);
 
   const save = useMutation({
     mutationFn: async () => {
-      const { error } = await supabase.from("contact_info").update({ ...draft }).eq("id", 1);
+      const { error } = await supabase.from("contact_info").update({ ...draft, hours: { ...draft.hours }, socials: { ...draft.socials } }).eq("id", 1);
       if (error) throw error;
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["contact"] }); toast.success("Saved"); },
@@ -513,9 +575,14 @@ function ContactEditor() {
       </div>
       <div className="rounded-2xl border border-border bg-white p-6 space-y-4">
         <h3 className="font-serif text-lg font-semibold text-primary">Opening hours</h3>
-        <Field label="Monday – Friday" value={draft.hours.mon_fri} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, mon_fri: v } })} />
-        <Field label="Saturday" value={draft.hours.sat} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, sat: v } })} />
-        <Field label="Sunday" value={draft.hours.sun} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, sun: v } })} />
+        <Field label="Monday – Saturday morning" value={draft.hours.morning} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, morning: v } })} />
+        <Field label="Lunch break" value={draft.hours.lunch} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, lunch: v } })} />
+        <Field label="Afternoon" value={draft.hours.afternoon} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, afternoon: v } })} />
+      </div>
+      <div className="rounded-2xl border border-border bg-white p-6 space-y-4">
+        <h3 className="font-serif text-lg font-semibold text-primary">Social links</h3>
+        <Field label="Instagram" value={draft.socials.instagram} onChange={v => setDraft({ ...draft, socials: { ...draft.socials, instagram: v } })} />
+        <Field label="TikTok" value={draft.socials.tiktok} onChange={v => setDraft({ ...draft, socials: { ...draft.socials, tiktok: v } })} />
       </div>
       <div className="rounded-2xl border border-border bg-white p-6">
         <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Google Maps embed HTML</label>

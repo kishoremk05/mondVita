@@ -14,6 +14,8 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ProthesesRouteImport } from './routes/protheses'
 import { Route as OverOnsRouteImport } from './routes/over-ons'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as GeneralDentalCareRouteImport } from './routes/general-dental-care'
+import { Route as DeclaratiesRouteImport } from './routes/declaraties'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BehandelingenRouteImport } from './routes/behandelingen'
 import { Route as AfspraakRouteImport } from './routes/afspraak'
@@ -44,6 +46,16 @@ const OverOnsRoute = OverOnsRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GeneralDentalCareRoute = GeneralDentalCareRouteImport.update({
+  id: '/general-dental-care',
+  path: '/general-dental-care',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeclaratiesRoute = DeclaratiesRouteImport.update({
+  id: '/declaraties',
+  path: '/declaraties',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -81,6 +93,8 @@ export interface FileRoutesByFullPath {
   '/afspraak': typeof AfspraakRoute
   '/behandelingen': typeof BehandelingenRoute
   '/contact': typeof ContactRoute
+  '/declaraties': typeof DeclaratiesRoute
+  '/general-dental-care': typeof GeneralDentalCareRoute
   '/login': typeof LoginRoute
   '/over-ons': typeof OverOnsRoute
   '/protheses': typeof ProthesesRoute
@@ -93,6 +107,8 @@ export interface FileRoutesByTo {
   '/afspraak': typeof AfspraakRoute
   '/behandelingen': typeof BehandelingenRoute
   '/contact': typeof ContactRoute
+  '/declaraties': typeof DeclaratiesRoute
+  '/general-dental-care': typeof GeneralDentalCareRoute
   '/login': typeof LoginRoute
   '/over-ons': typeof OverOnsRoute
   '/protheses': typeof ProthesesRoute
@@ -107,6 +123,8 @@ export interface FileRoutesById {
   '/afspraak': typeof AfspraakRoute
   '/behandelingen': typeof BehandelingenRoute
   '/contact': typeof ContactRoute
+  '/declaraties': typeof DeclaratiesRoute
+  '/general-dental-care': typeof GeneralDentalCareRoute
   '/login': typeof LoginRoute
   '/over-ons': typeof OverOnsRoute
   '/protheses': typeof ProthesesRoute
@@ -121,6 +139,8 @@ export interface FileRouteTypes {
     | '/afspraak'
     | '/behandelingen'
     | '/contact'
+    | '/declaraties'
+    | '/general-dental-care'
     | '/login'
     | '/over-ons'
     | '/protheses'
@@ -133,6 +153,8 @@ export interface FileRouteTypes {
     | '/afspraak'
     | '/behandelingen'
     | '/contact'
+    | '/declaraties'
+    | '/general-dental-care'
     | '/login'
     | '/over-ons'
     | '/protheses'
@@ -146,6 +168,8 @@ export interface FileRouteTypes {
     | '/afspraak'
     | '/behandelingen'
     | '/contact'
+    | '/declaraties'
+    | '/general-dental-care'
     | '/login'
     | '/over-ons'
     | '/protheses'
@@ -160,6 +184,8 @@ export interface RootRouteChildren {
   AfspraakRoute: typeof AfspraakRoute
   BehandelingenRoute: typeof BehandelingenRoute
   ContactRoute: typeof ContactRoute
+  DeclaratiesRoute: typeof DeclaratiesRoute
+  GeneralDentalCareRoute: typeof GeneralDentalCareRoute
   LoginRoute: typeof LoginRoute
   OverOnsRoute: typeof OverOnsRoute
   ProthesesRoute: typeof ProthesesRoute
@@ -202,6 +228,20 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/general-dental-care': {
+      id: '/general-dental-care'
+      path: '/general-dental-care'
+      fullPath: '/general-dental-care'
+      preLoaderRoute: typeof GeneralDentalCareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/declaraties': {
+      id: '/declaraties'
+      path: '/declaraties'
+      fullPath: '/declaraties'
+      preLoaderRoute: typeof DeclaratiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -267,6 +307,8 @@ const rootRouteChildren: RootRouteChildren = {
   AfspraakRoute: AfspraakRoute,
   BehandelingenRoute: BehandelingenRoute,
   ContactRoute: ContactRoute,
+  DeclaratiesRoute: DeclaratiesRoute,
+  GeneralDentalCareRoute: GeneralDentalCareRoute,
   LoginRoute: LoginRoute,
   OverOnsRoute: OverOnsRoute,
   ProthesesRoute: ProthesesRoute,

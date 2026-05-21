@@ -6,6 +6,8 @@ const STORAGE_KEY = "mondvita-locale";
 
 function getInitialLocale(): Locale {
   if (typeof window === "undefined") return "nl";
+  const documentLocale = document.documentElement.lang as Locale | null;
+  if (documentLocale && ["nl", "en", "ar"].includes(documentLocale)) return documentLocale;
   const stored = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
   if (stored && ["nl", "en", "ar"].includes(stored)) return stored;
   return "nl";

@@ -58,6 +58,7 @@ export type Database = {
           id: number
           map_embed: string
           phone: string
+          socials: Json
           updated_at: string
         }
         Insert: {
@@ -67,6 +68,7 @@ export type Database = {
           id?: number
           map_embed?: string
           phone?: string
+          socials?: Json
           updated_at?: string
         }
         Update: {
@@ -76,6 +78,7 @@ export type Database = {
           id?: number
           map_embed?: string
           phone?: string
+          socials?: Json
           updated_at?: string
         }
         Relationships: []
@@ -109,6 +112,8 @@ export type Database = {
           created_at: string
           icon: string
           id: string
+          image_url: string
+          link_path: string
           sort_order: number
           translations: Json
           updated_at: string
@@ -117,6 +122,8 @@ export type Database = {
           created_at?: string
           icon?: string
           id?: string
+          image_url?: string
+          link_path?: string
           sort_order?: number
           translations?: Json
           updated_at?: string
@@ -125,6 +132,8 @@ export type Database = {
           created_at?: string
           icon?: string
           id?: string
+          image_url?: string
+          link_path?: string
           sort_order?: number
           translations?: Json
           updated_at?: string
