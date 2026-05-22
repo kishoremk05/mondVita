@@ -5,7 +5,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
-import { setLocale } from "@/i18n";
+
 import "@/i18n";
 
 import appCss from "../styles.css?url";
@@ -74,22 +74,8 @@ function nestBundle(flat: Record<string, string>): Record<string, any> {
 
 function RootComponent() {
   const { i18n } = useTranslation();
-  const STORAGE_KEY = "mondvita-locale";
 
-  // Defer locale restore past React's hydration commit to prevent SSR mismatch.
-  // The server always renders "nl"; localStorage may have a different locale.
-  // Using setTimeout(0) ensures this runs after React has fully hydrated the DOM.
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored && stored !== i18n.language && ["nl", "en", "ar"].includes(stored)) {
-        setLocale(stored as "nl" | "en" | "ar");
-      }
-    }, 0);
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Run once on mount only — intentionally omitting i18n to avoid re-triggering
-
+  // Sync the HTML lang and dir attributes when the user explicitly changes language.
   useEffect(() => {
     document.documentElement.lang = i18n.language;
     document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
@@ -112,7 +98,7 @@ function RootComponent() {
             }
           });
           
-          // Merge dynamic values into active i18n translation namespaces
+          // Merge dynamic values into active i18n translation namespaces.
           Object.entries(bundles).forEach(([loc, bundle]) => {
             if (Object.keys(bundle).length > 0) {
               const nested = nestBundle(bundle);
@@ -120,7 +106,7 @@ function RootComponent() {
             }
           });
           
-          // Trigger a re-render/language sync
+          // Re-trigger rendering so components pick up the new resource bundles.
           i18n.changeLanguage(i18n.language);
         }
       } catch (e) {

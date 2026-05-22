@@ -5,8 +5,9 @@ import { resources, type Locale } from "./locales";
 const STORAGE_KEY = "mondvita-locale";
 
 // Always start with 'nl' to match SSR-rendered HTML.
-// The locale switch from localStorage is deferred to a client-side
-// useEffect in RootComponent after hydration, preventing mismatches.
+// On fresh load, i18n isn't initialized yet so we set lng to "nl".
+// During Vite HMR the singleton persists, so we force the language
+// back to "nl" to prevent hydration mismatches.
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     resources,
@@ -14,6 +15,8 @@ if (!i18n.isInitialized) {
     fallbackLng: "nl",
     interpolation: { escapeValue: false },
   });
+} else {
+  i18n.changeLanguage("nl");
 }
 
 export function setLocale(locale: Locale) {
