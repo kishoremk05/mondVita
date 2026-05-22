@@ -11,6 +11,7 @@ export function Navbar() {
   const { user, isAdmin } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [mobileDropdowns, setMobileDropdowns] = useState<Record<string, boolean>>({});
   const { pathname } = useLocation();
   const contactLabel = t("nav.contact");
 
@@ -27,16 +28,45 @@ export function Navbar() {
     setOpen(false);
   }, [pathname]);
 
+  const toggleMobileDropdown = (to: string) => {
+    setMobileDropdowns((prev) => ({
+      ...prev,
+      [to]: !prev[to],
+    }));
+  };
+
   const links = [
-    { to: "/", label: t("nav.home"), hasDropdown: false },
-    { to: "/behandelingen", label: t("nav.behandelingen"), hasDropdown: true },
-    { to: "/protheses", label: t("nav.protheses"), hasDropdown: true },
-    { to: "/spoed", label: t("nav.spoed"), hasDropdown: false },
-    { to: "/declaraties", label: t("nav.declaraties"), hasDropdown: false },
-    { to: "/reviews", label: t("nav.reviews"), hasDropdown: false },
-    { to: "/over-ons", label: t("nav.over"), hasDropdown: false },
-    { to: "/contact", label: contactLabel, hasDropdown: false },
-  ] as const;
+    { to: "/", label: t("nav.home"), hasDropdown: false, dropdownItems: [] },
+    {
+      to: "/behandelingen",
+      label: t("nav.behandelingen"),
+      hasDropdown: true,
+      dropdownItems: [
+        { hash: "algemene-mondzorg", label: t("svc.mondzorg") },
+        { hash: "implantologie", label: t("svc.implant") },
+        { hash: "protheses", label: t("svc.prothese") },
+        { hash: "esthetische-tandheelkunde", label: t("svc.esth") },
+        { hash: "wortelkanaalbehandeling", label: t("svc.wortel") },
+        { hash: "kindertandheelkunde", label: t("svc.kinder") },
+      ],
+    },
+    {
+      to: "/protheses",
+      label: t("nav.protheses"),
+      hasDropdown: true,
+      dropdownItems: [
+        { hash: "gedeeltelijke-prothese", label: t("protheses.p1_t") },
+        { hash: "volledige-prothese", label: t("protheses.p2_t") },
+        { hash: "implantaat-prothese", label: t("protheses.p3_t") },
+        { hash: "reparatie", label: t("protheses.p4_t") },
+      ],
+    },
+    { to: "/spoed", label: t("nav.spoed"), hasDropdown: false, dropdownItems: [] },
+    { to: "/declaraties", label: t("nav.declaraties"), hasDropdown: false, dropdownItems: [] },
+    { to: "/reviews", label: t("nav.reviews"), hasDropdown: false, dropdownItems: [] },
+    { to: "/over-ons", label: t("nav.over"), hasDropdown: false, dropdownItems: [] },
+    { to: "/contact", label: contactLabel, hasDropdown: false, dropdownItems: [] },
+  ];
 
   return (
     <header
@@ -52,24 +82,43 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Menu links */}
-        <div className="hidden desktop-nav:flex items-center gap-3 xl:gap-4 2xl:gap-6">
+        <div className="hidden desktop-nav:flex items-center gap-2 xl:gap-3 2xl:gap-5 h-full">
           {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="flex items-center gap-1 text-[13px] 2xl:text-sm font-medium transition duration-250 relative py-1.5 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand-accent after:transition-all hover:after:w-full text-foreground/75 hover:text-primary whitespace-nowrap"
-              activeProps={{
-                className: "text-primary font-bold after:w-full!",
-              }}
-              activeOptions={{ exact: l.to === "/" }}
-            >
-              <span>{l.label}</span>
+            <div key={l.to} className="relative group flex items-center h-full">
+              <Link
+                to={l.to}
+                className="flex items-center gap-1 text-[13px] 2xl:text-sm font-medium transition duration-250 relative py-1.5 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand-accent after:transition-all hover:after:w-full text-foreground/75 hover:text-primary whitespace-nowrap"
+                activeProps={{
+                  className: "text-primary font-bold after:w-full!",
+                }}
+                activeOptions={{ exact: l.to === "/" }}
+              >
+                <span>{l.label}</span>
+                {l.hasDropdown && (
+                  <ChevronDown
+                    className="h-3.5 w-3.5 opacity-60 transition-transform duration-250 group-hover:rotate-180"
+                  />
+                )}
+              </Link>
+
               {l.hasDropdown && (
-                <ChevronDown
-                  className={`h-3.5 w-3.5 opacity-60 transition-transform duration-200 group-hover:rotate-180`}
-                />
+                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 hidden group-hover:block w-64 pt-3.5 z-50 transition-all duration-300">
+                  <div className="bg-white/98 backdrop-blur-md rounded-xl border border-border/80 shadow-[0_10px_35px_rgba(12,35,64,0.08)] py-2.5 overflow-hidden">
+                    <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-primary to-brand-accent" />
+                    {l.dropdownItems.map((item) => (
+                      <Link
+                        key={item.hash}
+                        to={l.to}
+                        hash={item.hash}
+                        className="block px-5 py-2.5 text-xs text-foreground/80 hover:text-primary hover:bg-secondary/50 transition-colors duration-150 font-medium"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               )}
-            </Link>
+            </div>
           ))}
         </div>
 
@@ -85,8 +134,6 @@ export function Navbar() {
             <CalendarDays className="h-4 w-4" />
           </Link>
 
-
-
           <button
             className="desktop-nav:hidden p-2 rounded-lg transition text-foreground hover:bg-secondary"
             onClick={() => setOpen((o) => !o)}
@@ -101,15 +148,46 @@ export function Navbar() {
       {open && (
         <div className="desktop-nav:hidden border-t border-border bg-white px-6 py-6 space-y-2 shadow-2xl absolute top-full inset-x-0 z-50 animate-fade-up">
           {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="flex items-center justify-between py-3 text-sm font-semibold text-foreground/80 hover:text-primary hover:bg-secondary/40 px-3 rounded-lg transition"
-              activeProps={{ className: "text-primary bg-secondary/60 font-bold" }}
-            >
-              <span>{l.label}</span>
-              {l.hasDropdown && <ChevronDown className="h-4 w-4 opacity-50" />}
-            </Link>
+            <div key={l.to} className="space-y-1">
+              <div className="flex items-center justify-between py-1 text-sm font-semibold text-foreground/80 rounded-lg hover:bg-secondary/40 transition">
+                <Link
+                  to={l.to}
+                  className="flex-grow py-2.5 px-3 hover:text-primary transition"
+                  activeProps={{ className: "text-primary font-bold" }}
+                  activeOptions={{ exact: l.to === "/" }}
+                >
+                  {l.label}
+                </Link>
+                {l.hasDropdown && (
+                  <button
+                    onClick={() => toggleMobileDropdown(l.to)}
+                    className="p-3.5 text-foreground/60 hover:text-primary transition shrink-0"
+                    aria-label={`Toggle ${l.label} options`}
+                  >
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform duration-200 ${
+                        mobileDropdowns[l.to] ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                )}
+              </div>
+              {l.hasDropdown && mobileDropdowns[l.to] && (
+                <div className="pl-6 pr-3 py-1.5 space-y-2 border-l-2 border-primary/20 ml-5 animate-fade-in">
+                  {l.dropdownItems.map((item) => (
+                    <Link
+                      key={item.hash}
+                      to={l.to}
+                      hash={item.hash}
+                      className="block py-1.5 text-xs text-foreground/75 hover:text-primary transition font-medium"
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
           <div className="pt-4 border-t border-border mt-4">
             <Link
@@ -119,7 +197,6 @@ export function Navbar() {
               {t("nav.book")}
               <CalendarDays className="h-4 w-4" />
             </Link>
-
           </div>
         </div>
       )}

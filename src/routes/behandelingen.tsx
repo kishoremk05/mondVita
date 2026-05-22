@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useLocation } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
@@ -32,6 +33,29 @@ function Page() {
   const { t } = useTranslation();
   const { c } = useSiteContent();
   const treatmentsBg = useSiteImage("images.treatments_bg", imgDesktopTable);
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const scroll = () => {
+        const elementId = hash.replace("#", "");
+        const element = document.getElementById(elementId);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      };
+
+      scroll();
+      const timer = setTimeout(scroll, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [hash]);
 
   const getDetails = (key: string): string[] => {
     const res = t(key, { returnObjects: true });
@@ -47,6 +71,7 @@ function Page() {
       note: c("svc.mondzorg_n"),
       details: getDetails("svc.mondzorg_det"),
       link: "/general-dental-care",
+      id: "algemene-mondzorg",
     },
     {
       t: c("svc.implant"),
@@ -56,6 +81,7 @@ function Page() {
       note: c("svc.implant_n"),
       details: getDetails("svc.implant_det"),
       link: "/implantologie",
+      id: "implantologie",
     },
     {
       t: c("svc.prothese"),
@@ -65,6 +91,7 @@ function Page() {
       note: c("svc.prothese_n"),
       details: getDetails("svc.prothese_det"),
       link: "/protheses",
+      id: "protheses",
     },
     {
       t: c("svc.esth"),
@@ -74,6 +101,7 @@ function Page() {
       note: c("svc.esth_n"),
       details: getDetails("svc.esth_det"),
       link: "/esthetische-tandheelkunde",
+      id: "esthetische-tandheelkunde",
     },
     {
       t: c("svc.wortel"),
@@ -83,6 +111,7 @@ function Page() {
       note: c("svc.wortel_n"),
       details: getDetails("svc.wortel_det"),
       link: "/wortelkanaalbehandeling",
+      id: "wortelkanaalbehandeling",
     },
     {
       t: c("svc.kinder"),
@@ -92,6 +121,7 @@ function Page() {
       note: c("svc.kinder_n"),
       details: getDetails("svc.kinder_det"),
       link: "/kindertandheelkunde",
+      id: "kindertandheelkunde",
     },
   ];
 
@@ -108,6 +138,7 @@ function Page() {
           {items.map((it, idx) => (
             <article
               key={it.t}
+              id={it.id}
               className="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white rounded-2xl rounded-tr-none border border-border/80 p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] transition-[border-color,box-shadow] duration-300 hover:border-primary/45 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.06)] md:even:flex-row-reverse animate-fade-in"
             >
               {/* Image beside the text box */}

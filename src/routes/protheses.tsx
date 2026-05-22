@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useLocation } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
@@ -30,12 +31,35 @@ function Page() {
   const { t } = useTranslation();
   const { c } = useSiteContent();
   const prothesesBg = useSiteImage("images.protheses_bg", imgTeethCap1);
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const scroll = () => {
+        const elementId = hash.replace("#", "");
+        const element = document.getElementById(elementId);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      };
+
+      scroll();
+      const timer = setTimeout(scroll, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [hash]);
 
   const items = [
-    { t: c("protheses.p1_t"), d: c("protheses.p1_d"), Icon: Layers, img: imgAdultMatch },
-    { t: c("protheses.p2_t"), d: c("protheses.p2_d"), Icon: Smile, img: imgTeethCap },
-    { t: c("protheses.p3_t"), d: c("protheses.p3_d"), Icon: Sparkles, img: imgMenVisual },
-    { t: c("protheses.p4_t"), d: c("protheses.p4_d"), Icon: Wrench, img: imgClientXray },
+    { t: c("protheses.p1_t"), d: c("protheses.p1_d"), Icon: Layers, img: imgAdultMatch, id: "gedeeltelijke-prothese" },
+    { t: c("protheses.p2_t"), d: c("protheses.p2_d"), Icon: Smile, img: imgTeethCap, id: "volledige-prothese" },
+    { t: c("protheses.p3_t"), d: c("protheses.p3_d"), Icon: Sparkles, img: imgMenVisual, id: "implantaat-prothese" },
+    { t: c("protheses.p4_t"), d: c("protheses.p4_d"), Icon: Wrench, img: imgClientXray, id: "reparatie" },
   ];
 
   return (
@@ -70,6 +94,7 @@ function Page() {
             {items.map((it, idx) => (
               <article
                 key={it.t}
+                id={it.id}
                 className="group flex flex-col sm:flex-row gap-6 rounded-2xl rounded-tr-none border border-border/40 bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.05)] animate-fade-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
