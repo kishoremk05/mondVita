@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WortelkanaalbehandelingRouteImport } from './routes/wortelkanaalbehandeling'
 import { Route as SpoedRouteImport } from './routes/spoed'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ProthesesRouteImport } from './routes/protheses'
@@ -26,6 +27,11 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const WortelkanaalbehandelingRoute = WortelkanaalbehandelingRouteImport.update({
+  id: '/wortelkanaalbehandeling',
+  path: '/wortelkanaalbehandeling',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SpoedRoute = SpoedRouteImport.update({
   id: '/spoed',
   path: '/spoed',
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/protheses': typeof ProthesesRoute
   '/reviews': typeof ReviewsRoute
   '/spoed': typeof SpoedRoute
+  '/wortelkanaalbehandeling': typeof WortelkanaalbehandelingRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/protheses': typeof ProthesesRoute
   '/reviews': typeof ReviewsRoute
   '/spoed': typeof SpoedRoute
+  '/wortelkanaalbehandeling': typeof WortelkanaalbehandelingRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/protheses': typeof ProthesesRoute
   '/reviews': typeof ReviewsRoute
   '/spoed': typeof SpoedRoute
+  '/wortelkanaalbehandeling': typeof WortelkanaalbehandelingRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/protheses'
     | '/reviews'
     | '/spoed'
+    | '/wortelkanaalbehandeling'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/protheses'
     | '/reviews'
     | '/spoed'
+    | '/wortelkanaalbehandeling'
     | '/admin'
   id:
     | '__root__'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/protheses'
     | '/reviews'
     | '/spoed'
+    | '/wortelkanaalbehandeling'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
@@ -231,10 +243,18 @@ export interface RootRouteChildren {
   ProthesesRoute: typeof ProthesesRoute
   ReviewsRoute: typeof ReviewsRoute
   SpoedRoute: typeof SpoedRoute
+  WortelkanaalbehandelingRoute: typeof WortelkanaalbehandelingRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wortelkanaalbehandeling': {
+      id: '/wortelkanaalbehandeling'
+      path: '/wortelkanaalbehandeling'
+      fullPath: '/wortelkanaalbehandeling'
+      preLoaderRoute: typeof WortelkanaalbehandelingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/spoed': {
       id: '/spoed'
       path: '/spoed'
@@ -378,6 +398,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProthesesRoute: ProthesesRoute,
   ReviewsRoute: ReviewsRoute,
   SpoedRoute: SpoedRoute,
+  WortelkanaalbehandelingRoute: WortelkanaalbehandelingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

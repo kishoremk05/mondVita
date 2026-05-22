@@ -1,10 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { ToothMark } from "@/components/site/Logo";
 import { ArrowRight, Layers, Smile, Sparkles, Activity, Heart } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 import { useSiteImage } from "@/hooks/useSiteImage";
 
 // Import client images
@@ -34,7 +33,7 @@ function Page() {
 
   const getDetails = (key: string): string[] => {
     const res = t(key, { returnObjects: true });
-    return Array.isArray(res) ? res : [];
+    return Array.isArray(res) ? (res.filter(item => typeof item === "string") as string[]) : [];
   };
 
   const items = [
@@ -81,7 +80,7 @@ function Page() {
       img: imgTools,
       note: t("svc.wortel_n"),
       details: getDetails("svc.wortel_det"),
-      link: "/general-dental-care",
+      link: "/wortelkanaalbehandeling",
     },
     {
       t: t("svc.kinder"),

@@ -54,7 +54,7 @@ export async function fetchContact(): Promise<ContactRow | null> {
         afternoon: "13:00 - 17:00",
       },
       map_embed: data.map_embed || "",
-      socials: data.socials ?? {},
+      socials: (data.socials as Record<string, string>) ?? {},
     };
   }
   return data as ContactRow | null;
