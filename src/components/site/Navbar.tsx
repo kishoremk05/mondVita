@@ -85,14 +85,7 @@ export function Navbar() {
             <CalendarDays className="h-4 w-4" />
           </Link>
 
-          {user && isAdmin && (
-            <Link
-              to="/admin"
-              className="hidden md:inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold text-primary hover:bg-secondary transition duration-200"
-            >
-              {t("nav.admin")}
-            </Link>
-          )}
+
 
           <button
             className="desktop-nav:hidden p-2 rounded-lg transition text-foreground hover:bg-secondary"
@@ -126,14 +119,7 @@ export function Navbar() {
               {t("nav.book")}
               <CalendarDays className="h-4 w-4" />
             </Link>
-            {user && isAdmin && (
-              <Link
-                to="/admin"
-                className="mt-2 block rounded-lg border border-border py-3 text-center text-xs font-semibold text-primary"
-              >
-                {t("nav.admin")}
-              </Link>
-            )}
+
           </div>
         </div>
       )}

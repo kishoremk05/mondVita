@@ -29,7 +29,7 @@ export function Footer() {
   const afternoon = hours.afternoon ?? "13:00 - 17:00";
   return (
     <footer className="border-t border-brand-accent/20 bg-primary pt-16 pb-8 text-white/80">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-3">
+      <div className="mx-auto grid max-w-7xl gap-8 px-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {/* Left Column: Brand & Socials */}
         <div className="space-y-4">
           <Logo className="text-white" />
@@ -70,35 +70,49 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Right Column: Contact info */}
+        {/* Third Column: Contact info & Location Map */}
+        <div className="space-y-4">
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-brand-accent">
+              {t("footer.contact_h")}
+            </h4>
+            <ul className="mt-4 space-y-3 text-sm text-white/70 font-light">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="mt-0.5 h-4 w-4 text-brand-accent shrink-0" strokeWidth={1.5} />
+                <span className="leading-snug">{t("contact.address_v")}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Phone className="h-4 w-4 text-brand-accent shrink-0" strokeWidth={1.5} />
+                <span>{t("contact.phone_v")}</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Mail className="h-4 w-4 text-brand-accent shrink-0" strokeWidth={1.5} />
+                <span>{t("contact.email_v")}</span>
+              </li>
+            </ul>
+          </div>
+          {/* User Requested Static Location Image instead of live Google Map - smaller & cleaner */}
+          <div className="overflow-hidden rounded-xl border border-white/10 shadow-sm bg-white/5 max-w-[220px]">
+            <img 
+              src={footerLocationImg} 
+              alt="MondVita Rotterdam Locatie" 
+              className="w-full h-28 object-cover hover:scale-105 transition-transform duration-300" 
+            />
+          </div>
+        </div>
+
+        {/* Fourth Column: Opening Hours */}
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wider text-brand-accent">
-            {t("footer.contact_h")}
+            {t("generalCare.hours_title")}
           </h4>
-          <ul className="mt-4 space-y-3.5 text-sm text-white/70 font-light">
-            <li className="flex items-start gap-2.5">
-              <MapPin className="mt-0.5 h-4.5 w-4.5 text-brand-accent shrink-0" strokeWidth={1.5} />
-              <span>{t("contact.address_v")}</span>
-            </li>
-            <li className="flex items-center gap-2.5">
-              <Phone className="h-4.5 w-4.5 text-brand-accent shrink-0" strokeWidth={1.5} />
-              <span>{t("contact.phone_v")}</span>
-            </li>
-            <li className="flex items-center gap-2.5">
-              <Mail className="h-4.5 w-4.5 text-brand-accent shrink-0" strokeWidth={1.5} />
-              <span>{t("contact.email_v")}</span>
-            </li>
-          </ul>
-          {/* User Requested Static Location Image instead of live Google Map */}
-          <div className="mt-4 overflow-hidden rounded-xl border border-white/10 shadow-sm bg-white/5">
-            <img src={footerLocationImg} alt="MondVita Rotterdam Locatie" className="w-full h-auto object-cover" />
-          </div>
-          <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/85 font-light">
-            <p className="text-xs font-bold uppercase tracking-wider text-white">{t("generalCare.hours_title")}</p>
-            <p className="mt-2 font-medium text-white">{t("generalCare.hours_day")}</p>
-            <p className="mt-1 text-white/90">{morning}</p>
-            <p className="text-white/80">{t("generalCare.hours_break_label")}: {lunch}</p>
-            <p className="text-white/90">{afternoon}</p>
+          <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-white/80 font-light">
+            <p className="text-xs font-bold uppercase tracking-wider text-white">{t("generalCare.hours_day")}</p>
+            <div className="mt-2.5 space-y-1 text-xs">
+              <p className="font-medium text-white">{morning}</p>
+              <p className="text-white/60">{t("generalCare.hours_break_label")}: {lunch}</p>
+              <p className="font-medium text-white">{afternoon}</p>
+            </div>
           </div>
         </div>
       </div>
