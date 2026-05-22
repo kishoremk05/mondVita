@@ -75,6 +75,16 @@ function nestBundle(flat: Record<string, string>): Record<string, any> {
 function RootComponent() {
   const { i18n } = useTranslation();
 
+  // Restore saved locale on mount (client-side only)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedLocale = window.localStorage.getItem("mondvita-locale");
+      if (savedLocale && savedLocale !== i18n.language) {
+        i18n.changeLanguage(savedLocale);
+      }
+    }
+  }, [i18n]);
+
   // Sync the HTML lang and dir attributes when the user explicitly changes language.
   useEffect(() => {
     document.documentElement.lang = i18n.language;

@@ -14,7 +14,7 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-16">
       {/* Full-bleed Background Image with Soft Fading Gradients */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        <div className="h-full w-full overflow-hidden rtl:-scale-x-100">
+        <div className="h-full w-full overflow-hidden">
           <img
             src={heroBg}
             alt="MondVita dental clinic interior"

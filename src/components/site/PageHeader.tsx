@@ -18,7 +18,7 @@ export function PageHeader({
     <section className="relative min-h-[320px] md:min-h-[380px] flex items-center pt-32 pb-16 overflow-hidden bg-primary text-white">
       {/* Full-bleed Background Image with Premium Multi-stop Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="h-full w-full overflow-hidden rtl:-scale-x-100">
+        <div className="h-full w-full overflow-hidden">
           <img
             src={bgImage}
             alt=""
