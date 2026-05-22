@@ -45,6 +45,7 @@ function Page() {
       img: imgDoctorExplaining,
       note: t("svc.mondzorg_n"),
       details: getDetails("svc.mondzorg_det"),
+      link: "/general-dental-care",
     },
     {
       t: t("svc.implant"),
@@ -53,6 +54,7 @@ function Page() {
       img: imgTeeth,
       note: t("svc.implant_n"),
       details: getDetails("svc.implant_det"),
+      link: "/implantologie",
     },
     {
       t: t("svc.prothese"),
@@ -61,6 +63,7 @@ function Page() {
       img: imgTeethCap,
       note: t("svc.prothese_n"),
       details: getDetails("svc.prothese_det"),
+      link: "/protheses",
     },
     {
       t: t("svc.esth"),
@@ -69,6 +72,7 @@ function Page() {
       img: imgUvLight,
       note: t("svc.esth_n"),
       details: getDetails("svc.esth_det"),
+      link: "/esthetische-tandheelkunde",
     },
     {
       t: t("svc.wortel"),
@@ -77,6 +81,7 @@ function Page() {
       img: imgTools,
       note: t("svc.wortel_n"),
       details: getDetails("svc.wortel_det"),
+      link: "/general-dental-care",
     },
     {
       t: t("svc.kinder"),
@@ -85,6 +90,7 @@ function Page() {
       img: imgChild,
       note: t("svc.kinder_n"),
       details: getDetails("svc.kinder_det"),
+      link: "/kindertandheelkunde",
     },
   ];
 
@@ -145,7 +151,7 @@ function Page() {
 
                 <div className="pt-2">
                   <Link
-                    to="/contact"
+                    to={it.link}
                     className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary transition-colors duration-200 hover:underline"
                   >
                     <span>{t("help.more")}</span>

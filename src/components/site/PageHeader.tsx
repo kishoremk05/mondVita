@@ -18,14 +18,16 @@ export function PageHeader({
     <section className="relative min-h-[320px] md:min-h-[380px] flex items-center pt-32 pb-16 overflow-hidden bg-primary text-white">
       {/* Full-bleed Background Image with Premium Multi-stop Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={bgImage}
-          alt=""
-          loading="eager"
-          className="h-full w-full object-cover object-center scale-102 animate-scale-reveal"
-        />
+        <div className="h-full w-full overflow-hidden rtl:-scale-x-100">
+          <img
+            src={bgImage}
+            alt=""
+            loading="eager"
+            className="h-full w-full object-cover object-center scale-102 animate-scale-reveal"
+          />
+        </div>
         {/* Navy Editorial Gradient Tint */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/98 via-primary/85 to-primary/30 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-primary/98 via-primary/85 to-primary/30 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-primary/10" />
         {/* Fine gold hair-line layout borders */}
         <div className="absolute bottom-0 inset-x-0 h-[3px] bg-brand-accent/30" />

@@ -58,9 +58,11 @@ export function Services() {
         ...getCardCopy(row, locale),
       }))
     : [
+        { id: "esth", image: imgUvLight, title: t("svc.esth"), desc: t("svc.esth_d"), link: "/esthetische-tandheelkunde" },
         { id: "mondzorg", image: imgDoctorExplaining, title: t("svc.mondzorg"), desc: t("svc.mondzorg_d"), link: "/general-dental-care" },
-        { id: "implant", image: imgTeeth, title: t("svc.implant"), desc: t("svc.implant_d"), link: "/behandelingen" },
+        { id: "implant", image: imgTeeth, title: t("svc.implant"), desc: t("svc.implant_d"), link: "/implantologie" },
         { id: "prothese", image: imgTeethCap, title: t("svc.prothese"), desc: t("svc.prothese_d"), link: "/protheses" },
+        { id: "kinder", image: imgChild, title: t("svc.kinder"), desc: t("svc.kinder_d"), link: "/kindertandheelkunde" },
         { id: "spoed", image: imgSpoedImg, title: t("svc.spoed"), desc: t("svc.spoed_d"), link: "/spoed" },
       ];
 
@@ -107,12 +109,12 @@ export function Services() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
-                  <div className="flex items-center justify-between gap-4 bg-white px-5 py-4 border-t border-border/50 transition-colors duration-300 group-hover:bg-secondary/40">
-                    <div className="min-w-0">
-                      <p className="font-display text-sm font-bold text-primary tracking-tight">{c.title}</p>
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{c.desc}</p>
+                  <div className="flex flex-col justify-between gap-4 bg-white px-5 py-4 border-t border-border/50 transition-colors duration-300 group-hover:bg-secondary/40 min-h-[125px]">
+                    <div className="min-w-0 space-y-1">
+                      <p className="font-display text-sm font-bold text-primary tracking-tight leading-snug">{c.title}</p>
+                      <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground font-light">{c.desc}</p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-colors duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
+                    <div className="flex shrink-0 w-fit self-start items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-colors duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
                       <span>{t("help.more")}</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-colors duration-300 rtl:rotate-180" />
                     </div>
@@ -136,12 +138,12 @@ export function Services() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
-                  <div className="flex items-center justify-between gap-4 bg-white px-5 py-4 border-t border-border/50 transition-colors duration-300 group-hover:bg-secondary/40">
-                    <div className="min-w-0">
-                      <p className="font-display text-sm font-bold text-primary tracking-tight">{c.title}</p>
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{c.desc}</p>
+                  <div className="flex flex-col justify-between gap-4 bg-white px-5 py-4 border-t border-border/50 transition-colors duration-300 group-hover:bg-secondary/40 min-h-[125px]">
+                    <div className="min-w-0 space-y-1">
+                      <p className="font-display text-sm font-bold text-primary tracking-tight leading-snug">{c.title}</p>
+                      <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground font-light">{c.desc}</p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-colors duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
+                    <div className="flex shrink-0 w-fit self-start items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary transition-colors duration-300 group-hover:bg-brand-accent group-hover:text-primary-foreground">
                       <span>{t("help.more")}</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-colors duration-300 rtl:rotate-180" />
                     </div>

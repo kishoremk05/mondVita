@@ -12,15 +12,17 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-16">
       {/* Full-bleed Background Image with Soft Fading Gradients */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        <img
-          src={heroBg}
-          alt="MondVita dental clinic interior"
-          loading="eager"
-          className="h-full w-full object-cover object-[80%_center] md:object-[right_center] scale-102 animate-scale-reveal"
-        />
+        <div className="h-full w-full overflow-hidden rtl:-scale-x-100">
+          <img
+            src={heroBg}
+            alt="MondVita dental clinic interior"
+            loading="eager"
+            className="h-full w-full object-cover object-[80%_center] md:object-[right_center] scale-102 animate-scale-reveal"
+          />
+        </div>
 
-        {/* Soft white gradient overlay on the left 50% of the screen, fading to transparent on the right */}
-        <div className="absolute inset-y-0 left-0 w-full md:w-[50%] bg-gradient-to-r from-white via-white/65 to-transparent hidden md:block rtl:bg-gradient-to-l" />
+        {/* Soft white gradient overlay on the left 50% of the screen, fading to transparent on the right (mirrored for RTL) */}
+        <div className="absolute inset-y-0 left-0 rtl:left-auto rtl:right-0 w-full md:w-[50%] bg-gradient-to-r rtl:bg-gradient-to-l from-white via-white/65 to-transparent hidden md:block" />
         
         {/* Mobile-only overlay to ensure text is fully readable on small screens */}
         <div className="absolute inset-0 bg-white/35 block md:hidden" />

@@ -52,12 +52,12 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Menu links */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-8">
+        <div className="hidden desktop-nav:flex items-center gap-3 xl:gap-4 2xl:gap-6">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="flex items-center gap-1 text-sm font-medium transition duration-250 relative py-1.5 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand-accent after:transition-all hover:after:w-full text-foreground/75 hover:text-primary"
+              className="flex items-center gap-1 text-[13px] 2xl:text-sm font-medium transition duration-250 relative py-1.5 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-brand-accent after:transition-all hover:after:w-full text-foreground/75 hover:text-primary whitespace-nowrap"
               activeProps={{
                 className: "text-primary font-bold after:w-full!",
               }}
@@ -79,7 +79,7 @@ export function Navbar() {
 
           <Link
             to="/afspraak"
-            className="hidden md:inline-flex items-center gap-2 rounded-lg bg-[#0c2340] px-5 py-2.5 text-sm font-semibold text-white transition duration-300 shadow-sm hover:bg-[#0c2340]/90"
+            className="hidden md:inline-flex items-center gap-2 rounded-lg bg-[#0c2340] px-3.5 py-2 text-xs xl:px-5 xl:py-2.5 xl:text-sm font-semibold text-white transition duration-300 shadow-sm hover:bg-[#0c2340]/90 whitespace-nowrap"
           >
             {t("nav.book")}
             <CalendarDays className="h-4 w-4" />
@@ -95,7 +95,7 @@ export function Navbar() {
           )}
 
           <button
-            className="lg:hidden p-2 rounded-lg transition text-foreground hover:bg-secondary"
+            className="desktop-nav:hidden p-2 rounded-lg transition text-foreground hover:bg-secondary"
             onClick={() => setOpen((o) => !o)}
             aria-label="Menu"
           >
@@ -106,7 +106,7 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {open && (
-        <div className="lg:hidden border-t border-border bg-white px-6 py-6 space-y-2 shadow-2xl absolute top-full inset-x-0 z-50 animate-fade-up">
+        <div className="desktop-nav:hidden border-t border-border bg-white px-6 py-6 space-y-2 shadow-2xl absolute top-full inset-x-0 z-50 animate-fade-up">
           {links.map((l) => (
             <Link
               key={l.to}

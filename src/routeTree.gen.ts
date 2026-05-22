@@ -14,7 +14,10 @@ import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ProthesesRouteImport } from './routes/protheses'
 import { Route as OverOnsRouteImport } from './routes/over-ons'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as KindertandheelkundeRouteImport } from './routes/kindertandheelkunde'
+import { Route as ImplantologieRouteImport } from './routes/implantologie'
 import { Route as GeneralDentalCareRouteImport } from './routes/general-dental-care'
+import { Route as EsthetischeTandheelkundeRouteImport } from './routes/esthetische-tandheelkunde'
 import { Route as DeclaratiesRouteImport } from './routes/declaraties'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BehandelingenRouteImport } from './routes/behandelingen'
@@ -48,11 +51,27 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KindertandheelkundeRoute = KindertandheelkundeRouteImport.update({
+  id: '/kindertandheelkunde',
+  path: '/kindertandheelkunde',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImplantologieRoute = ImplantologieRouteImport.update({
+  id: '/implantologie',
+  path: '/implantologie',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GeneralDentalCareRoute = GeneralDentalCareRouteImport.update({
   id: '/general-dental-care',
   path: '/general-dental-care',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EsthetischeTandheelkundeRoute =
+  EsthetischeTandheelkundeRouteImport.update({
+    id: '/esthetische-tandheelkunde',
+    path: '/esthetische-tandheelkunde',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DeclaratiesRoute = DeclaratiesRouteImport.update({
   id: '/declaraties',
   path: '/declaraties',
@@ -94,7 +113,10 @@ export interface FileRoutesByFullPath {
   '/behandelingen': typeof BehandelingenRoute
   '/contact': typeof ContactRoute
   '/declaraties': typeof DeclaratiesRoute
+  '/esthetische-tandheelkunde': typeof EsthetischeTandheelkundeRoute
   '/general-dental-care': typeof GeneralDentalCareRoute
+  '/implantologie': typeof ImplantologieRoute
+  '/kindertandheelkunde': typeof KindertandheelkundeRoute
   '/login': typeof LoginRoute
   '/over-ons': typeof OverOnsRoute
   '/protheses': typeof ProthesesRoute
@@ -108,7 +130,10 @@ export interface FileRoutesByTo {
   '/behandelingen': typeof BehandelingenRoute
   '/contact': typeof ContactRoute
   '/declaraties': typeof DeclaratiesRoute
+  '/esthetische-tandheelkunde': typeof EsthetischeTandheelkundeRoute
   '/general-dental-care': typeof GeneralDentalCareRoute
+  '/implantologie': typeof ImplantologieRoute
+  '/kindertandheelkunde': typeof KindertandheelkundeRoute
   '/login': typeof LoginRoute
   '/over-ons': typeof OverOnsRoute
   '/protheses': typeof ProthesesRoute
@@ -124,7 +149,10 @@ export interface FileRoutesById {
   '/behandelingen': typeof BehandelingenRoute
   '/contact': typeof ContactRoute
   '/declaraties': typeof DeclaratiesRoute
+  '/esthetische-tandheelkunde': typeof EsthetischeTandheelkundeRoute
   '/general-dental-care': typeof GeneralDentalCareRoute
+  '/implantologie': typeof ImplantologieRoute
+  '/kindertandheelkunde': typeof KindertandheelkundeRoute
   '/login': typeof LoginRoute
   '/over-ons': typeof OverOnsRoute
   '/protheses': typeof ProthesesRoute
@@ -140,7 +168,10 @@ export interface FileRouteTypes {
     | '/behandelingen'
     | '/contact'
     | '/declaraties'
+    | '/esthetische-tandheelkunde'
     | '/general-dental-care'
+    | '/implantologie'
+    | '/kindertandheelkunde'
     | '/login'
     | '/over-ons'
     | '/protheses'
@@ -154,7 +185,10 @@ export interface FileRouteTypes {
     | '/behandelingen'
     | '/contact'
     | '/declaraties'
+    | '/esthetische-tandheelkunde'
     | '/general-dental-care'
+    | '/implantologie'
+    | '/kindertandheelkunde'
     | '/login'
     | '/over-ons'
     | '/protheses'
@@ -169,7 +203,10 @@ export interface FileRouteTypes {
     | '/behandelingen'
     | '/contact'
     | '/declaraties'
+    | '/esthetische-tandheelkunde'
     | '/general-dental-care'
+    | '/implantologie'
+    | '/kindertandheelkunde'
     | '/login'
     | '/over-ons'
     | '/protheses'
@@ -185,7 +222,10 @@ export interface RootRouteChildren {
   BehandelingenRoute: typeof BehandelingenRoute
   ContactRoute: typeof ContactRoute
   DeclaratiesRoute: typeof DeclaratiesRoute
+  EsthetischeTandheelkundeRoute: typeof EsthetischeTandheelkundeRoute
   GeneralDentalCareRoute: typeof GeneralDentalCareRoute
+  ImplantologieRoute: typeof ImplantologieRoute
+  KindertandheelkundeRoute: typeof KindertandheelkundeRoute
   LoginRoute: typeof LoginRoute
   OverOnsRoute: typeof OverOnsRoute
   ProthesesRoute: typeof ProthesesRoute
@@ -230,11 +270,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kindertandheelkunde': {
+      id: '/kindertandheelkunde'
+      path: '/kindertandheelkunde'
+      fullPath: '/kindertandheelkunde'
+      preLoaderRoute: typeof KindertandheelkundeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/implantologie': {
+      id: '/implantologie'
+      path: '/implantologie'
+      fullPath: '/implantologie'
+      preLoaderRoute: typeof ImplantologieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/general-dental-care': {
       id: '/general-dental-care'
       path: '/general-dental-care'
       fullPath: '/general-dental-care'
       preLoaderRoute: typeof GeneralDentalCareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/esthetische-tandheelkunde': {
+      id: '/esthetische-tandheelkunde'
+      path: '/esthetische-tandheelkunde'
+      fullPath: '/esthetische-tandheelkunde'
+      preLoaderRoute: typeof EsthetischeTandheelkundeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/declaraties': {
@@ -308,7 +369,10 @@ const rootRouteChildren: RootRouteChildren = {
   BehandelingenRoute: BehandelingenRoute,
   ContactRoute: ContactRoute,
   DeclaratiesRoute: DeclaratiesRoute,
+  EsthetischeTandheelkundeRoute: EsthetischeTandheelkundeRoute,
   GeneralDentalCareRoute: GeneralDentalCareRoute,
+  ImplantologieRoute: ImplantologieRoute,
+  KindertandheelkundeRoute: KindertandheelkundeRoute,
   LoginRoute: LoginRoute,
   OverOnsRoute: OverOnsRoute,
   ProthesesRoute: ProthesesRoute,
