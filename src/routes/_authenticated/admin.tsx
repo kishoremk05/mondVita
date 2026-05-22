@@ -126,6 +126,7 @@ const IMAGE_CONFIGS = [
   { key: "images.about_bg", label: "Over Ons Banner", defaultAsset: "/src/assets/about-clinic.png", description: "De banner achtergrond bovenaan de 'Over ons' pagina." },
   { key: "images.about_floating", label: "Over Ons Collage Foto", defaultAsset: "/src/assets/about-clinic.png", description: "De zwevende ingelijste foto aan de rechterkant van de 'Over ons' pagina." },
   { key: "images.contact_bg", label: "Contact Banner", defaultAsset: "/src/assets/contact-desk.png", description: "De banner achtergrond bovenaan de contactpagina." },
+  { key: "images.map_bg", label: "Contact Kaart Afbeelding", defaultAsset: "/src/assets/new client images/address image.png", description: "De kaartafbeelding die wordt weergegeven in de locatiesectie op de contactpagina." },
   { key: "images.treatments_bg", label: "Behandelingen Banner", defaultAsset: "/src/assets/svc-mondzorg.jpg", description: "De banner achtergrond bovenaan de behandelingenpagina." },
   { key: "images.protheses_bg", label: "Protheses Banner", defaultAsset: "/src/assets/svc-prothese.jpg", description: "De banner achtergrond bovenaan de prothesespagina." },
   { key: "images.services_mondzorg", label: "Diensten Card: Algemene Mondzorg", defaultAsset: "/src/assets/svc-mondzorg.jpg", description: "De vierkante foto op de homepage dienstkaart voor algemene mondzorg." },

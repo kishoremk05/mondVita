@@ -4,19 +4,13 @@ import { resources, type Locale } from "./locales";
 
 const STORAGE_KEY = "mondvita-locale";
 
-function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "nl";
-  const documentLocale = document.documentElement.lang as Locale | null;
-  if (documentLocale && ["nl", "en", "ar"].includes(documentLocale)) return documentLocale;
-  const stored = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
-  if (stored && ["nl", "en", "ar"].includes(stored)) return stored;
-  return "nl";
-}
-
+// Always start with 'nl' to match SSR-rendered HTML.
+// The locale switch from localStorage is deferred to a client-side
+// useEffect in RootComponent after hydration, preventing mismatches.
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     resources,
-    lng: getInitialLocale(),
+    lng: "nl",
     fallbackLng: "nl",
     interpolation: { escapeValue: false },
   });

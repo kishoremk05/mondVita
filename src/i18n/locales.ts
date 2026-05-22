@@ -73,7 +73,7 @@ export const resources = {
         knmt_label: "Officiële KNMT Tarieven",
         knmt_desc: "Wilt u een overzicht van alle prestatiecodes en bijbehorende tarieven? Bekijk de actuele prijslijst op de website van de Koninklijke Nederlandse Maatschappij tot bevordering der Tandheelkunde (KNMT).",
         knmt_cta: "Bekijk KNMT Tarieven",
-        knmt_url: "https://www.knmt.nl/tarieven",
+        knmt_url: "/44762.pdf",
         page_desc: "Informatie over NZa-tarieven, facturering via Infomedics en vergoedingen van tandzorg.",
       },
       protheses: {
@@ -252,7 +252,7 @@ export const resources = {
         knmt_label: "Official KNMT Rates",
         knmt_desc: "Would you like an overview of all treatment codes and corresponding rates? View the current price list on the website of the Royal Dutch Dental Association (KNMT).",
         knmt_cta: "View KNMT Rates",
-        knmt_url: "https://www.knmt.nl/tarieven",
+        knmt_url: "/44762.pdf",
         page_desc: "Information about NZa rates, invoicing via Infomedics, and dental care reimbursements.",
       },
       protheses: {
@@ -420,7 +420,7 @@ export const resources = {
         knmt_label: "أسعار KNMT الرسمية",
         knmt_desc: "هل ترغب في الحصول على نظرة عامة على جميع رموز العلاج والأسعار المقابلة لها؟ اعرض قائمة الأسعار الحالية على موقع الجمعية الملكية الهولندية لطب الأسنان (KNMT).",
         knmt_cta: "عرض أسعار KNMT",
-        knmt_url: "https://www.knmt.nl/tarieven",
+        knmt_url: "/44762.pdf",
         page_desc: "معلومات عن أسعار NZa، والفوترة عبر Infomedics، وتعويضات رعاية الأسنان.",
       },
       protheses: {

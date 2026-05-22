@@ -24,6 +24,7 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
     ],
     links: [
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -36,7 +37,9 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl">
+    // suppressHydrationWarning is needed because lang/dir attributes
+    // are updated client-side after hydration based on stored locale.
+    <html lang="nl" suppressHydrationWarning>
       <head><HeadContent /></head>
       <body>
         {children}
