@@ -4,6 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Instagram, MapPin, Phone, Mail } from "lucide-react";
 import { Logo } from "./Logo";
 import { fetchContact } from "@/lib/site-data";
+import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
+import imgAddress from "@/assets/new client images/address.png";
 
 function TiktokIcon({ className }: { className?: string }) {
   return (
@@ -15,7 +18,9 @@ function TiktokIcon({ className }: { className?: string }) {
 
 export function Footer() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const { data: contact } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
+  const footerLocationImg = useSiteImage("images.footer_location", imgAddress);
   const socials = contact?.socials ?? {};
   const declarationsLabel = t("footer.declarations");
   const hours = contact?.hours ?? {};
@@ -29,7 +34,7 @@ export function Footer() {
         <div className="space-y-4">
           <Logo className="text-white" />
           <p className="max-w-xs text-sm text-white/60 font-light leading-relaxed">
-            {t("footer.tagline")}
+            {c("footer.tagline")}
           </p>
           <div className="flex gap-2 pt-2">
             {[
@@ -84,6 +89,10 @@ export function Footer() {
               <span>{t("contact.email_v")}</span>
             </li>
           </ul>
+          {/* User Requested Static Location Image instead of live Google Map */}
+          <div className="mt-4 overflow-hidden rounded-xl border border-white/10 shadow-sm bg-white/5">
+            <img src={footerLocationImg} alt="MondVita Rotterdam Locatie" className="w-full h-auto object-cover" />
+          </div>
           <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/85 font-light">
             <p className="text-xs font-bold uppercase tracking-wider text-white">{t("generalCare.hours_title")}</p>
             <p className="mt-2 font-medium text-white">{t("generalCare.hours_day")}</p>
@@ -96,7 +105,7 @@ export function Footer() {
 
       {/* Bottom Copyright */}
       <div className="mx-auto mt-12 max-w-7xl border-t border-white/10 px-6 pt-6 text-center text-xs text-white/40 font-light">
-        © {new Date().getFullYear()} MondVita. {t("footer.rights")}.
+        © {new Date().getFullYear()} MondVita. {c("footer.rights")}.
       </div>
     </footer>
   );

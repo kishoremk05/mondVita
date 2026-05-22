@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ToothMark } from "@/components/site/Logo";
 import { Users, Sparkles, ArrowRight, Layers, Smile, Wrench } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import client images
 import imgAdultMatch from "@/assets/new client images/adult with teeth  match checking.png";
@@ -27,29 +28,30 @@ export const Route = createFileRoute("/protheses")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const prothesesBg = useSiteImage("images.protheses_bg", imgTeethCap1);
 
   const items = [
-    { t: t("protheses.p1_t"), d: t("protheses.p1_d"), Icon: Layers, img: imgAdultMatch },
-    { t: t("protheses.p2_t"), d: t("protheses.p2_d"), Icon: Smile, img: imgTeethCap },
-    { t: t("protheses.p3_t"), d: t("protheses.p3_d"), Icon: Sparkles, img: imgMenVisual },
-    { t: t("protheses.p4_t"), d: t("protheses.p4_d"), Icon: Wrench, img: imgClientXray },
+    { t: c("protheses.p1_t"), d: c("protheses.p1_d"), Icon: Layers, img: imgAdultMatch },
+    { t: c("protheses.p2_t"), d: c("protheses.p2_d"), Icon: Smile, img: imgTeethCap },
+    { t: c("protheses.p3_t"), d: c("protheses.p3_d"), Icon: Sparkles, img: imgMenVisual },
+    { t: c("protheses.p4_t"), d: c("protheses.p4_d"), Icon: Wrench, img: imgClientXray },
   ];
 
   return (
     <SiteShell>
       <PageHeader
-        title={t("protheses.title")}
-        intro={t("protheses.intro")}
+        title={c("protheses.title")}
+        intro={c("protheses.intro")}
         bgImage={prothesesBg}
       >
         {/* Floating Glassmorphic Repair Card on Header Right */}
         <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md shadow-xl max-w-sm md:ml-auto animate-fade-up">
           <h4 className="font-display font-bold text-lg text-white uppercase tracking-wider">
-            {t("protheses.repair_title")}
+            {c("protheses.repair_title")}
           </h4>
           <p className="mt-2 text-sm text-white/80 leading-relaxed font-light">
-            {t("protheses.repair_text")}
+            {c("protheses.repair_text")}
           </p>
           <Link
             to="/contact"
@@ -109,10 +111,10 @@ function Page() {
             <div className="absolute top-0 start-0 w-[4px] h-full bg-primary" />
 
             <h3 className="font-display text-xl font-bold text-primary tracking-tight uppercase">
-              {t("protheses.side_title")}
+              {c("protheses.side_title")}
             </h3>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("protheses.side_text")}
+              {c("protheses.side_text")}
             </p>
             <Link
               to="/afspraak"
@@ -128,9 +130,9 @@ function Page() {
       <section className="bg-primary py-12 text-primary-foreground border-t border-border/10">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-3">
           {[
-            { Icon: ToothMark, t: t("protheses.b1_t"), d: t("protheses.b1_d") },
-            { Icon: Sparkles, t: t("protheses.b2_t"), d: t("protheses.b2_d") },
-            { Icon: Users, t: t("protheses.b3_t"), d: t("protheses.b3_d") },
+            { Icon: ToothMark, t: c("protheses.b1_t"), d: c("protheses.b1_d") },
+            { Icon: Sparkles, t: c("protheses.b2_t"), d: c("protheses.b2_d") },
+            { Icon: Users, t: c("protheses.b3_t"), d: c("protheses.b3_d") },
           ].map(({ Icon, t: title, d }) => (
             <div key={title} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">

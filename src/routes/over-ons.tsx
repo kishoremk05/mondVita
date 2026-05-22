@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { CalendarDays } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import { PartnerBand } from "@/components/site/PartnerBand";
 
 // Import client images
@@ -24,14 +25,15 @@ export const Route = createFileRoute("/over-ons")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const aboutBg = useSiteImage("images.about_bg", imgSetupPlace);
   const aboutFloating = useSiteImage("images.about_floating", imgDesktopTable);
 
   return (
     <SiteShell>
       <PageHeader
-        title={t("over.title")}
-        intro={t("over.intro")}
+        title={c("over.title")}
+        intro={c("over.intro")}
         bgImage={aboutBg}
       />
 
@@ -46,8 +48,8 @@ function Page() {
               {t("over.sub")}
             </h2>
             <div className="space-y-4 text-sm text-foreground/80 leading-relaxed font-light">
-              <p>{t("over.p1")}</p>
-              <p>{t("over.p2")}</p>
+              <p>{c("over.p1")}</p>
+              <p>{c("over.p2")}</p>
             </div>
             <div className="pt-4">
               <Link

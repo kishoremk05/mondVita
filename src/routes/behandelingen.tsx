@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ToothMark } from "@/components/site/Logo";
 import { ArrowRight, Layers, Smile, Sparkles, Activity, Heart } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import client images
 import imgDoctorExplaining from "@/assets/new client images/doctor explaining teeth to patient.png";
@@ -29,6 +30,7 @@ export const Route = createFileRoute("/behandelingen")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const treatmentsBg = useSiteImage("images.treatments_bg", imgDesktopTable);
 
   const getDetails = (key: string): string[] => {
@@ -38,56 +40,56 @@ function Page() {
 
   const items = [
     {
-      t: t("svc.mondzorg"),
-      d: t("svc.mondzorg_d"),
+      t: c("svc.mondzorg"),
+      d: c("svc.mondzorg_d"),
       Icon: ToothMark,
       img: imgDoctorExplaining,
-      note: t("svc.mondzorg_n"),
+      note: c("svc.mondzorg_n"),
       details: getDetails("svc.mondzorg_det"),
       link: "/general-dental-care",
     },
     {
-      t: t("svc.implant"),
-      d: t("svc.implant_d"),
+      t: c("svc.implant"),
+      d: c("svc.implant_d"),
       Icon: Layers,
       img: imgTeeth,
-      note: t("svc.implant_n"),
+      note: c("svc.implant_n"),
       details: getDetails("svc.implant_det"),
       link: "/implantologie",
     },
     {
-      t: t("svc.prothese"),
-      d: t("svc.prothese_d"),
+      t: c("svc.prothese"),
+      d: c("svc.prothese_d"),
       Icon: Smile,
       img: imgTeethCap,
-      note: t("svc.prothese_n"),
+      note: c("svc.prothese_n"),
       details: getDetails("svc.prothese_det"),
       link: "/protheses",
     },
     {
-      t: t("svc.esth"),
-      d: t("svc.esth_d"),
+      t: c("svc.esth"),
+      d: c("svc.esth_d"),
       Icon: Sparkles,
       img: imgUvLight,
-      note: t("svc.esth_n"),
+      note: c("svc.esth_n"),
       details: getDetails("svc.esth_det"),
       link: "/esthetische-tandheelkunde",
     },
     {
-      t: t("svc.wortel"),
-      d: t("svc.wortel_d"),
+      t: c("svc.wortel"),
+      d: c("svc.wortel_d"),
       Icon: Activity,
       img: imgTools,
-      note: t("svc.wortel_n"),
+      note: c("svc.wortel_n"),
       details: getDetails("svc.wortel_det"),
       link: "/wortelkanaalbehandeling",
     },
     {
-      t: t("svc.kinder"),
-      d: t("svc.kinder_d"),
+      t: c("svc.kinder"),
+      d: c("svc.kinder_d"),
       Icon: Heart,
       img: imgChild,
-      note: t("svc.kinder_n"),
+      note: c("svc.kinder_n"),
       details: getDetails("svc.kinder_det"),
       link: "/kindertandheelkunde",
     },
@@ -96,8 +98,8 @@ function Page() {
   return (
     <SiteShell>
       <PageHeader
-        title={t("behandelingen.title")}
-        intro={t("behandelingen.intro")}
+        title={c("behandelingen.title")}
+        intro={c("behandelingen.intro")}
         bgImage={treatmentsBg}
       />
 

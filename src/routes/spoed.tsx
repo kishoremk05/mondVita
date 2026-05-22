@@ -4,6 +4,8 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Globe, Phone, Clock } from "lucide-react";
 import imgSpoe1 from "@/assets/new client images/spoe 1.png";
+import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export const Route = createFileRoute("/spoed")({
   head: () => ({
@@ -19,12 +21,14 @@ export const Route = createFileRoute("/spoed")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
+  const spoedBg = useSiteImage("images.spoed_bg", imgSpoe1);
   return (
     <SiteShell>
       <PageHeader
-        title={t("spoed.title")}
-        intro={t("spoed.intro")}
-        bgImage={imgSpoe1}
+        title={c("spoed.title")}
+        intro={c("spoed.intro")}
+        bgImage={spoedBg}
       />
 
       <section className="bg-white py-20">
@@ -38,9 +42,9 @@ function Page() {
               {t("spoed.emergency_q")}
             </h2>
             <div className="space-y-4 text-sm text-foreground/80 leading-relaxed font-light">
-              <p className="border-l-2 border-brand-accent pl-4 py-0.5">{t("spoed.p1")}</p>
-              <p className="border-l-2 border-brand-accent pl-4 py-0.5">{t("spoed.p2")}</p>
-              <p className="border-l-2 border-brand-accent pl-4 py-0.5">{t("spoed.p3")}</p>
+              <p className="border-l-2 border-brand-accent pl-4 py-0.5">{c("spoed.p1")}</p>
+              <p className="border-l-2 border-brand-accent pl-4 py-0.5">{c("spoed.p2")}</p>
+              <p className="border-l-2 border-brand-accent pl-4 py-0.5">{c("spoed.p3")}</p>
             </div>
 
             {/* Dental365 Bold Callout Card */}
@@ -51,7 +55,7 @@ function Page() {
                 </div>
                 <div className="space-y-1.5">
                   <p className="font-display text-sm font-bold text-primary uppercase tracking-wider">
-                    {t("spoed.card_title")}
+                    {c("spoed.card_title")}
                   </p>
                   <a
                     href="tel:09001515"
@@ -60,7 +64,7 @@ function Page() {
                     0900 - 1515
                   </a>
                   <p className="text-xs text-muted-foreground font-light leading-relaxed">
-                    {t("spoed.card_sub")}
+                    {c("spoed.card_sub")}
                   </p>
                 </div>
               </div>
@@ -72,7 +76,7 @@ function Page() {
                   className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-xs font-bold uppercase tracking-widest text-primary-foreground shadow transition hover:bg-primary/95"
                 >
                   <Globe className="h-4 w-4 text-brand-accent" />
-                  {t("spoed.card_btn")}
+                  {c("spoed.card_btn")}
                 </a>
               </div>
             </div>

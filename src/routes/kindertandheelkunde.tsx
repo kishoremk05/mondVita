@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ToothMark } from "@/components/site/Logo";
 import { Heart, ArrowRight, Smile, Sparkles, Shield, Gift } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import client images
 import imgChild from "@/assets/new client images/child in dental office.png";
@@ -26,29 +27,30 @@ export const Route = createFileRoute("/kindertandheelkunde")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const kinderBg = useSiteImage("images.kinder_bg", imgChild);
 
   const items = [
-    { t: t("kinderCare.p1_t"), d: t("kinderCare.p1_d"), Icon: Gift, img: imgChild },
-    { t: t("kinderCare.p2_t"), d: t("kinderCare.p2_d"), Icon: Shield, img: imgExplain },
-    { t: t("kinderCare.p3_t"), d: t("kinderCare.p3_d"), Icon: Sparkles, img: imgSetup },
-    { t: t("kinderCare.p4_t"), d: t("kinderCare.p4_d"), Icon: Smile, img: imgAdultMatch },
+    { t: c("kinderCare.p1_t"), d: c("kinderCare.p1_d"), Icon: Gift, img: imgChild },
+    { t: c("kinderCare.p2_t"), d: c("kinderCare.p2_d"), Icon: Shield, img: imgExplain },
+    { t: c("kinderCare.p3_t"), d: c("kinderCare.p3_d"), Icon: Sparkles, img: imgSetup },
+    { t: c("kinderCare.p4_t"), d: c("kinderCare.p4_d"), Icon: Smile, img: imgAdultMatch },
   ];
 
   return (
     <SiteShell>
       <PageHeader
-        title={t("kinderCare.title")}
-        intro={t("kinderCare.intro")}
+        title={c("kinderCare.title")}
+        intro={c("kinderCare.intro")}
         bgImage={kinderBg}
       >
         {/* Floating Glassmorphic Kids Card on Header Right */}
         <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md shadow-xl max-w-sm md:ml-auto animate-fade-up">
           <h4 className="font-display font-bold text-lg text-white uppercase tracking-wider">
-            {t("kinderCare.side_title")}
+            {c("kinderCare.side_title")}
           </h4>
           <p className="mt-2 text-sm text-white/80 leading-relaxed font-light">
-            {t("kinderCare.side_text")}
+            {c("kinderCare.side_text")}
           </p>
           <Link
             to="/contact"
@@ -108,13 +110,13 @@ function Page() {
             <div className="absolute top-0 start-0 w-[4px] h-full bg-primary" />
 
             <h3 className="font-display text-xl font-bold text-primary tracking-tight uppercase">
-              {t("kinderCare.title")}
+              {c("kinderCare.title")}
             </h3>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("kinderCare.body1")}
+              {c("kinderCare.body1")}
             </p>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("kinderCare.body2")}
+              {c("kinderCare.body2")}
             </p>
             <Link
               to="/afspraak"
@@ -130,9 +132,9 @@ function Page() {
       <section className="bg-primary py-12 text-primary-foreground border-t border-border/10">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-3">
           {[
-            { Icon: Smile, t: t("kinderCare.b1_t"), d: t("kinderCare.b1_d") },
-            { Icon: Heart, t: t("kinderCare.b2_t"), d: t("kinderCare.b2_d") },
-            { Icon: Sparkles, t: t("kinderCare.b3_t"), d: t("kinderCare.b3_d") },
+            { Icon: Smile, t: c("kinderCare.b1_t"), d: c("kinderCare.b1_d") },
+            { Icon: Heart, t: c("kinderCare.b2_t"), d: c("kinderCare.b2_d") },
+            { Icon: Sparkles, t: c("kinderCare.b3_t"), d: c("kinderCare.b3_d") },
           ].map(({ Icon, t: title, d }) => (
             <div key={title} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">

@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ToothMark } from "@/components/site/Logo";
 import { Sparkles, ArrowRight, Smile, Heart, Shield } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import client images
 import imgUvLight from "@/assets/new client images/doctor fixing the teeth using uv light.png";
@@ -26,29 +27,30 @@ export const Route = createFileRoute("/esthetische-tandheelkunde")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const esthBg = useSiteImage("images.esth_bg", imgUvLight);
 
   const items = [
-    { t: t("esthCare.p1_t"), d: t("esthCare.p1_d"), Icon: Sparkles, img: imgUvLight },
-    { t: t("esthCare.p2_t"), d: t("esthCare.p2_d"), Icon: Smile, img: imgTeethCap },
-    { t: t("esthCare.p3_t"), d: t("esthCare.p3_d"), Icon: Sparkles, img: imgTeethCap1 },
-    { t: t("esthCare.p4_t"), d: t("esthCare.p4_d"), Icon: Smile, img: imgMenVisual },
+    { t: c("esthCare.p1_t"), d: c("esthCare.p1_d"), Icon: Sparkles, img: imgUvLight },
+    { t: c("esthCare.p2_t"), d: c("esthCare.p2_d"), Icon: Smile, img: imgTeethCap },
+    { t: c("esthCare.p3_t"), d: c("esthCare.p3_d"), Icon: Sparkles, img: imgTeethCap1 },
+    { t: c("esthCare.p4_t"), d: c("esthCare.p4_d"), Icon: Smile, img: imgMenVisual },
   ];
 
   return (
     <SiteShell>
       <PageHeader
-        title={t("esthCare.title")}
-        intro={t("esthCare.intro")}
+        title={c("esthCare.title")}
+        intro={c("esthCare.intro")}
         bgImage={esthBg}
       >
         {/* Floating Glassmorphic Repair Card on Header Right */}
         <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md shadow-xl max-w-sm md:ml-auto animate-fade-up">
           <h4 className="font-display font-bold text-lg text-white uppercase tracking-wider">
-            {t("esthCare.side_title")}
+            {c("esthCare.side_title")}
           </h4>
           <p className="mt-2 text-sm text-white/80 leading-relaxed font-light">
-            {t("esthCare.side_text")}
+            {c("esthCare.side_text")}
           </p>
           <Link
             to="/contact"
@@ -108,13 +110,13 @@ function Page() {
             <div className="absolute top-0 start-0 w-[4px] h-full bg-primary" />
 
             <h3 className="font-display text-xl font-bold text-primary tracking-tight uppercase">
-              {t("esthCare.title")}
+              {c("esthCare.title")}
             </h3>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("esthCare.body1")}
+              {c("esthCare.body1")}
             </p>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("esthCare.body2")}
+              {c("esthCare.body2")}
             </p>
             <Link
               to="/afspraak"
@@ -130,9 +132,9 @@ function Page() {
       <section className="bg-primary py-12 text-primary-foreground border-t border-border/10">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-3">
           {[
-            { Icon: Shield, t: t("esthCare.b1_t"), d: t("esthCare.b1_d") },
-            { Icon: Sparkles, t: t("esthCare.b2_t"), d: t("esthCare.b2_d") },
-            { Icon: Heart, t: t("esthCare.b3_t"), d: t("esthCare.b3_d") },
+            { Icon: Shield, t: c("esthCare.b1_t"), d: c("esthCare.b1_d") },
+            { Icon: Sparkles, t: c("esthCare.b2_t"), d: c("esthCare.b2_d") },
+            { Icon: Heart, t: c("esthCare.b3_t"), d: c("esthCare.b3_d") },
           ].map(({ Icon, t: title, d }) => (
             <div key={title} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">

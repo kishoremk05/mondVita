@@ -2,14 +2,16 @@ import { useTranslation } from "react-i18next";
 import type { LucideIcon } from "lucide-react";
 import { Calendar, Users, Smile } from "lucide-react";
 import { ToothMark } from "./Logo";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export function Features() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const items: { Icon: LucideIcon | typeof ToothMark; t: string; d: string }[] = [
-    { Icon: ToothMark, t: t("features.f1_t"), d: t("features.f1_d") },
-    { Icon: Calendar, t: t("features.f2_t"), d: t("features.f2_d") },
-    { Icon: Users, t: t("features.f3_t"), d: t("features.f3_d") },
-    { Icon: Smile, t: t("features.f4_t"), d: t("features.f4_d") },
+    { Icon: ToothMark, t: c("features.f1_t"), d: c("features.f1_d") },
+    { Icon: Calendar, t: c("features.f2_t"), d: c("features.f2_d") },
+    { Icon: Users, t: c("features.f3_t"), d: c("features.f3_d") },
+    { Icon: Smile, t: c("features.f4_t"), d: c("features.f4_d") },
   ];
 
   return (

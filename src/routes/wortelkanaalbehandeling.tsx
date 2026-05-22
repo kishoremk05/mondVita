@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ToothMark } from "@/components/site/Logo";
 import { Activity, ArrowRight, Shield, Heart, Sparkles, Smile } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import client images
 import imgTools from "@/assets/new client images/doctor fixing the teeth using tools.png";
@@ -26,29 +27,30 @@ export const Route = createFileRoute("/wortelkanaalbehandeling")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const rootCanalBg = useSiteImage("images.root_canal_bg", imgTools);
 
   const items = [
-    { t: t("wortelCare.p1_t"), d: t("wortelCare.p1_d"), Icon: Sparkles, img: imgDoctorExplaining },
-    { t: t("wortelCare.p2_t"), d: t("wortelCare.p2_d"), Icon: Shield, img: imgSetup },
-    { t: t("wortelCare.p3_t"), d: t("wortelCare.p3_d"), Icon: Smile, img: imgAdultMatch },
-    { t: t("wortelCare.p4_t"), d: t("wortelCare.p4_d"), Icon: Activity, img: imgTools },
+    { t: c("wortelCare.p1_t"), d: c("wortelCare.p1_d"), Icon: Sparkles, img: imgDoctorExplaining },
+    { t: c("wortelCare.p2_t"), d: c("wortelCare.p2_d"), Icon: Shield, img: imgSetup },
+    { t: c("wortelCare.p3_t"), d: c("wortelCare.p3_d"), Icon: Smile, img: imgAdultMatch },
+    { t: c("wortelCare.p4_t"), d: c("wortelCare.p4_d"), Icon: Activity, img: imgTools },
   ];
 
   return (
     <SiteShell>
       <PageHeader
-        title={t("wortelCare.title")}
-        intro={t("wortelCare.intro")}
+        title={c("wortelCare.title")}
+        intro={c("wortelCare.intro")}
         bgImage={rootCanalBg}
       >
         {/* Floating Glassmorphic Card on Header Right */}
         <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md shadow-xl max-w-sm md:ml-auto animate-fade-up">
           <h4 className="font-display font-bold text-lg text-white uppercase tracking-wider">
-            {t("wortelCare.side_title")}
+            {c("wortelCare.side_title")}
           </h4>
           <p className="mt-2 text-sm text-white/80 leading-relaxed font-light">
-            {t("wortelCare.side_text")}
+            {c("wortelCare.side_text")}
           </p>
           <Link
             to="/contact"
@@ -108,13 +110,13 @@ function Page() {
             <div className="absolute top-0 start-0 w-[4px] h-full bg-primary" />
 
             <h3 className="font-display text-xl font-bold text-primary tracking-tight uppercase">
-              {t("wortelCare.title")}
+              {c("wortelCare.title")}
             </h3>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("wortelCare.body1")}
+              {c("wortelCare.body1")}
             </p>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("wortelCare.body2")}
+              {c("wortelCare.body2")}
             </p>
             <Link
               to="/afspraak"
@@ -130,9 +132,9 @@ function Page() {
       <section className="bg-primary py-12 text-primary-foreground border-t border-border/10">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-3">
           {[
-            { Icon: Heart, t: t("wortelCare.b1_t"), d: t("wortelCare.b1_d") },
-            { Icon: Shield, t: t("wortelCare.b2_t"), d: t("wortelCare.b2_d") },
-            { Icon: Activity, t: t("wortelCare.b3_t"), d: t("wortelCare.b3_d") },
+            { Icon: Heart, t: c("wortelCare.b1_t"), d: c("wortelCare.b1_d") },
+            { Icon: Shield, t: c("wortelCare.b2_t"), d: c("wortelCare.b2_d") },
+            { Icon: Activity, t: c("wortelCare.b3_t"), d: c("wortelCare.b3_d") },
           ].map(({ Icon, t: title, d }) => (
             <div key={title} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">

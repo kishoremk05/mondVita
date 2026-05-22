@@ -4,9 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import imgAddress from "@/assets/new client images/address image.png";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import { fetchContact } from "@/lib/site-data";
+import imgAddress from "@/assets/new client images/address.png";
 
 function normalizeHours(hours: Record<string, string> | undefined) {
   return {
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/contact")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const { data: contact } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
   const contactBg = useSiteImage("images.contact_bg", imgAddress);
   const mapImg = useSiteImage("images.map_bg", imgAddress);
@@ -39,8 +41,8 @@ function Page() {
   return (
     <SiteShell>
       <PageHeader
-        title={t("contact.title")}
-        intro={t("contact.intro")}
+        title={c("contact.title")}
+        intro={c("contact.intro")}
         bgImage={contactBg}
       />
 
@@ -50,10 +52,10 @@ function Page() {
           {/* Left Column: Coordinates */}
           <div className="space-y-6 animate-fade-up">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// {t("contact.badge")}
+              /// {c("contact.badge")}
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
-              {t("contact.sub")}
+              {c("contact.sub")}
             </h2>
             <ul className="space-y-6 pt-2">
               {[
@@ -156,13 +158,13 @@ function Page() {
 
           <div className="space-y-4 rounded-3xl border border-border/80 bg-white p-8 shadow-sm">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// {t("contact.sub")}
+              /// {c("contact.sub")}
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
-              {t("contact.title")}
+              {c("contact.title")}
             </h2>
             <p className="text-sm leading-relaxed text-muted-foreground font-light">
-              {t("contact.intro")}
+              {c("contact.intro")}
             </p>
             <div className="rounded-2xl bg-secondary/40 p-5">
               <p className="text-xs font-bold uppercase tracking-wider text-primary">{t("contact.hours")}</p>

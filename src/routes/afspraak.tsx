@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { Check } from "lucide-react";
 import imgSetupPlace from "@/assets/new client images/dental setup place.png";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export const Route = createFileRoute("/afspraak")({
   head: () => ({
@@ -20,13 +21,14 @@ export const Route = createFileRoute("/afspraak")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const appointmentBg = useSiteImage("images.appointment_bg", imgSetupPlace);
 
   return (
     <SiteShell>
       <PageHeader
-        title={t("afspraak.title")}
-        intro={t("afspraak.intro")}
+        title={c("afspraak.title")}
+        intro={c("afspraak.intro")}
         bgImage={appointmentBg}
       />
 
@@ -38,13 +40,13 @@ function Page() {
               /// {t("afspraak.badge")}
             </div>
             <h2 className="font-display text-3xl font-extrabold text-primary uppercase tracking-tight">
-              {t("afspraak.sub")}
+              {c("afspraak.sub")}
             </h2>
             <p className="text-muted-foreground leading-relaxed font-light text-base max-w-lg">
-              {t("afspraak.desc")}
+              {c("afspraak.desc")}
             </p>
             <ul className="space-y-4 pt-2">
-              {[t("afspraak.b1"), t("afspraak.b2"), t("afspraak.b3")].map((b) => (
+              {[c("afspraak.b1"), c("afspraak.b2"), c("afspraak.b3")].map((b) => (
                 <li key={b} className="flex items-start gap-3.5 text-foreground">
                   <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
@@ -63,10 +65,10 @@ function Page() {
                 {t("afspraak.opt1")}
               </span>
               <h3 className="font-display text-xl font-bold text-primary uppercase mt-1 tracking-tight">
-                {t("afspraak.opt1_t")}
+                {c("afspraak.opt1_t")}
               </h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-                {t("afspraak.opt1_d")}
+                {c("afspraak.opt1_d")}
               </p>
               <div className="mt-6">
                 <a
@@ -75,7 +77,7 @@ function Page() {
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-xs font-bold uppercase tracking-widest text-primary-foreground shadow transition duration-200 hover:bg-primary/95 active:scale-[0.98]"
                 >
-                  {t("afspraak.opt1_btn")}
+                  {c("afspraak.opt1_btn")}
                 </a>
               </div>
             </div>
@@ -86,10 +88,10 @@ function Page() {
                 {t("afspraak.opt2")}
               </span>
               <h3 className="font-display text-xl font-bold text-primary uppercase mt-1 tracking-tight">
-                {t("afspraak.opt2_t")}
+                {c("afspraak.opt2_t")}
               </h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-                {t("afspraak.opt2_d")}
+                {c("afspraak.opt2_d")}
               </p>
               <div className="mt-6">
                 <a
@@ -98,7 +100,7 @@ function Page() {
                   rel="noopener noreferrer"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary/45 bg-white py-4 text-xs font-bold uppercase tracking-widest text-primary transition duration-200 hover:bg-secondary active:scale-[0.98]"
                 >
-                  {t("afspraak.opt2_btn")}
+                  {c("afspraak.opt2_btn")}
                 </a>
               </div>
             </div>

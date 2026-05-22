@@ -3,9 +3,11 @@ import { Link } from "@tanstack/react-router";
 import { CalendarDays, ArrowRight } from "lucide-react";
 import imgInterior from "@/assets/new client images/dental setup place.png";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export function Hero() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const heroBg = useSiteImage("images.hero_bg", imgInterior);
 
   return (
@@ -35,21 +37,21 @@ export function Hero() {
         <div className="max-w-2xl space-y-6 md:space-y-8 animate-fade-up">
           {/* Micro-badge accent */}
           <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary backdrop-blur-sm">
-            {t("hero.badge")}
+            {c("hero.badge")}
           </div>
 
           {/* Heading using Outfit Display typography */}
           <h1 className="font-display text-5xl font-extrabold leading-[1.08] text-primary sm:text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase">
-            <span>{t("hero.title_1")}</span>
+            <span>{c("hero.title_1")}</span>
             <br />
             <span className="text-brand-accent drop-shadow-[0_2px_10px_rgba(12,35,64,0.05)]">
-              {t("hero.title_2")}
+              {c("hero.title_2")}
             </span>
           </h1>
 
           {/* Luxury font-light description */}
           <p className="max-w-lg text-base text-primary/80 sm:text-lg md:text-xl font-light leading-relaxed">
-            {t("hero.subtitle")}
+            {c("hero.subtitle")}
           </p>
 
           {/* Action CTAs */}
@@ -66,7 +68,7 @@ export function Hero() {
               className="group inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition duration-200"
             >
               <span className="relative py-0.5 after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-0 after:bg-primary after:transition-all group-hover:after:w-full">
-                {t("hero.cta_more")}
+                {c("hero.cta_more")}
               </span>
               <ArrowRight className="h-4.5 w-4.5 transition group-hover:translate-x-1.5 rtl:rotate-180 rtl:group-hover:-translate-x-1.5" />
             </Link>

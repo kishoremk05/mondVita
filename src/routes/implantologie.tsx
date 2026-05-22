@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ToothMark } from "@/components/site/Logo";
 import { Layers, ArrowRight, Shield, Smile, Activity, Heart } from "lucide-react";
 import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import client images
 import imgTeeth from "@/assets/new client images/teeth.png";
@@ -27,29 +28,30 @@ export const Route = createFileRoute("/implantologie")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const implantBg = useSiteImage("images.implant_bg", imgTeeth);
 
   const items = [
-    { t: t("implantCare.p1_t"), d: t("implantCare.p1_d"), Icon: Layers, img: imgAdultMatch },
-    { t: t("implantCare.p2_t"), d: t("implantCare.p2_d"), Icon: Shield, img: imgSetup },
-    { t: t("implantCare.p3_t"), d: t("implantCare.p3_d"), Icon: Smile, img: imgExplain },
-    { t: t("implantCare.p4_t"), d: t("implantCare.p4_d"), Icon: Activity, img: imgClientXray },
+    { t: c("implantCare.p1_t"), d: c("implantCare.p1_d"), Icon: Layers, img: imgAdultMatch },
+    { t: c("implantCare.p2_t"), d: c("implantCare.p2_d"), Icon: Shield, img: imgSetup },
+    { t: c("implantCare.p3_t"), d: c("implantCare.p3_d"), Icon: Smile, img: imgExplain },
+    { t: c("implantCare.p4_t"), d: c("implantCare.p4_d"), Icon: Activity, img: imgClientXray },
   ];
 
   return (
     <SiteShell>
       <PageHeader
-        title={t("implantCare.title")}
-        intro={t("implantCare.intro")}
+        title={c("implantCare.title")}
+        intro={c("implantCare.intro")}
         bgImage={implantBg}
       >
         {/* Floating Glassmorphic Implant Card on Header Right */}
         <div className="overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md shadow-xl max-w-sm md:ml-auto animate-fade-up">
           <h4 className="font-display font-bold text-lg text-white uppercase tracking-wider">
-            {t("implantCare.side_title")}
+            {c("implantCare.side_title")}
           </h4>
           <p className="mt-2 text-sm text-white/80 leading-relaxed font-light">
-            {t("implantCare.side_text")}
+            {c("implantCare.side_text")}
           </p>
           <Link
             to="/contact"
@@ -109,13 +111,13 @@ function Page() {
             <div className="absolute top-0 start-0 w-[4px] h-full bg-primary" />
 
             <h3 className="font-display text-xl font-bold text-primary tracking-tight uppercase">
-              {t("implantCare.title")}
+              {c("implantCare.title")}
             </h3>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("implantCare.body1")}
+              {c("implantCare.body1")}
             </p>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-light">
-              {t("implantCare.body2")}
+              {c("implantCare.body2")}
             </p>
             <Link
               to="/afspraak"
@@ -131,9 +133,9 @@ function Page() {
       <section className="bg-primary py-12 text-primary-foreground border-t border-border/10">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-3">
           {[
-            { Icon: Heart, t: t("implantCare.b1_t"), d: t("implantCare.b1_d") },
-            { Icon: Shield, t: t("implantCare.b2_t"), d: t("implantCare.b2_d") },
-            { Icon: Activity, t: t("implantCare.b3_t"), d: t("implantCare.b3_d") },
+            { Icon: Heart, t: c("implantCare.b1_t"), d: c("implantCare.b1_d") },
+            { Icon: Shield, t: c("implantCare.b2_t"), d: c("implantCare.b2_d") },
+            { Icon: Activity, t: c("implantCare.b3_t"), d: c("implantCare.b3_d") },
           ].map(({ Icon, t: title, d }) => (
             <div key={title} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">

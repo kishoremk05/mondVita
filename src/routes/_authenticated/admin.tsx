@@ -43,6 +43,30 @@ const PAGE_GROUPS = [
     ]
   },
   {
+    id: "behandelingen_svc",
+    name: "Behandelingen (Dienstbeschrijvingen)",
+    keys: [
+      "svc.mondzorg",
+      "svc.mondzorg_d",
+      "svc.mondzorg_n",
+      "svc.implant",
+      "svc.implant_d",
+      "svc.implant_n",
+      "svc.prothese",
+      "svc.prothese_d",
+      "svc.prothese_n",
+      "svc.esth",
+      "svc.esth_d",
+      "svc.esth_n",
+      "svc.wortel",
+      "svc.wortel_d",
+      "svc.wortel_n",
+      "svc.kinder",
+      "svc.kinder_d",
+      "svc.kinder_n"
+    ]
+  },
+  {
     id: "general_care",
     name: "Algemene Mondzorg Pagina",
     keys: [
@@ -57,7 +81,13 @@ const PAGE_GROUPS = [
       "generalCare.hours_afternoon",
       "generalCare.cta_declaraties",
       "generalCare.partner_title",
-      "generalCare.map_title"
+      "generalCare.map_title",
+      "generalCare.item1_t",
+      "generalCare.item1_d",
+      "generalCare.item2_t",
+      "generalCare.item2_d",
+      "generalCare.item3_t",
+      "generalCare.item3_d"
     ]
   },
   {
@@ -98,23 +128,172 @@ const PAGE_GROUPS = [
     ]
   },
   {
+    id: "implantologie",
+    name: "Implantologie Pagina",
+    keys: [
+      "implantCare.title",
+      "implantCare.intro",
+      "implantCare.body1",
+      "implantCare.body2",
+      "implantCare.side_title",
+      "implantCare.side_text",
+      "implantCare.p1_t",
+      "implantCare.p1_d",
+      "implantCare.p2_t",
+      "implantCare.p2_d",
+      "implantCare.p3_t",
+      "implantCare.p3_d",
+      "implantCare.p4_t",
+      "implantCare.p4_d",
+      "implantCare.b1_t",
+      "implantCare.b1_d",
+      "implantCare.b2_t",
+      "implantCare.b2_d",
+      "implantCare.b3_t",
+      "implantCare.b3_d"
+    ]
+  },
+  {
+    id: "esthetische",
+    name: "Esthetische Tandheelkunde Pagina",
+    keys: [
+      "esthCare.title",
+      "esthCare.intro",
+      "esthCare.body1",
+      "esthCare.body2",
+      "esthCare.side_title",
+      "esthCare.side_text",
+      "esthCare.p1_t",
+      "esthCare.p1_d",
+      "esthCare.p2_t",
+      "esthCare.p2_d",
+      "esthCare.p3_t",
+      "esthCare.p3_d",
+      "esthCare.p4_t",
+      "esthCare.p4_d",
+      "esthCare.b1_t",
+      "esthCare.b1_d",
+      "esthCare.b2_t",
+      "esthCare.b2_d",
+      "esthCare.b3_t",
+      "esthCare.b3_d"
+    ]
+  },
+  {
+    id: "wortelkanaal",
+    name: "Wortelkanaalbehandeling Pagina",
+    keys: [
+      "wortelCare.title",
+      "wortelCare.intro",
+      "wortelCare.body1",
+      "wortelCare.body2",
+      "wortelCare.side_title",
+      "wortelCare.side_text",
+      "wortelCare.p1_t",
+      "wortelCare.p1_d",
+      "wortelCare.p2_t",
+      "wortelCare.p2_d",
+      "wortelCare.p3_t",
+      "wortelCare.p3_d",
+      "wortelCare.p4_t",
+      "wortelCare.p4_d",
+      "wortelCare.b1_t",
+      "wortelCare.b1_d",
+      "wortelCare.b2_t",
+      "wortelCare.b2_d",
+      "wortelCare.b3_t",
+      "wortelCare.b3_d"
+    ]
+  },
+  {
+    id: "kindertandheelkunde",
+    name: "Kindertandheelkunde Pagina",
+    keys: [
+      "kinderCare.title",
+      "kinderCare.intro",
+      "kinderCare.body1",
+      "kinderCare.body2",
+      "kinderCare.side_title",
+      "kinderCare.side_text",
+      "kinderCare.p1_t",
+      "kinderCare.p1_d",
+      "kinderCare.p2_t",
+      "kinderCare.p2_d",
+      "kinderCare.p3_t",
+      "kinderCare.p3_d",
+      "kinderCare.p4_t",
+      "kinderCare.p4_d",
+      "kinderCare.b1_t",
+      "kinderCare.b1_d",
+      "kinderCare.b2_t",
+      "kinderCare.b2_d",
+      "kinderCare.b3_t",
+      "kinderCare.b3_d"
+    ]
+  },
+  {
+    id: "spoed",
+    name: "Spoed Pagina",
+    keys: [
+      "spoed.title",
+      "spoed.intro",
+      "spoed.p1",
+      "spoed.p2",
+      "spoed.p3",
+      "spoed.card_title",
+      "spoed.card_sub",
+      "spoed.card_btn"
+    ]
+  },
+  {
+    id: "reviews",
+    name: "Reviews Pagina",
+    keys: [
+      "reviews.title",
+      "reviews.intro",
+      "reviews.r1_q",
+      "reviews.r1_n",
+      "reviews.r2_q",
+      "reviews.r2_n",
+      "reviews.r3_q",
+      "reviews.r3_n"
+    ]
+  },
+  {
     id: "over_ons",
     name: "Over Ons Pagina",
     keys: [
       "over.title",
+      "over.intro",
       "over.p1",
       "over.p2",
       "over.cta"
     ]
   },
   {
-    id: "contact_booking_footer",
+    id: "afspraak",
+    name: "Afspraak Pagina",
+    keys: [
+      "afspraak.title",
+      "afspraak.intro",
+      "afspraak.desc",
+      "afspraak.b1",
+      "afspraak.b2",
+      "afspraak.b3",
+      "afspraak.opt1_t",
+      "afspraak.opt1_d",
+      "afspraak.opt1_btn",
+      "afspraak.opt2_t",
+      "afspraak.opt2_d",
+      "afspraak.opt2_btn"
+    ]
+  },
+  {
+    id: "contact_footer",
     name: "Contact, Afspraak & Footer",
     keys: [
       "contact.title",
       "contact.intro",
-      "afspraak.title",
-      "afspraak.intro",
       "footer.tagline",
       "footer.rights"
     ]
@@ -126,13 +305,22 @@ const IMAGE_CONFIGS = [
   { key: "images.about_bg", label: "Over Ons Banner", defaultAsset: "/src/assets/about-clinic.png", description: "De banner achtergrond bovenaan de 'Over ons' pagina." },
   { key: "images.about_floating", label: "Over Ons Collage Foto", defaultAsset: "/src/assets/about-clinic.png", description: "De zwevende ingelijste foto aan de rechterkant van de 'Over ons' pagina." },
   { key: "images.contact_bg", label: "Contact Banner", defaultAsset: "/src/assets/contact-desk.png", description: "De banner achtergrond bovenaan de contactpagina." },
-  { key: "images.map_bg", label: "Contact Kaart Afbeelding", defaultAsset: "/src/assets/new client images/address image.png", description: "De kaartafbeelding die wordt weergegeven in de locatiesectie op de contactpagina." },
+  { key: "images.map_bg", label: "Contact Kaart Afbeelding", defaultAsset: "/src/assets/new client images/address.png", description: "De kaartafbeelding die wordt weergegeven in de locatiesectie op de contactpagina." },
   { key: "images.treatments_bg", label: "Behandelingen Banner", defaultAsset: "/src/assets/svc-mondzorg.jpg", description: "De banner achtergrond bovenaan de behandelingenpagina." },
   { key: "images.protheses_bg", label: "Protheses Banner", defaultAsset: "/src/assets/svc-prothese.jpg", description: "De banner achtergrond bovenaan de prothesespagina." },
   { key: "images.services_mondzorg", label: "Diensten Card: Algemene Mondzorg", defaultAsset: "/src/assets/svc-mondzorg.jpg", description: "De vierkante foto op de homepage dienstkaart voor algemene mondzorg." },
   { key: "images.services_implant", label: "Diensten Card: Implantologie", defaultAsset: "/src/assets/svc-implant.jpg", description: "De vierkante foto op de homepage dienstkaart voor implantologie." },
   { key: "images.services_prothese", label: "Diensten Card: Protheses", defaultAsset: "/src/assets/svc-prothese.jpg", description: "De vierkante foto op de homepage dienstkaart voor protheses." },
-  { key: "images.services_spoed", label: "Diensten Card: Spoed", defaultAsset: "/src/assets/svc-spoed.jpg", description: "De vierkante foto op de homepage dienstkaart voor spoedgevallen." }
+  { key: "images.services_spoed", label: "Diensten Card: Spoed", defaultAsset: "/src/assets/svc-spoed.jpg", description: "De vierkante foto op de homepage dienstkaart voor spoedgevallen." },
+  { key: "images.spoed_bg", label: "Spoed Banner", defaultAsset: "/src/assets/new client images/spoe 1.png", description: "De banner achtergrond bovenaan de spoedpagina." },
+  { key: "images.reviews_bg", label: "Reviews Banner", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "De banner achtergrond bovenaan de reviewspagina." },
+  { key: "images.appointment_bg", label: "Afspraak Banner", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "De banner achtergrond bovenaan de afspraakpagina." },
+  { key: "images.implant_bg", label: "Implantologie Banner", defaultAsset: "/src/assets/new client images/teeth.png", description: "De banner achtergrond bovenaan de implantologiepagina." },
+  { key: "images.esth_bg", label: "Esthetische Tandheelkunde Banner", defaultAsset: "/src/assets/new client images/doctor fixing the teeth using uv light.png", description: "De banner achtergrond bovenaan de esthetische tandheelkundepagina." },
+  { key: "images.root_canal_bg", label: "Wortelkanaalbehandeling Banner", defaultAsset: "/src/assets/new client images/doctor fixing the teeth using tools.png", description: "De banner achtergrond bovenaan de wortelkanaalbehandelingpagina." },
+  { key: "images.kinder_bg", label: "Kindertandheelkunde Banner", defaultAsset: "/src/assets/new client images/child in dental office.png", description: "De banner achtergrond bovenaan de kindertandheelkundepagina." },
+  { key: "images.general_care_bg", label: "Algemene Mondzorg Banner", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "De banner achtergrond bovenaan de algemene mondzorgpagina." },
+  { key: "images.footer_location", label: "Footer Locatie Afbeelding", defaultAsset: "/src/assets/new client images/address.png", description: "De locatiekaart die in de footer wordt weergegeven." },
 ];
 
 function AdminPage() {
@@ -167,14 +355,33 @@ function AdminPage() {
   );
 }
 
-// ============ TEXT CONTENT (A-to-Z) ============
 function ContentEditor() {
+  const { t } = useTranslation();
   const qc = useQueryClient();
   const { data } = useQuery({ queryKey: ["site_content"], queryFn: fetchSiteContent });
   const [activeGroup, setActiveGroup] = useState(PAGE_GROUPS[0].id);
   const [draft, setDraft] = useState<Record<string, Record<Locale, string>>>({});
 
-  useEffect(() => { if (data) setDraft(data); }, [data]);
+  useEffect(() => {
+    if (data) {
+      const merged: Record<string, Record<Locale, string>> = {};
+      const getFallback = (key: string, loc: Locale) => {
+        const val = t(key, { lng: loc });
+        return typeof val === "string" && val !== key ? val : "";
+      };
+
+      for (const group of PAGE_GROUPS) {
+        for (const key of group.keys) {
+          merged[key] = {
+            nl: data[key]?.nl || getFallback(key, "nl"),
+            en: data[key]?.en || getFallback(key, "en"),
+            ar: data[key]?.ar || getFallback(key, "ar"),
+          };
+        }
+      }
+      setDraft(merged);
+    }
+  }, [data, t]);
 
   const save = useMutation({
     mutationFn: async () => {

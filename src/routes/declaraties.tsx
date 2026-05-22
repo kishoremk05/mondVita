@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { OpeningHoursCard } from "@/components/site/OpeningHoursCard";
@@ -29,34 +30,35 @@ export const Route = createFileRoute("/declaraties")({
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
   const { data: contact } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
   const hours = normalizeHours(contact?.hours);
 
   return (
     <SiteShell>
-      <PageHeader title={t("declaraties.title")} intro={t("declaraties.intro")} bgImage={imgAddress} />
+      <PageHeader title={c("declaraties.title")} intro={c("declaraties.intro")} bgImage={imgAddress} />
 
       <section className="bg-white py-20">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
           <div className="space-y-6 rounded-3xl border border-border/80 bg-secondary/30 p-8 shadow-sm">
             <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">
-              /// {t("declaraties.title")}
+              /// {c("declaraties.title")}
             </div>
-            <p className="text-base leading-relaxed text-muted-foreground font-light">{t("declaraties.body1")}</p>
-            <p className="text-base leading-relaxed text-muted-foreground font-light">{t("declaraties.body2")}</p>
+            <p className="text-base leading-relaxed text-muted-foreground font-light">{c("declaraties.body1")}</p>
+            <p className="text-base leading-relaxed text-muted-foreground font-light">{c("declaraties.body2")}</p>
 
             <div className="rounded-2xl border border-border/70 bg-white p-6 shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-widest text-brand-accent">{t("declaraties.knmt_label")}</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-accent">{c("declaraties.knmt_label")}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground font-light">
                 {t("declaraties.knmt_desc")}
               </p>
               <a
-                href={t("declaraties.knmt_url")}
+                href={c("declaraties.knmt_url")}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-5 inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
               >
-                {t("declaraties.knmt_cta")}
+                {c("declaraties.knmt_cta")}
               </a>
             </div>
 

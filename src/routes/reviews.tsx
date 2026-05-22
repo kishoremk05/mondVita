@@ -4,6 +4,8 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Star, MessageSquare } from "lucide-react";
 import imgSetupPlace from "@/assets/new client images/dental setup place.png";
+import { useSiteImage } from "@/hooks/useSiteImage";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -29,17 +31,19 @@ function Stars() {
 
 function Page() {
   const { t } = useTranslation();
+  const { c } = useSiteContent();
+  const reviewsBg = useSiteImage("images.reviews_bg", imgSetupPlace);
   const reviews = [
-    { q: t("reviews.r1_q"), n: t("reviews.r1_n") },
-    { q: t("reviews.r2_q"), n: t("reviews.r2_n") },
-    { q: t("reviews.r3_q"), n: t("reviews.r3_n") },
+    { q: c("reviews.r1_q"), n: c("reviews.r1_n") },
+    { q: c("reviews.r2_q"), n: c("reviews.r2_n") },
+    { q: c("reviews.r3_q"), n: c("reviews.r3_n") },
   ];
   return (
     <SiteShell>
       <PageHeader
-        title={t("reviews.title")}
-        intro={t("reviews.intro")}
-        bgImage={imgSetupPlace}
+        title={c("reviews.title")}
+        intro={c("reviews.intro")}
+        bgImage={reviewsBg}
       />
 
       <section className="bg-secondary/40 py-20">
