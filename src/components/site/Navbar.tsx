@@ -5,15 +5,30 @@ import { Menu, X, CalendarDays, ChevronDown } from "lucide-react";
 import { LangSwitcher } from "./LangSwitcher";
 import { Logo } from "./Logo";
 import { useAuth } from "@/hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCustomPages } from "@/lib/site-data";
 
 export function Navbar() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user, isAdmin } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [mobileDropdowns, setMobileDropdowns] = useState<Record<string, boolean>>({});
   const { pathname } = useLocation();
   const contactLabel = t("nav.contact");
+
+  const { data: customPages = [] } = useQuery({ queryKey: ["custom_pages"], queryFn: fetchCustomPages });
+
+  const getLocale = (lng: string): "nl" | "en" | "ar" => {
+    const loc = lng.slice(0, 2);
+    return loc === "nl" || loc === "en" || loc === "ar" ? loc : "en";
+  };
+  const activeLocale = getLocale(i18n.language);
+
+  const customPageLinks = customPages.map(p => ({
+    to: `/p/${p.slug}`,
+    label: p.translations?.[activeLocale]?.title || p.translations?.nl?.title || p.slug
+  }));
 
   useEffect(() => {
     const onScroll = () => {
@@ -68,6 +83,15 @@ export function Navbar() {
     { to: "/contact", label: contactLabel, hasDropdown: false, dropdownItems: [] },
   ];
 
+  if (customPageLinks.length > 0) {
+    links.push({
+      to: "#",
+      label: i18n.language === "ar" ? "المزيد" : i18n.language === "en" ? "More" : "Meer",
+      hasDropdown: true,
+      dropdownItems: customPageLinks.map(l => ({ hash: "", label: l.label, toOverride: l.to })) as any
+    });
+  }
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 bg-white/97 backdrop-blur-lg border-b border-border/60 shadow-[0_2px_12px_rgba(12,35,64,0.04)] ${
@@ -107,9 +131,9 @@ export function Navbar() {
                     <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-primary to-brand-accent" />
                     {l.dropdownItems.map((item) => (
                       <Link
-                        key={item.hash}
-                        to={l.to}
-                        hash={item.hash}
+                        key={item.label}
+                        to={(item as any).toOverride || l.to}
+                        hash={(item as any).toOverride ? undefined : item.hash}
                         className="block px-5 py-2.5 text-xs text-foreground/80 hover:text-primary hover:bg-secondary/50 transition-colors duration-150 font-medium"
                       >
                         {item.label}
@@ -176,9 +200,9 @@ export function Navbar() {
                 <div className="pl-6 pr-3 py-1.5 space-y-2 border-l-2 border-primary/20 ml-5 animate-fade-in">
                   {l.dropdownItems.map((item) => (
                     <Link
-                      key={item.hash}
-                      to={l.to}
-                      hash={item.hash}
+                      key={item.label}
+                      to={(item as any).toOverride || l.to}
+                      hash={(item as any).toOverride ? undefined : item.hash}
                       className="block py-1.5 text-xs text-foreground/75 hover:text-primary transition font-medium"
                       onClick={() => setOpen(false)}
                     >
@@ -203,4 +227,3 @@ export function Navbar() {
     </header>
   );
 }
-

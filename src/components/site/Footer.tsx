@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Instagram, MapPin, Phone, Mail } from "lucide-react";
 import { Logo } from "./Logo";
-import { fetchContact } from "@/lib/site-data";
+import { fetchContact, fetchCustomPages } from "@/lib/site-data";
 import { useSiteImage } from "@/hooks/useSiteImage";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import imgAddress from "@/assets/new client images/address.png";
@@ -17,14 +17,21 @@ function TiktokIcon({ className }: { className?: string }) {
 }
 
 export function Footer() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { c } = useSiteContent();
   const { data: contact } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
+  const { data: customPages = [] } = useQuery({ queryKey: ["custom_pages"], queryFn: fetchCustomPages });
+
+  const getLocale = (lng: string): "nl" | "en" | "ar" => {
+    const loc = lng.slice(0, 2);
+    return loc === "nl" || loc === "en" || loc === "ar" ? loc : "en";
+  };
+  const activeLocale = getLocale(i18n.language);
+
   const footerLocationImg = useSiteImage("images.footer_location", imgAddress);
   const socials = contact?.socials ?? {};
   const declarationsLabel = t("footer.declarations");
-  const hours = contact?.hours ?? {};
-  const morning = hours.morning ?? "09:00 - 12:00";
+  const hours = contact?.hours ?? {};  const morning = hours.morning ?? "09:00 - 12:00";
   const lunch = hours.lunch ?? "12:00 - 13:00";
   const afternoon = hours.afternoon ?? "13:00 - 17:00";
   return (
@@ -67,8 +74,21 @@ export function Footer() {
             <li><Link to="/declaraties" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{declarationsLabel}</Link></li>
             <li><Link to="/reviews" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{t("nav.reviews")}</Link></li>
             <li><Link to="/over-ons" className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4">{t("nav.over")}</Link></li>
-          </ul>
-        </div>
+            {customPages.map(p => {
+              const label = p.translations?.[activeLocale]?.title || p.translations?.nl?.title || p.slug;
+              return (
+                <li key={p.id}>
+                  <Link
+                    to="/p/$slug"
+                    params={{ slug: p.slug }}
+                    className="inline-flex transition duration-150 hover:text-white hover:underline hover:underline-offset-4 focus-visible:text-white focus-visible:underline focus-visible:underline-offset-4"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>        </div>
 
         {/* Third Column: Contact info & Location Map */}
         <div className="space-y-4">

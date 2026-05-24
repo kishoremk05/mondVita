@@ -25,6 +25,7 @@ import { Route as BehandelingenRouteImport } from './routes/behandelingen'
 import { Route as AfspraakRouteImport } from './routes/afspraak'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const WortelkanaalbehandelingRoute = WortelkanaalbehandelingRouteImport.update({
@@ -107,6 +108,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PSlugRoute = PSlugRouteImport.update({
+  id: '/p/$slug',
+  path: '/p/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/spoed': typeof SpoedRoute
   '/wortelkanaalbehandeling': typeof WortelkanaalbehandelingRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/p/$slug': typeof PSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/spoed': typeof SpoedRoute
   '/wortelkanaalbehandeling': typeof WortelkanaalbehandelingRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/p/$slug': typeof PSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/spoed': typeof SpoedRoute
   '/wortelkanaalbehandeling': typeof WortelkanaalbehandelingRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/p/$slug': typeof PSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/spoed'
     | '/wortelkanaalbehandeling'
     | '/admin'
+    | '/p/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
     | '/spoed'
     | '/wortelkanaalbehandeling'
     | '/admin'
+    | '/p/$slug'
   id:
     | '__root__'
     | '/'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/spoed'
     | '/wortelkanaalbehandeling'
     | '/_authenticated/admin'
+    | '/p/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -244,6 +256,7 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   SpoedRoute: typeof SpoedRoute
   WortelkanaalbehandelingRoute: typeof WortelkanaalbehandelingRoute
+  PSlugRoute: typeof PSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -360,6 +373,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/p/$slug': {
+      id: '/p/$slug'
+      path: '/p/$slug'
+      fullPath: '/p/$slug'
+      preLoaderRoute: typeof PSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -399,6 +419,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   SpoedRoute: SpoedRoute,
   WortelkanaalbehandelingRoute: WortelkanaalbehandelingRoute,
+  PSlugRoute: PSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -8,16 +8,15 @@ import imgTeethCap from "@/assets/new client images/teeth cap.png";
 import imgSpoedImg from "@/assets/new client images/spoe.png";
 import imgUvLight from "@/assets/new client images/doctor fixing the teeth using uv light.png";
 import imgChild from "@/assets/new client images/child in dental office.png";
+import { useSiteImage } from "@/hooks/useSiteImage";
 import { fetchServices, publicUrl, type ServiceRow } from "@/lib/site-data";
-
-const fallbackImages = [imgDoctorExplaining, imgTeeth, imgTeethCap, imgSpoedImg, imgUvLight, imgChild];
 
 function getLocale(language: string) {
   const locale = language.slice(0, 2);
   return locale === "nl" || locale === "en" || locale === "ar" ? locale : "en";
 }
 
-function resolveCardImage(row: ServiceRow, index: number) {
+function resolveCardImage(row: ServiceRow, index: number, dynFallbacks: string[]) {
   const imageUrl = row.image_url?.trim();
   if (imageUrl) {
     return imageUrl.startsWith("http://") || imageUrl.startsWith("https://") || imageUrl.startsWith("/")
@@ -25,7 +24,7 @@ function resolveCardImage(row: ServiceRow, index: number) {
       : publicUrl(imageUrl);
   }
 
-  return fallbackImages[index % fallbackImages.length];
+  return dynFallbacks[index % dynFallbacks.length];
 }
 
 function getCardCopy(row: ServiceRow, locale: ReturnType<typeof getLocale>) {
@@ -50,22 +49,31 @@ export function Services() {
   const { t, i18n } = useTranslation();
   const { data: services = [] } = useQuery({ queryKey: ["services"], queryFn: fetchServices });
   const locale = getLocale(i18n.language);
+
+  const dynMondzorg = useSiteImage("images.shared_doctor_explaining", imgDoctorExplaining);
+  const dynImplant = useSiteImage("images.implant_bg", imgTeeth);
+  const dynProthese = useSiteImage("images.shared_teeth_cap", imgTeethCap);
+  const dynSpoed = useSiteImage("images.services_spoed", imgSpoedImg);
+  const dynEsth = useSiteImage("images.esth_bg", imgUvLight);
+  const dynKinder = useSiteImage("images.kinder_bg", imgChild);
+
+  const dynFallbacks = [dynMondzorg, dynImplant, dynProthese, dynSpoed, dynEsth, dynKinder];
+
   const cards = services.length > 0
     ? services.map((row, index) => ({
         id: row.id,
-        image: resolveCardImage(row, index),
+        image: resolveCardImage(row, index, dynFallbacks),
         link: normalizeLink(row.link_path),
         ...getCardCopy(row, locale),
       }))
     : [
-        { id: "esth", image: imgUvLight, title: t("svc.esth"), desc: t("svc.esth_d"), link: "/esthetische-tandheelkunde" },
-        { id: "mondzorg", image: imgDoctorExplaining, title: t("svc.mondzorg"), desc: t("svc.mondzorg_d"), link: "/general-dental-care" },
-        { id: "implant", image: imgTeeth, title: t("svc.implant"), desc: t("svc.implant_d"), link: "/implantologie" },
-        { id: "prothese", image: imgTeethCap, title: t("svc.prothese"), desc: t("svc.prothese_d"), link: "/protheses" },
-        { id: "kinder", image: imgChild, title: t("svc.kinder"), desc: t("svc.kinder_d"), link: "/kindertandheelkunde" },
-        { id: "spoed", image: imgSpoedImg, title: t("svc.spoed"), desc: t("svc.spoed_d"), link: "/spoed" },
+        { id: "esth", image: dynEsth, title: t("svc.esth"), desc: t("svc.esth_d"), link: "/esthetische-tandheelkunde" },
+        { id: "mondzorg", image: dynMondzorg, title: t("svc.mondzorg"), desc: t("svc.mondzorg_d"), link: "/general-dental-care" },
+        { id: "implant", image: dynImplant, title: t("svc.implant"), desc: t("svc.implant_d"), link: "/implantologie" },
+        { id: "prothese", image: dynProthese, title: t("svc.prothese"), desc: t("svc.prothese_d"), link: "/protheses" },
+        { id: "kinder", image: dynKinder, title: t("svc.kinder"), desc: t("svc.kinder_d"), link: "/kindertandheelkunde" },
+        { id: "spoed", image: dynSpoed, title: t("svc.spoed"), desc: t("svc.spoed_d"), link: "/spoed" },
       ];
-
 
   return (
     <section id="services" className="relative bg-white py-24 md:py-32 overflow-hidden">

@@ -28,13 +28,18 @@ export const Route = createFileRoute("/wortelkanaalbehandeling")({
 function Page() {
   const { t } = useTranslation();
   const { c } = useSiteContent();
+
   const rootCanalBg = useSiteImage("images.root_canal_bg", imgTools);
+  const imgExpl = useSiteImage("images.shared_doctor_explaining", imgDoctorExplaining);
+  const imgStp = useSiteImage("images.shared_setup_place", imgSetup);
+  const imgMch = useSiteImage("images.shared_adult_match", imgAdultMatch);
+  const imgTls = useSiteImage("images.shared_tools", imgTools);
 
   const items = [
-    { t: c("wortelCare.p1_t"), d: c("wortelCare.p1_d"), Icon: Sparkles, img: imgDoctorExplaining },
-    { t: c("wortelCare.p2_t"), d: c("wortelCare.p2_d"), Icon: Shield, img: imgSetup },
-    { t: c("wortelCare.p3_t"), d: c("wortelCare.p3_d"), Icon: Smile, img: imgAdultMatch },
-    { t: c("wortelCare.p4_t"), d: c("wortelCare.p4_d"), Icon: Activity, img: imgTools },
+    { id: "p1", t: c("wortelCare.p1_t"), d: c("wortelCare.p1_d"), Icon: Sparkles, img: imgExpl },
+    { id: "p2", t: c("wortelCare.p2_t"), d: c("wortelCare.p2_d"), Icon: Shield, img: imgStp },
+    { id: "p3", t: c("wortelCare.p3_t"), d: c("wortelCare.p3_d"), Icon: Smile, img: imgMch },
+    { id: "p4", t: c("wortelCare.p4_t"), d: c("wortelCare.p4_d"), Icon: Activity, img: imgTls },
   ];
 
   return (
@@ -68,7 +73,7 @@ function Page() {
           <div className="space-y-6">
             {items.map((it, idx) => (
               <article
-                key={it.t}
+                key={it.id}
                 className="group flex flex-col sm:flex-row gap-6 rounded-2xl rounded-tr-none border border-border/40 bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.05)] animate-fade-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
@@ -132,11 +137,11 @@ function Page() {
       <section className="bg-primary py-12 text-primary-foreground border-t border-border/10">
         <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-3">
           {[
-            { Icon: Heart, t: c("wortelCare.b1_t"), d: c("wortelCare.b1_d") },
-            { Icon: Shield, t: c("wortelCare.b2_t"), d: c("wortelCare.b2_d") },
-            { Icon: Activity, t: c("wortelCare.b3_t"), d: c("wortelCare.b3_d") },
-          ].map(({ Icon, t: title, d }) => (
-            <div key={title} className="flex items-center gap-4 animate-fade-up">
+            { id: "b1", Icon: Heart, t: c("wortelCare.b1_t"), d: c("wortelCare.b1_d") },
+            { id: "b2", Icon: Shield, t: c("wortelCare.b2_t"), d: c("wortelCare.b2_d") },
+            { id: "b3", Icon: Activity, t: c("wortelCare.b3_t"), d: c("wortelCare.b3_d") },
+          ].map(({ id, Icon, t: title, d }) => (
+            <div key={id} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
                 <Icon className="h-6 w-6" />
               </div>

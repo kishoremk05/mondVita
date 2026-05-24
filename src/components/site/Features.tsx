@@ -7,11 +7,11 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 export function Features() {
   const { t } = useTranslation();
   const { c } = useSiteContent();
-  const items: { Icon: LucideIcon | typeof ToothMark; t: string; d: string }[] = [
-    { Icon: ToothMark, t: c("features.f1_t"), d: c("features.f1_d") },
-    { Icon: Calendar, t: c("features.f2_t"), d: c("features.f2_d") },
-    { Icon: Users, t: c("features.f3_t"), d: c("features.f3_d") },
-    { Icon: Smile, t: c("features.f4_t"), d: c("features.f4_d") },
+  const items = [
+    { id: "f1", Icon: ToothMark, t: c("features.f1_t"), d: c("features.f1_d") },
+    { id: "f2", Icon: Calendar, t: c("features.f2_t"), d: c("features.f2_d") },
+    { id: "f3", Icon: Users, t: c("features.f3_t"), d: c("features.f3_d") },
+    { id: "f4", Icon: Smile, t: c("features.f4_t"), d: c("features.f4_d") },
   ];
 
   return (
@@ -22,9 +22,9 @@ export function Features() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="grid max-w-7xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map(({ Icon, t: title, d }, idx) => (
+          {items.map(({ id, Icon, t: title, d }, idx) => (
             <article
-              key={title}
+              key={id}
               className="group relative flex flex-col items-start rounded-2xl rounded-tr-none border border-border/60 bg-secondary/30 p-8 transition-[border-color,background-color,box-shadow] duration-300 hover:border-brand-accent/50 hover:bg-secondary/60 hover:shadow-[0_12px_30px_-10px_rgba(12,35,64,0.06)] animate-fade-up"
               style={{ animationDelay: `${idx * 150}ms` }}
             >

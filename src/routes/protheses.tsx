@@ -33,6 +33,11 @@ function Page() {
   const prothesesBg = useSiteImage("images.protheses_bg", imgTeethCap1);
   const { hash } = useLocation();
 
+  const dynAdultMatch = useSiteImage("images.shared_adult_match", imgAdultMatch);
+  const dynTeethCap = useSiteImage("images.shared_teeth_cap", imgTeethCap);
+  const dynMenVisual = useSiteImage("images.shared_men_visual", imgMenVisual);
+  const dynClientXray = useSiteImage("images.shared_client_xray", imgClientXray);
+
   useEffect(() => {
     if (hash) {
       const scroll = () => {
@@ -56,12 +61,11 @@ function Page() {
   }, [hash]);
 
   const items = [
-    { t: c("protheses.p1_t"), d: c("protheses.p1_d"), Icon: Layers, img: imgAdultMatch, id: "gedeeltelijke-prothese" },
-    { t: c("protheses.p2_t"), d: c("protheses.p2_d"), Icon: Smile, img: imgTeethCap, id: "volledige-prothese" },
-    { t: c("protheses.p3_t"), d: c("protheses.p3_d"), Icon: Sparkles, img: imgMenVisual, id: "implantaat-prothese" },
-    { t: c("protheses.p4_t"), d: c("protheses.p4_d"), Icon: Wrench, img: imgClientXray, id: "reparatie" },
+    { t: c("protheses.p1_t"), d: c("protheses.p1_d"), Icon: Layers, img: dynAdultMatch, id: "gedeeltelijke-prothese" },
+    { t: c("protheses.p2_t"), d: c("protheses.p2_d"), Icon: Smile, img: dynTeethCap, id: "volledige-prothese" },
+    { t: c("protheses.p3_t"), d: c("protheses.p3_d"), Icon: Sparkles, img: dynMenVisual, id: "implantaat-prothese" },
+    { t: c("protheses.p4_t"), d: c("protheses.p4_d"), Icon: Wrench, img: dynClientXray, id: "reparatie" },
   ];
-
   return (
     <SiteShell>
       <PageHeader
@@ -93,7 +97,7 @@ function Page() {
           <div className="space-y-6">
             {items.map((it, idx) => (
               <article
-                key={it.t}
+                key={it.id}
                 id={it.id}
                 className="group flex flex-col sm:flex-row gap-6 rounded-2xl rounded-tr-none border border-border/40 bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.05)] animate-fade-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
@@ -158,8 +162,8 @@ function Page() {
             { Icon: ToothMark, t: c("protheses.b1_t"), d: c("protheses.b1_d") },
             { Icon: Sparkles, t: c("protheses.b2_t"), d: c("protheses.b2_d") },
             { Icon: Users, t: c("protheses.b3_t"), d: c("protheses.b3_d") },
-          ].map(({ Icon, t: title, d }) => (
-            <div key={title} className="flex items-center gap-4 animate-fade-up">
+          ].map(({ Icon, t: title, d }, idx) => (
+            <div key={idx} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
                 <Icon className="h-6 w-6" />
               </div>

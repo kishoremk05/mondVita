@@ -31,11 +31,16 @@ function Page() {
   const { c } = useSiteContent();
   const implantBg = useSiteImage("images.implant_bg", imgTeeth);
 
+  const dynAdultMatch = useSiteImage("images.shared_adult_match", imgAdultMatch);
+  const dynSetup = useSiteImage("images.shared_setup_place", imgSetup);
+  const dynExplain = useSiteImage("images.shared_doctor_explaining", imgExplain);
+  const dynClientXray = useSiteImage("images.shared_client_xray", imgClientXray);
+
   const items = [
-    { t: c("implantCare.p1_t"), d: c("implantCare.p1_d"), Icon: Layers, img: imgAdultMatch },
-    { t: c("implantCare.p2_t"), d: c("implantCare.p2_d"), Icon: Shield, img: imgSetup },
-    { t: c("implantCare.p3_t"), d: c("implantCare.p3_d"), Icon: Smile, img: imgExplain },
-    { t: c("implantCare.p4_t"), d: c("implantCare.p4_d"), Icon: Activity, img: imgClientXray },
+    { t: c("implantCare.p1_t"), d: c("implantCare.p1_d"), Icon: Layers, img: dynAdultMatch },
+    { t: c("implantCare.p2_t"), d: c("implantCare.p2_d"), Icon: Shield, img: dynSetup },
+    { t: c("implantCare.p3_t"), d: c("implantCare.p3_d"), Icon: Smile, img: dynExplain },
+    { t: c("implantCare.p4_t"), d: c("implantCare.p4_d"), Icon: Activity, img: dynClientXray },
   ];
 
   return (
@@ -69,7 +74,7 @@ function Page() {
           <div className="space-y-6">
             {items.map((it, idx) => (
               <article
-                key={it.t}
+                key={idx}
                 className="group flex flex-col sm:flex-row gap-6 rounded-2xl rounded-tr-none border border-border/40 bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.05)] animate-fade-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
@@ -136,8 +141,8 @@ function Page() {
             { Icon: Heart, t: c("implantCare.b1_t"), d: c("implantCare.b1_d") },
             { Icon: Shield, t: c("implantCare.b2_t"), d: c("implantCare.b2_d") },
             { Icon: Activity, t: c("implantCare.b3_t"), d: c("implantCare.b3_d") },
-          ].map(({ Icon, t: title, d }) => (
-            <div key={title} className="flex items-center gap-4 animate-fade-up">
+          ].map(({ Icon, t: title, d }, idx) => (
+            <div key={idx} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
                 <Icon className="h-6 w-6" />
               </div>

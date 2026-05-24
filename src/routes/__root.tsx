@@ -2,7 +2,7 @@ import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-r
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/hooks/useAuth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -74,16 +74,27 @@ function nestBundle(flat: Record<string, string>): Record<string, any> {
 
 function RootComponent() {
   const { i18n } = useTranslation();
+  const [hydrated, setHydrated] = useState(false);
 
-  // Restore saved locale on mount (client-side only)
+  // Phase 1: Mark hydration complete after the first client-side commit.
+  // useEffect never runs during SSR or during the synchronous hydration pass,
+  // so this is the earliest safe moment to diverge from the server output.
   useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  // Phase 2: Once hydrated, restore the user's saved locale from localStorage.
+  // This triggers a second render with the correct language, but AFTER hydration
+  // has already committed with the server-matching "nl" strings.
+  useEffect(() => {
+    if (!hydrated) return;
     if (typeof window !== "undefined") {
       const savedLocale = window.localStorage.getItem("mondvita-locale");
       if (savedLocale && savedLocale !== i18n.language) {
         i18n.changeLanguage(savedLocale);
       }
     }
-  }, [i18n]);
+  }, [hydrated, i18n]);
 
   // Sync the HTML lang and dir attributes when the user explicitly changes language.
   useEffect(() => {
@@ -135,4 +146,5 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
 

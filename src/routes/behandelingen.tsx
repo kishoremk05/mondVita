@@ -62,12 +62,19 @@ function Page() {
     return Array.isArray(res) ? (res.filter(item => typeof item === "string") as string[]) : [];
   };
 
+  const dynMondzorg = useSiteImage("images.shared_doctor_explaining", imgDoctorExplaining);
+  const dynImplant = useSiteImage("images.implant_bg", imgTeeth);
+  const dynProthese = useSiteImage("images.shared_teeth_cap", imgTeethCap);
+  const dynEsth = useSiteImage("images.esth_bg", imgUvLight);
+  const dynWortel = useSiteImage("images.shared_tools", imgTools);
+  const dynKinder = useSiteImage("images.kinder_bg", imgChild);
+
   const items = [
     {
       t: c("svc.mondzorg"),
       d: c("svc.mondzorg_d"),
       Icon: ToothMark,
-      img: imgDoctorExplaining,
+      img: dynMondzorg,
       note: c("svc.mondzorg_n"),
       details: getDetails("svc.mondzorg_det"),
       link: "/general-dental-care",
@@ -77,7 +84,7 @@ function Page() {
       t: c("svc.implant"),
       d: c("svc.implant_d"),
       Icon: Layers,
-      img: imgTeeth,
+      img: dynImplant,
       note: c("svc.implant_n"),
       details: getDetails("svc.implant_det"),
       link: "/implantologie",
@@ -87,7 +94,7 @@ function Page() {
       t: c("svc.prothese"),
       d: c("svc.prothese_d"),
       Icon: Smile,
-      img: imgTeethCap,
+      img: dynProthese,
       note: c("svc.prothese_n"),
       details: getDetails("svc.prothese_det"),
       link: "/protheses",
@@ -97,7 +104,7 @@ function Page() {
       t: c("svc.esth"),
       d: c("svc.esth_d"),
       Icon: Sparkles,
-      img: imgUvLight,
+      img: dynEsth,
       note: c("svc.esth_n"),
       details: getDetails("svc.esth_det"),
       link: "/esthetische-tandheelkunde",
@@ -107,7 +114,7 @@ function Page() {
       t: c("svc.wortel"),
       d: c("svc.wortel_d"),
       Icon: Activity,
-      img: imgTools,
+      img: dynWortel,
       note: c("svc.wortel_n"),
       details: getDetails("svc.wortel_det"),
       link: "/wortelkanaalbehandeling",
@@ -117,7 +124,7 @@ function Page() {
       t: c("svc.kinder"),
       d: c("svc.kinder_d"),
       Icon: Heart,
-      img: imgChild,
+      img: dynKinder,
       note: c("svc.kinder_n"),
       details: getDetails("svc.kinder_det"),
       link: "/kindertandheelkunde",
@@ -137,7 +144,7 @@ function Page() {
         <div className="mx-auto max-w-5xl px-6 space-y-12">
           {items.map((it, idx) => (
             <article
-              key={it.t}
+              key={it.id}
               id={it.id}
               className="group flex flex-col md:flex-row items-center gap-8 md:gap-12 bg-white rounded-2xl rounded-tr-none border border-border/80 p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] transition-[border-color,box-shadow] duration-300 hover:border-primary/45 hover:shadow-[0_16px_36px_-12px_rgba(0,0,0,0.06)] md:even:flex-row-reverse animate-fade-in"
             >
@@ -173,8 +180,8 @@ function Page() {
                 </p>
 
                 <ul className="grid gap-2 pt-1 sm:grid-cols-2">
-                  {it.details.map((detail) => (
-                    <li key={detail} className="flex items-start gap-2 rounded-xl border border-border/50 bg-secondary/30 px-3 py-2 text-xs leading-relaxed text-foreground/75">
+                  {it.details.map((detail, dIdx) => (
+                    <li key={dIdx} className="flex items-start gap-2 rounded-xl border border-border/50 bg-secondary/30 px-3 py-2 text-xs leading-relaxed text-foreground/75">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-accent shrink-0" />
                       <span>{detail}</span>
                     </li>

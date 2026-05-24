@@ -30,11 +30,15 @@ function Page() {
   const { c } = useSiteContent();
   const esthBg = useSiteImage("images.esth_bg", imgUvLight);
 
+  const dynTeethCap = useSiteImage("images.shared_teeth_cap", imgTeethCap);
+  const dynTeethCap1 = useSiteImage("images.shared_teeth_cap1", imgTeethCap1);
+  const dynMenVisual = useSiteImage("images.shared_men_visual", imgMenVisual);
+
   const items = [
-    { t: c("esthCare.p1_t"), d: c("esthCare.p1_d"), Icon: Sparkles, img: imgUvLight },
-    { t: c("esthCare.p2_t"), d: c("esthCare.p2_d"), Icon: Smile, img: imgTeethCap },
-    { t: c("esthCare.p3_t"), d: c("esthCare.p3_d"), Icon: Sparkles, img: imgTeethCap1 },
-    { t: c("esthCare.p4_t"), d: c("esthCare.p4_d"), Icon: Smile, img: imgMenVisual },
+    { t: c("esthCare.p1_t"), d: c("esthCare.p1_d"), Icon: Sparkles, img: esthBg },
+    { t: c("esthCare.p2_t"), d: c("esthCare.p2_d"), Icon: Smile, img: dynTeethCap },
+    { t: c("esthCare.p3_t"), d: c("esthCare.p3_d"), Icon: Sparkles, img: dynTeethCap1 },
+    { t: c("esthCare.p4_t"), d: c("esthCare.p4_d"), Icon: Smile, img: dynMenVisual },
   ];
 
   return (
@@ -68,7 +72,7 @@ function Page() {
           <div className="space-y-6">
             {items.map((it, idx) => (
               <article
-                key={it.t}
+                key={idx}
                 className="group flex flex-col sm:flex-row gap-6 rounded-2xl rounded-tr-none border border-border/40 bg-white p-6 transition-[border-color,box-shadow] duration-300 hover:border-primary/40 hover:shadow-[0_12px_24px_-8px_rgba(0,0,0,0.05)] animate-fade-up"
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
@@ -135,8 +139,8 @@ function Page() {
             { Icon: Shield, t: c("esthCare.b1_t"), d: c("esthCare.b1_d") },
             { Icon: Sparkles, t: c("esthCare.b2_t"), d: c("esthCare.b2_d") },
             { Icon: Heart, t: c("esthCare.b3_t"), d: c("esthCare.b3_d") },
-          ].map(({ Icon, t: title, d }) => (
-            <div key={title} className="flex items-center gap-4 animate-fade-up">
+          ].map(({ Icon, t: title, d }, idx) => (
+            <div key={idx} className="flex items-center gap-4 animate-fade-up">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/5 text-white border border-white/10">
                 <Icon className="h-6 w-6" />
               </div>

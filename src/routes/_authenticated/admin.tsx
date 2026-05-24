@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { fetchSiteContent, fetchServices, fetchGallery, fetchContact, publicUrl, type ServiceRow } from "@/lib/site-data";
+import { fetchSiteContent, fetchServices, fetchGallery, fetchContact, publicUrl, type ServiceRow, fetchCustomPages, fetchCustomSections, type CustomPageRow, type CustomSectionRow } from "@/lib/site-data";
 import type { Locale } from "@/i18n/locales";
 import { LOCALES } from "@/i18n/locales";
 import { useState, useEffect, useRef } from "react";
@@ -297,13 +297,24 @@ const PAGE_GROUPS = [
       "footer.tagline",
       "footer.rights"
     ]
+  },
+  {
+    id: "partner",
+    name: "Partnernetwerk Teksten",
+    keys: [
+      "partner.badge",
+      "generalCare.partner_title",
+      "partner.desc",
+      "partner.zorgpartners",
+      "partner.verzekeraars"
+    ]
   }
 ];
 
 const IMAGE_CONFIGS = [
   { key: "images.hero_bg", label: "Homepage Hero Achtergrond", defaultAsset: "/src/assets/clinic-interior.jpg", description: "De grote full-bleed achtergrondafbeelding bovenaan de startpagina." },
-  { key: "images.about_bg", label: "Over Ons Banner", defaultAsset: "/src/assets/about-clinic.png", description: "De banner achtergrond bovenaan de 'Over ons' pagina." },
-  { key: "images.about_floating", label: "Over Ons Collage Foto", defaultAsset: "/src/assets/about-clinic.png", description: "De zwevende ingelijste foto aan de rechterkant van de 'Over ons' pagina." },
+  { key: "images.about_bg", label: "Over Ons Banner", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "De banner achtergrond bovenaan de 'Over ons' pagina." },
+  { key: "images.about_floating", label: "Over Ons Collage Foto", defaultAsset: "/src/assets/new client images/doctor desktop table with some components.png", description: "De zwevende ingelijste foto aan de rechterkant van de 'Over ons' pagina." },
   { key: "images.contact_bg", label: "Contact Banner", defaultAsset: "/src/assets/contact-desk.png", description: "De banner achtergrond bovenaan de contactpagina." },
   { key: "images.map_bg", label: "Contact Kaart Afbeelding", defaultAsset: "/src/assets/new client images/address.png", description: "De kaartafbeelding die wordt weergegeven in de locatiesectie op de contactpagina." },
   { key: "images.treatments_bg", label: "Behandelingen Banner", defaultAsset: "/src/assets/svc-mondzorg.jpg", description: "De banner achtergrond bovenaan de behandelingenpagina." },
@@ -321,11 +332,20 @@ const IMAGE_CONFIGS = [
   { key: "images.kinder_bg", label: "Kindertandheelkunde Banner", defaultAsset: "/src/assets/new client images/child in dental office.png", description: "De banner achtergrond bovenaan de kindertandheelkundepagina." },
   { key: "images.general_care_bg", label: "Algemene Mondzorg Banner", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "De banner achtergrond bovenaan de algemene mondzorgpagina." },
   { key: "images.footer_location", label: "Footer Locatie Afbeelding", defaultAsset: "/src/assets/new client images/address.png", description: "De locatiekaart die in de footer wordt weergegeven." },
+  { key: "images.shared_doctor_explaining", label: "Stock: Dokter legt gebit uit", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "Gebruikt voor behandelingen, kindertandheelkunde en diensten." },
+  { key: "images.shared_setup_place", label: "Stock: Tandartsstoel & apparatuur", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "Gebruikt voor behandelingen, spoed en over-ons." },
+  { key: "images.shared_adult_match", label: "Stock: Tandkleur matching", defaultAsset: "/src/assets/new client images/adult with teeth  match checking.png", description: "Gebruikt voor protheses, implantologie en wortelkanaalbehandeling." },
+  { key: "images.shared_tools", label: "Stock: Behandeling met gereedschap", defaultAsset: "/src/assets/new client images/doctor fixing the teeth using tools.png", description: "Gebruikt voor wortelkanaalbehandeling en behandelingen." },
+  { key: "images.shared_men_visual", label: "Stock: Man bekijkt 3D gebitsmodel", defaultAsset: "/src/assets/new client images/men with teeth fixing seeing visual.png", description: "Gebruikt voor protheses en esthetische tandheelkunde." },
+  { key: "images.shared_client_xray", label: "Stock: Röntgenfoto van patiënt", defaultAsset: "/src/assets/new client images/client with teeth xray.png", description: "Gebruikt voor implantologie en protheses." },
+  { key: "images.shared_teeth_cap", label: "Stock: Losse tand / kroon model", defaultAsset: "/src/assets/new client images/teeth cap.png", description: "Gebruikt voor behandelingen, diensten en protheses." },
+  { key: "images.shared_teeth_cap1", label: "Stock: Kroon model zijaanzicht", defaultAsset: "/src/assets/new client images/teeth cap 1.png", description: "Gebruikt voor protheses en esthetische tandheelkunde." },
+  { key: "images.shared_desktop_table", label: "Stock: Tandarts bureau instrumenten", defaultAsset: "/src/assets/new client images/doctor desktop table with some components.png", description: "Gebruikt voor behandelingen en over-ons." }
 ];
 
 function AdminPage() {
   const { t } = useTranslation();
-  const [tab, setTab] = useState<"content" | "images" | "services" | "gallery" | "contact" | "appointments">("content");
+  const [tab, setTab] = useState<"content" | "images" | "services" | "gallery" | "contact" | "appointments" | "custom_pages">("content");
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-10">
@@ -334,10 +354,10 @@ function AdminPage() {
           {t("admin.title")}
         </h1>
         <div className="flex flex-wrap gap-1 rounded-full bg-white p-1 border border-border">
-          {(["content", "images", "services", "gallery", "contact", "appointments"] as const).map(k => (
+          {(["content", "images", "services", "gallery", "contact", "appointments", "custom_pages"] as const).map(k => (
             <button key={k} onClick={() => setTab(k)}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${tab === k ? "bg-primary text-primary-foreground" : "text-foreground/70 hover:text-foreground"}`}>
-              {k === "images" ? "Afbeeldingen" : k === "appointments" ? "Boekingen" : t(`admin.${k === "content" ? "content" : k + "_tab"}`)}
+              {k === "images" ? "Afbeeldingen" : k === "appointments" ? "Boekingen" : k === "custom_pages" ? "Aangepaste Pagina's" : t(`admin.${k === "content" ? "content" : k + "_tab"}`)}
             </button>
           ))}
         </div>
@@ -350,6 +370,7 @@ function AdminPage() {
         {tab === "gallery" && <GalleryEditor />}
         {tab === "contact" && <ContactEditor />}
         {tab === "appointments" && <AppointmentsEditor />}
+        {tab === "custom_pages" && <CustomPagesEditor />}
       </div>
     </main>
   );
@@ -902,3 +923,504 @@ function AppointmentsEditor() {
     </div>
   );
 }
+
+// ============ CUSTOM PAGES EDITOR ============
+function CustomPagesEditor() {
+  const qc = useQueryClient();
+  const { data: pages = [], isLoading } = useQuery({ queryKey: ["custom_pages"], queryFn: fetchCustomPages });
+  const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
+
+  const addPage = useMutation({
+    mutationFn: async () => {
+      const slug = `nieuwe-pagina-${Date.now().toString().slice(-4)}`;
+      const { error } = await supabase.from("custom_pages").insert({
+        slug,
+        translations: {
+          nl: { title: "Nieuwe Pagina", intro: "Introductie tekst van de nieuwe pagina." },
+          en: { title: "New Page", intro: "Introduction text of the new page." },
+          ar: { title: "صفحة جديدة", intro: "مقدمة الصفحة الجديدة." },
+        },
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["custom_pages"] });
+      toast.success("Pagina succesvol aangemaakt!");
+    },
+    onError: e => toast.error("Fout bij aanmaken: " + String(e)),
+  });
+
+  const deletePage = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("custom_pages").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["custom_pages"] });
+      if (selectedPageId) setSelectedPageId(null);
+      toast.success("Pagina succesvol verwijderd!");
+    },
+    onError: e => toast.error("Fout bij verwijderen: " + String(e)),
+  });
+
+  if (isLoading) return <div className="text-center py-12"><Loader2 className="h-6 w-6 animate-spin mx-auto text-muted-foreground" /></div>;
+
+  const selectedPage = pages.find(p => p.id === selectedPageId);
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-2xl border border-border bg-white p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 className="font-serif text-xl font-bold text-primary uppercase">Aangepaste Pagina's & Secties</h2>
+          <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground font-light leading-relaxed">
+            Maak hier eigen informatiepagina's en diensten aan. Deze pagina's worden automatisch in het menu en in de footer getoond.
+          </p>
+        </div>
+        <button
+          onClick={() => addPage.mutate()}
+          disabled={addPage.isPending}
+          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground transition hover:bg-primary/95 disabled:opacity-60 whitespace-nowrap shrink-0 self-start sm:self-center"
+        >
+          <Plus className="h-4 w-4" />
+          Nieuwe Pagina
+        </button>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-[300px,1fr]">
+        {/* Left Column: Pages List */}
+        <div className="space-y-3 rounded-2xl border border-border bg-white p-4 h-fit">
+          <h3 className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground border-b border-border">Mijn Pagina's</h3>
+          {pages.length === 0 ? (
+            <p className="text-xs text-muted-foreground p-3 text-center">Nog geen eigen pagina's aangemaakt.</p>
+          ) : (
+            <div className="space-y-1.5 pt-2">
+              {pages.map(p => {
+                const title = p.translations?.nl?.title || p.slug;
+                const isSelected = selectedPageId === p.id;
+                return (
+                  <div key={p.id} className={`flex items-center justify-between rounded-lg px-3 py-1.5 transition ${isSelected ? "bg-primary/5 border border-primary/20" : "hover:bg-secondary/40"}`}>
+                    <button
+                      onClick={() => setSelectedPageId(p.id)}
+                      className={`flex-1 text-start text-xs sm:text-sm font-medium truncate ${isSelected ? "text-primary font-semibold" : "text-foreground/75 hover:text-foreground"}`}
+                    >
+                      {title}
+                      <span className="block text-[10px] text-muted-foreground font-mono">/p/{p.slug}</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (confirm(`Weet u zeker dat u pagina "${title}" wilt verwijderen?`)) {
+                          deletePage.mutate(p.id);
+                        }
+                      }}
+                      className="p-1 rounded text-destructive hover:bg-destructive/5 transition"
+                      title="Verwijder pagina"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Right Column: Active Page Editor */}
+        <div className="space-y-6">
+          {selectedPage ? (
+            <CustomPageRowEditor row={selectedPage} />
+          ) : (
+            <div className="rounded-2xl border border-dashed border-border bg-white p-12 text-center">
+              <ImageIcon className="mx-auto h-12 w-12 text-muted-foreground/60" />
+              <h3 className="mt-4 text-sm font-medium text-foreground">Geen pagina geselecteerd</h3>
+              <p className="mt-1 text-xs text-muted-foreground font-light">Selecteer een pagina in het linker menu of maak een nieuwe aan om te bewerken.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============ CUSTOM PAGE METADATA & SECTIONS EDITOR ============
+function CustomPageRowEditor({ row }: { row: CustomPageRow }) {
+  const qc = useQueryClient();
+  const [draft, setDraft] = useState(row);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setDraft(row);
+  }, [row]);
+
+  // Load custom sections for this page
+  const { data: sections = [], isLoading: sectionsLoading } = useQuery({
+    queryKey: ["custom_sections", row.id],
+    queryFn: () => fetchCustomSections(row.id),
+  });
+
+  const saveMetadata = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase
+        .from("custom_pages")
+        .update({
+          slug: draft.slug.toLowerCase().trim().replace(/[^\w-]/g, ""),
+          banner_image: draft.banner_image,
+          translations: draft.translations,
+        })
+        .eq("id", row.id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["custom_pages"] });
+      toast.success("Pagina-instellingen succesvol opgeslagen!");
+    },
+    onError: e => toast.error("Fout bij opslaan: " + String(e)),
+  });
+
+  const uploadBanner = async (file: File) => {
+    setUploading(true);
+    try {
+      const extension = file.name.split(".").pop();
+      const uniquePath = `custom-pages/banner-${row.id}-${Date.now()}.${extension}`;
+
+      const { error: uErr } = await supabase.storage.from("clinic-media").upload(uniquePath, file, { cacheControl: "3600", upsert: true });
+      if (uErr) throw uErr;
+
+      setDraft(prev => ({ ...prev, banner_image: uniquePath }));
+      toast.success("Banner succesvol geüpload!");
+    } catch (e) {
+      toast.error("Fout bij uploaden: " + String(e));
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const addSection = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("custom_sections").insert({
+        page_id: row.id,
+        sort_order: sections.length + 1,
+        layout: "text-left",
+        translations: {
+          nl: { title: "Nieuwe Sectie", content: "Schrijf hier de inhoud voor de sectie..." },
+          en: { title: "New Section", content: "Write section content here..." },
+          ar: { title: "قسم جديد", content: "اكتب محتوى القسم هنا..." },
+        },
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["custom_sections", row.id] });
+      toast.success("Sectie succesvol toegevoegd!");
+    },
+    onError: e => toast.error("Fout bij toevoegen sectie: " + String(e)),
+  });
+
+  const activeSrc = draft.banner_image ? publicUrl(draft.banner_image) : "/src/assets/svc-mondzorg.jpg";
+
+  return (
+    <div className="space-y-6">
+      {/* 1. Page Metadata Card */}
+      <div className="rounded-2xl border border-border bg-white p-6 shadow-sm space-y-6">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="font-serif text-lg font-bold text-primary">Pagina Instellingen</h3>
+          <button
+            onClick={() => saveMetadata.mutate()}
+            disabled={saveMetadata.isPending}
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/95 disabled:opacity-60"
+          >
+            {saveMetadata.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
+            Pagina Opslaan
+          </button>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-[1.5fr,1fr] items-start">
+          <div className="space-y-4">
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">URL Slug</label>
+              <div className="mt-1 flex rounded-lg border border-input overflow-hidden">
+                <span className="bg-secondary/60 text-muted-foreground px-3 py-2 text-xs font-medium flex items-center border-r border-input">/p/</span>
+                <input
+                  value={draft.slug}
+                  onChange={e => setDraft({ ...draft, slug: e.target.value })}
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm bg-white outline-none focus:ring-1 focus:ring-primary/20"
+                  placeholder="informatie-pagina"
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-3 pt-2">
+              {LOCALES.map(loc => {
+                const tr = draft.translations?.[loc] ?? { title: "", intro: "" };
+                return (
+                  <div key={loc} className="rounded-xl bg-secondary/35 p-4 space-y-3">
+                    <div className="text-xs font-bold uppercase tracking-wider flex justify-between">
+                      <span>{loc === "nl" ? "Nederlands (NL)" : loc === "en" ? "Engels (EN)" : "Arabisch (AR)"}</span>
+                      <span className="text-[10px] bg-secondary text-primary px-1.5 py-0.5 rounded font-mono font-bold uppercase">{loc}</span>
+                    </div>
+                    <div className="space-y-2">
+                      <input
+                        value={tr.title}
+                        onChange={e => setDraft({ ...draft, translations: { ...draft.translations, [loc]: { ...tr, title: e.target.value } } })}
+                        dir={loc === "ar" ? "rtl" : "ltr"}
+                        placeholder="Pagina Titel"
+                        className="w-full rounded-lg border border-input bg-white px-3 py-2 text-xs sm:text-sm outline-none focus:border-primary"
+                      />
+                      <textarea
+                        value={tr.intro}
+                        onChange={e => setDraft({ ...draft, translations: { ...draft.translations, [loc]: { ...tr, intro: e.target.value } } })}
+                        dir={loc === "ar" ? "rtl" : "ltr"}
+                        placeholder="Pagina Introductie"
+                        rows={2}
+                        className="w-full rounded-lg border border-input bg-white p-2.5 text-xs sm:text-sm outline-none focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Banner Photo Section */}
+          <div className="rounded-xl border border-border p-4 bg-secondary/10 space-y-4">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block">Pagina Banner</label>
+            <div className="aspect-[16/9] w-full bg-secondary rounded-lg overflow-hidden relative border border-border">
+              <img src={activeSrc} alt="Banner Preview" className="h-full w-full object-cover" />
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileRef}
+              className="hidden"
+              onChange={e => {
+                const file = e.target.files?.[0];
+                if (file) uploadBanner(file);
+              }}
+            />
+            <button
+              onClick={() => fileRef.current?.click()}
+              disabled={uploading}
+              className="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/95 disabled:opacity-60"
+            >
+              {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+              Upload Banner Afbeelding
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Custom Sections Card */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="font-serif text-lg font-bold text-primary">Inhoudssecties ({sections.length})</h3>
+          <button
+            onClick={() => addSection.mutate()}
+            disabled={addSection.isPending}
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/20 px-4 py-2 text-xs font-semibold text-primary hover:bg-primary/15 disabled:opacity-60"
+          >
+            {addSection.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Plus className="h-3.5 w-3.5" />}
+            Sectie Toevoegen
+          </button>
+        </div>
+
+        {sectionsLoading ? (
+          <div className="text-center py-6"><Loader2 className="h-5 w-5 animate-spin mx-auto text-muted-foreground" /></div>
+        ) : sections.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-border bg-white p-8 text-center">
+            <p className="text-xs text-muted-foreground font-light">Deze pagina heeft nog geen inhoudssecties. Voeg een sectie toe om teksten en afbeeldingen te plaatsen.</p>
+          </div>
+        ) : (
+          <div className="space-y-5">
+            {sections.map(s => (
+              <CustomSectionRowEditor key={s.id} row={s} pageId={row.id} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ============ CUSTOM SECTION ROW EDITOR ============
+function CustomSectionRowEditor({ row, pageId }: { row: CustomSectionRow; pageId: string }) {
+  const qc = useQueryClient();
+  const [draft, setDraft] = useState(row);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setDraft(row);
+  }, [row]);
+
+  const saveSection = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase
+        .from("custom_sections")
+        .update({
+          layout: draft.layout,
+          sort_order: draft.sort_order,
+          image_url: draft.image_url,
+          translations: draft.translations,
+        })
+        .eq("id", row.id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["custom_sections", pageId] });
+      toast.success("Sectie succesvol opgeslagen!");
+    },
+    onError: e => toast.error("Fout bij opslaan: " + String(e)),
+  });
+
+  const deleteSection = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("custom_sections").delete().eq("id", row.id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["custom_sections", pageId] });
+      toast.success("Sectie verwijderd!");
+    },
+    onError: e => toast.error("Fout bij verwijderen: " + String(e)),
+  });
+
+  const uploadImage = async (file: File) => {
+    setUploading(true);
+    try {
+      const extension = file.name.split(".").pop();
+      const uniquePath = `custom-pages/section-${row.id}-${Date.now()}.${extension}`;
+
+      const { error: uErr } = await supabase.storage.from("clinic-media").upload(uniquePath, file, { cacheControl: "3600", upsert: true });
+      if (uErr) throw uErr;
+
+      setDraft(prev => ({ ...prev, image_url: uniquePath }));
+      toast.success("Foto succesvol geüpload!");
+    } catch (e) {
+      toast.error("Fout bij uploaden: " + String(e));
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const imageSrc = draft.image_url ? publicUrl(draft.image_url) : "/src/assets/svc-mondzorg.jpg";
+
+  return (
+    <div className="rounded-2xl border border-border bg-white p-6 shadow-sm space-y-4">
+      {/* Header and Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-3">
+        <div className="flex items-center gap-3">
+          <span className="h-6 w-6 rounded-full bg-secondary/80 text-primary flex items-center justify-center font-mono text-xs font-bold">{draft.sort_order}</span>
+          <h4 className="font-display text-sm font-bold text-primary uppercase">Sectie bewerken</h4>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              if (confirm("Weet u zeker dat u deze sectie wilt verwijderen?")) deleteSection.mutate();
+            }}
+            disabled={deleteSection.isPending}
+            className="inline-flex items-center gap-1 rounded-full border border-destructive/30 hover:border-destructive px-3 py-1.5 text-xs text-destructive transition hover:bg-destructive/5"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            Sectie Verwijderen
+          </button>
+          <button
+            onClick={() => saveSection.mutate()}
+            disabled={saveSection.isPending}
+            className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/95 disabled:opacity-60"
+          >
+            {saveSection.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Save className="h-3.5 w-3.5" />}
+            Sectie Opslaan
+          </button>
+        </div>
+      </div>
+
+      {/* Inputs */}
+      <div className="grid gap-6 md:grid-cols-[1fr,260px] items-start">
+        {/* Texts */}
+        <div className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Weergave Layout</label>
+              <select
+                value={draft.layout}
+                onChange={e => setDraft({ ...draft, layout: e.target.value as any })}
+                className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-xs sm:text-sm outline-none focus:ring-1 focus:ring-primary/20"
+              >
+                <option value="text-left">Foto Rechts (Standaard)</option>
+                <option value="text-right">Foto Links</option>
+                <option value="full-width">Volledige Breedte (Geen Foto)</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Volgorde</label>
+              <input
+                type="number"
+                value={draft.sort_order}
+                onChange={e => setDraft({ ...draft, sort_order: Number(e.target.value) })}
+                className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-xs sm:text-sm outline-none focus:ring-1 focus:ring-primary/20"
+              />
+            </div>
+          </div>
+
+          <div className="grid gap-3 pt-2">
+            {LOCALES.map(loc => {
+              const tr = draft.translations?.[loc] ?? { title: "", content: "" };
+              return (
+                <div key={loc} className="rounded-xl bg-secondary/30 p-4 space-y-2">
+                  <div className="text-xs font-bold uppercase tracking-wider flex justify-between">
+                    <span>{loc === "nl" ? "Nederlands (NL)" : loc === "en" ? "Engels (EN)" : "Arabisch (AR)"}</span>
+                    <span className="text-[10px] bg-secondary text-primary px-1.5 py-0.5 rounded font-mono font-bold uppercase">{loc}</span>
+                  </div>
+                  <input
+                    value={tr.title}
+                    onChange={e => setDraft({ ...draft, translations: { ...draft.translations, [loc]: { ...tr, title: e.target.value } } })}
+                    dir={loc === "ar" ? "rtl" : "ltr"}
+                    placeholder="Sectie Titel"
+                    className="w-full rounded-lg border border-input bg-white px-3 py-2 text-xs sm:text-sm outline-none focus:border-primary"
+                  />
+                  <textarea
+                    value={tr.content}
+                    onChange={e => setDraft({ ...draft, translations: { ...draft.translations, [loc]: { ...tr, content: e.target.value } } })}
+                    dir={loc === "ar" ? "rtl" : "ltr"}
+                    placeholder="Sectie Inhoud (Tekst)"
+                    rows={4}
+                    className="w-full rounded-lg border border-input bg-white p-2.5 text-xs sm:text-sm outline-none focus:border-primary"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Section Image */}
+        {draft.layout !== "full-width" && (
+          <div className="rounded-xl border border-border p-4 bg-secondary/10 space-y-3">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block">Sectie Foto</label>
+            <div className="aspect-[4/3] w-full bg-secondary rounded-lg overflow-hidden relative border border-border">
+              <img src={imageSrc} alt="Section Preview" className="h-full w-full object-cover" />
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileRef}
+              className="hidden"
+              onChange={e => {
+                const file = e.target.files?.[0];
+                if (file) uploadImage(file);
+              }}
+            />
+            <button
+              onClick={() => fileRef.current?.click()}
+              disabled={uploading}
+              className="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/95 disabled:opacity-60"
+            >
+              {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+              Upload Sectie Foto
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+

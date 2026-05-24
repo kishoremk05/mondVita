@@ -64,3 +64,43 @@ export function publicUrl(path: string): string {
   const { data } = supabase.storage.from("clinic-media").getPublicUrl(path);
   return data.publicUrl;
 }
+
+export type CustomPageRow = {
+  id: string;
+  slug: string;
+  banner_image: string | null;
+  translations: Record<string, { title: string; intro: string }>;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type CustomSectionRow = {
+  id: string;
+  page_id: string;
+  image_url: string | null;
+  layout: "text-left" | "text-right" | "full-width";
+  sort_order: number;
+  translations: Record<string, { title: string; content: string }>;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export async function fetchCustomPages(): Promise<CustomPageRow[]> {
+  const { data, error } = await supabase
+    .from("custom_pages")
+    .select("*")
+    .order("created_at");
+  if (error) throw error;
+  return (data ?? []) as unknown as CustomPageRow[];
+}
+
+export async function fetchCustomSections(pageId: string): Promise<CustomSectionRow[]> {
+  const { data, error } = await supabase
+    .from("custom_sections")
+    .select("*")
+    .eq("page_id", pageId)
+    .order("sort_order");
+  if (error) throw error;
+  return (data ?? []) as unknown as CustomSectionRow[];
+}
+

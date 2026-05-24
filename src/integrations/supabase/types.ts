@@ -14,6 +14,74 @@ export type Database = {
   }
   public: {
     Tables: {
+      custom_pages: {
+        Row: {
+          id: string
+          slug: string
+          banner_image: string | null
+          translations: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          banner_image?: string | null
+          translations?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          banner_image?: string | null
+          translations?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      custom_sections: {
+        Row: {
+          id: string
+          page_id: string
+          image_url: string | null
+          layout: string
+          sort_order: number
+          translations: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          page_id: string
+          image_url?: string | null
+          layout?: string
+          sort_order?: number
+          translations?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          page_id?: string
+          image_url?: string | null
+          layout?: string
+          sort_order?: number
+          translations?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "custom_sections_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "custom_pages"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       appointment_requests: {
         Row: {
           id: string
