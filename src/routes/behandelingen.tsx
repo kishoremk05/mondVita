@@ -59,7 +59,13 @@ function Page() {
 
   const getDetails = (key: string): string[] => {
     const res = t(key, { returnObjects: true });
-    return Array.isArray(res) ? (res.filter(item => typeof item === "string") as string[]) : [];
+    if (Array.isArray(res)) {
+      return res.filter(item => typeof item === "string") as string[];
+    }
+    if (typeof res === "string" && res.trim()) {
+      return res.split("\n").map(s => s.trim()).filter(Boolean);
+    }
+    return [];
   };
 
   const dynMondzorg = useSiteImage("images.shared_doctor_explaining", imgDoctorExplaining);

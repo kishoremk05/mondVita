@@ -49,21 +49,27 @@ const PAGE_GROUPS = [
       "svc.mondzorg",
       "svc.mondzorg_d",
       "svc.mondzorg_n",
+      "svc.mondzorg_det",
       "svc.implant",
       "svc.implant_d",
       "svc.implant_n",
+      "svc.implant_det",
       "svc.prothese",
       "svc.prothese_d",
       "svc.prothese_n",
+      "svc.prothese_det",
       "svc.esth",
       "svc.esth_d",
       "svc.esth_n",
+      "svc.esth_det",
       "svc.wortel",
       "svc.wortel_d",
       "svc.wortel_n",
+      "svc.wortel_det",
       "svc.kinder",
       "svc.kinder_d",
-      "svc.kinder_n"
+      "svc.kinder_n",
+      "svc.kinder_det"
     ]
   },
   {
@@ -124,7 +130,10 @@ const PAGE_GROUPS = [
       "protheses.b2_t",
       "protheses.b2_d",
       "protheses.b3_t",
-      "protheses.b3_d"
+      "protheses.b3_d",
+      "protheses.repair_title",
+      "protheses.repair_text",
+      "protheses.repair_link"
     ]
   },
   {
@@ -242,7 +251,14 @@ const PAGE_GROUPS = [
       "spoed.p3",
       "spoed.card_title",
       "spoed.card_sub",
-      "spoed.card_btn"
+      "spoed.card_btn",
+      "spoed.hours_title",
+      "spoed.hours_desc",
+      "spoed.hours_wd",
+      "spoed.hours_we",
+      "spoed.hours_h",
+      "spoed.hours_24",
+      "spoed.call_now"
     ]
   },
   {
@@ -387,7 +403,10 @@ function ContentEditor() {
     if (data) {
       const merged: Record<string, Record<Locale, string>> = {};
       const getFallback = (key: string, loc: Locale) => {
-        const val = t(key, { lng: loc });
+        const val = t(key, { lng: loc, returnObjects: true });
+        if (Array.isArray(val)) {
+          return val.join("\n");
+        }
         return typeof val === "string" && val !== key ? val : "";
       };
 
@@ -451,7 +470,14 @@ function ContentEditor() {
         <div className="space-y-5">
           {selectedGroupObj?.keys.map(key => (
             <div key={key} className="rounded-2xl border border-border bg-white p-5 shadow-sm">
-              <h3 className="font-mono text-xs font-semibold uppercase tracking-widest text-brand-accent mb-4">{key}</h3>
+              <h3 className="font-mono text-xs font-semibold uppercase tracking-widest text-brand-accent mb-4">
+                {key}
+                {key.endsWith("_det") && (
+                  <span className="ml-2 text-[10px] text-muted-foreground font-sans normal-case italic">
+                    (Vul elke bullet point in op een nieuwe regel)
+                  </span>
+                )}
+              </h3>
               <div className="grid gap-4 md:grid-cols-3">
                 {LOCALES.map(loc => (
                   <div key={loc} className="space-y-1">
@@ -610,13 +636,14 @@ function ServicesEditor() {
       const { error } = await supabase.from("services").update({ icon: row.icon, image_url: row.image_url, link_path: row.link_path, sort_order: row.sort_order, translations: row.translations }).eq("id", row.id);
       if (error) throw error;
     },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["services"] }); toast.success("Saved"); },
-    onError: e => toast.error(String(e)),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["services"] }); toast.success("Wijzigingen succesvol opgeslagen!"); },
+    onError: e => toast.error("Fout bij opslaan: " + String(e)),
   });
 
   const delRow = useMutation({
     mutationFn: async (id: string) => { const { error } = await supabase.from("services").delete().eq("id", id); if (error) throw error; },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["services"] }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ["services"] }); toast.success("Dienst succesvol verwijderd!"); },
+    onError: e => toast.error("Fout bij verwijderen: " + String(e)),
   });
 
   const addRow = useMutation({
@@ -627,12 +654,161 @@ function ServicesEditor() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["services"] }),
   });
 
+  const addProtheses = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("services").insert({
+        icon: "Smile",
+        image_url: "images.shared_teeth_cap",
+        link_path: "/protheses",
+        sort_order: services.length + 1,
+        translations: {
+          nl: { title: "Protheses", desc: "Kunstgebitten op maat voor een comfortabel gevoel." },
+          en: { title: "Prosthetics", desc: "Custom dentures for a comfortable fit." },
+          ar: { title: "أطقم الأسنان", desc: "أطقم مصممة خصيصاً براحة تامة." }
+        }
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["services"] });
+      toast.success("Protheses succesvol toegevoegd aan de diensten!");
+    },
+    onError: e => toast.error("Fout bij toevoegen: " + String(e)),
+  });
+
+  const restoreAllDefaults = useMutation({
+    mutationFn: async () => {
+      // 1. Delete all existing services
+      const { error: delErr } = await supabase.from("services").delete().neq("id", "00000000-0000-0000-0000-000000000000");
+      if (delErr) throw delErr;
+
+      // 2. Insert the 6 default services
+      const defaults = [
+        {
+          icon: "Sparkles",
+          image_url: "",
+          link_path: "/esthetische-tandheelkunde",
+          sort_order: 1,
+          translations: {
+            nl: { title: "Esthetische Tandheelkunde", desc: "Witter, mooier en natuurlijk ogend gebit." },
+            en: { title: "Cosmetic Dentistry", desc: "Whiter, brighter, naturally beautiful smiles." },
+            ar: { title: "طب الأسنان التجميلي", desc: "ابتسامة أكثر إشراقاً وجمالاً طبيعياً." }
+          }
+        },
+        {
+          icon: "Stethoscope",
+          image_url: "",
+          link_path: "/general-dental-care",
+          sort_order: 2,
+          translations: {
+            nl: { title: "Algemene Tandheelkunde", desc: "Periodieke controles en preventieve zorg." },
+            en: { title: "General Dentistry", desc: "Regular check-ups and preventive care." },
+            ar: { title: "طب الأسنان العام", desc: "فحوصات منتظمة ورعاية وقائية." }
+          }
+        },
+        {
+          icon: "Shield",
+          image_url: "",
+          link_path: "/implantologie",
+          sort_order: 3,
+          translations: {
+            nl: { title: "Implantologie", desc: "Duurzame implantaten van topkwaliteit." },
+            en: { title: "Implantology", desc: "Premium, long-lasting dental implants." },
+            ar: { title: "زraعة الأسنان", desc: "زراعات متينة عالية الجودة." }
+          }
+        },
+        {
+          icon: "Smile",
+          image_url: "",
+          link_path: "/protheses",
+          sort_order: 4,
+          translations: {
+            nl: { title: "Protheses", desc: "Kunstgebitten op maat voor een comfortabel gevoel." },
+            en: { title: "Prosthetics", desc: "Custom dentures for a comfortable fit." },
+            ar: { title: "أطقم الأسنان", desc: "أطقم مصممة خصيصاً براحة تامة." }
+          }
+        },
+        {
+          icon: "Heart",
+          image_url: "",
+          link_path: "/kindertandheelkunde",
+          sort_order: 5,
+          translations: {
+            nl: { title: "Kindertandheelkunde", desc: "Vriendelijke zorg speciaal voor kinderen." },
+            en: { title: "Children Dentistry", desc: "Friendly care designed for children." },
+            ar: { title: "طب أسنان الأطفال", desc: "رعاية ودودة مصممة للأطفال." }
+          }
+        },
+        {
+          icon: "Zap",
+          image_url: "",
+          link_path: "/spoed",
+          sort_order: 6,
+          translations: {
+            nl: { title: "Spoedhulp", desc: "Snelle hulp bij acute klachten." },
+            en: { title: "Emergency Care", desc: "Fast help for urgent dental issues." },
+            ar: { title: "حالات الطوارئ", desc: "مساعدة سريعة للحالات العاجلة." }
+          }
+        }
+      ];
+
+      const { error: insErr } = await supabase.from("services").insert(defaults);
+      if (insErr) throw insErr;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["services"] });
+      toast.success("Standaard diensten succesvol hersteld!");
+    },
+    onError: e => toast.error("Fout bij herstellen: " + String(e)),
+  });
+
+  const hasProtheses = services.some(s => {
+    const nlTitle = s.translations?.nl?.title?.toLowerCase();
+    const enTitle = s.translations?.en?.title?.toLowerCase();
+    return nlTitle === "protheses" || enTitle === "prosthetics";
+  });
+
   return (
-    <div className="space-y-4">
-      {services.map(s => <ServiceRowEditor key={s.id} row={s} onSave={r => updateRow.mutate(r)} onDelete={() => delRow.mutate(s.id)} />)}
-      <button onClick={() => addRow.mutate()} className="inline-flex items-center gap-2 rounded-full border-2 border-dashed border-border bg-white px-6 py-3 text-sm transition hover:border-primary hover:text-primary">
-        <Plus className="h-4 w-4" /> Add service
-      </button>
+    <div className="space-y-6">
+      <div className="rounded-2xl border border-border bg-white p-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-xl">
+          <h2 className="font-serif text-xl font-bold text-primary uppercase">Diensten Beheren</h2>
+          <p className="mt-1 text-xs sm:text-sm text-muted-foreground font-light leading-relaxed">
+            Beheer hier de dienstkaarten die op de homepage worden getoond. Voeg nieuwe kaarten toe, pas de volgorde aan, of upload direct een eigen afbeelding voor elke dienst.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2 shrink-0">
+          {!hasProtheses && (
+            <button
+              onClick={() => addProtheses.mutate()}
+              disabled={addProtheses.isPending}
+              className="inline-flex items-center gap-2 rounded-full border border-brand-accent/50 bg-brand-accent/5 px-5 py-2.5 text-xs font-semibold text-primary transition hover:bg-brand-accent hover:text-white cursor-pointer"
+            >
+              {addProtheses.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+              Protheses toevoegen
+            </button>
+          )}
+          <button
+            onClick={() => {
+              if (confirm("Weet u zeker dat u alle diensten wilt herstellen naar de 6 standaard diensten? Dit overschrijft uw huidige wijzigingen.")) {
+                restoreAllDefaults.mutate();
+              }
+            }}
+            disabled={restoreAllDefaults.isPending}
+            className="inline-flex items-center gap-2 rounded-full border border-destructive/50 bg-destructive/5 px-5 py-2.5 text-xs font-semibold text-destructive transition hover:bg-destructive hover:text-white cursor-pointer"
+          >
+            {restoreAllDefaults.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+            Standaard herstellen
+          </button>
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        {services.map(s => <ServiceRowEditor key={s.id} row={s} onSave={r => updateRow.mutate(r)} onDelete={() => delRow.mutate(s.id)} />)}
+        <button onClick={() => addRow.mutate()} className="inline-flex items-center gap-2 rounded-full border-2 border-dashed border-border bg-white px-6 py-3 text-sm transition hover:border-primary hover:text-primary cursor-pointer">
+          <Plus className="h-4 w-4" /> Dienst toevoegen
+        </button>
+      </div>
     </div>
   );
 }
@@ -640,10 +816,28 @@ function ServicesEditor() {
 function ServiceRowEditor({ row, onSave, onDelete }: { row: ServiceRow; onSave: (r: ServiceRow) => void; onDelete: () => void }) {
   const { t } = useTranslation();
   const [draft, setDraft] = useState(row);
+  const [uploading, setUploading] = useState(false);
+
   useEffect(() => setDraft(row), [row]);
 
+  const handleUpload = async (file: File) => {
+    setUploading(true);
+    try {
+      const extension = file.name.split(".").pop();
+      const uniquePath = `services/${draft.id}-${Date.now()}.${extension}`;
+      const { error } = await supabase.storage.from("clinic-media").upload(uniquePath, file, { cacheControl: "3600", upsert: true });
+      if (error) throw error;
+      setDraft(d => ({ ...d, image_url: uniquePath }));
+      toast.success("Afbeelding succesvol geüpload!");
+    } catch (e) {
+      toast.error("Fout bij uploaden: " + String(e));
+    } finally {
+      setUploading(false);
+    }
+  };
+
   return (
-    <div className="rounded-2xl border border-border bg-white p-6">
+    <div className="rounded-2xl border border-border bg-white p-6 shadow-sm">
       <div className="grid gap-4 md:grid-cols-[160px,120px,1fr]">
         <div>
           <label className="text-xs uppercase tracking-wider text-muted-foreground">Icon (Lucide)</label>
@@ -651,7 +845,7 @@ function ServiceRowEditor({ row, onSave, onDelete }: { row: ServiceRow; onSave: 
             className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-sm" placeholder="Stethoscope" />
         </div>
         <div>
-          <label className="text-xs uppercase tracking-wider text-muted-foreground">Order</label>
+          <label className="text-xs uppercase tracking-wider text-muted-foreground">Volgorde</label>
           <input type="number" value={draft.sort_order} onChange={e => setDraft({ ...draft, sort_order: Number(e.target.value) })}
             className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-sm" />
         </div>
@@ -659,8 +853,29 @@ function ServiceRowEditor({ row, onSave, onDelete }: { row: ServiceRow; onSave: 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         <div>
           <label className="text-xs uppercase tracking-wider text-muted-foreground">{t("admin.image")}</label>
-          <input value={draft.image_url ?? ""} onChange={e => setDraft({ ...draft, image_url: e.target.value })}
-            className="mt-1 w-full rounded-lg border border-input bg-white px-3 py-2 text-sm" placeholder="https://... or storage path" />
+          <div className="flex gap-2 mt-1">
+            <input value={draft.image_url ?? ""} onChange={e => setDraft({ ...draft, image_url: e.target.value })}
+              className="flex-grow rounded-lg border border-input bg-white px-3 py-2 text-sm" placeholder="https://... or storage path" />
+            <input
+              type="file"
+              accept="image/*"
+              id={`service-file-${draft.id}`}
+              className="hidden"
+              onChange={e => {
+                const file = e.target.files?.[0];
+                if (file) handleUpload(file);
+              }}
+            />
+            <button
+              type="button"
+              disabled={uploading}
+              onClick={() => document.getElementById(`service-file-${draft.id}`)?.click()}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:bg-primary/95 disabled:opacity-60 shrink-0 cursor-pointer"
+            >
+              {uploading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />}
+              {uploading ? "Laden..." : "Upload"}
+            </button>
+          </div>
         </div>
         <div>
           <label className="text-xs uppercase tracking-wider text-muted-foreground">{t("admin.link")}</label>
@@ -675,21 +890,21 @@ function ServiceRowEditor({ row, onSave, onDelete }: { row: ServiceRow; onSave: 
             <div key={loc} className="rounded-lg bg-secondary p-3">
               <div className="text-xs font-semibold uppercase tracking-wider mb-2">{loc}</div>
               <input value={tr.title} onChange={e => setDraft({ ...draft, translations: { ...draft.translations, [loc]: { ...tr, title: e.target.value } } })}
-                dir={loc === "ar" ? "rtl" : "ltr"} placeholder="Title"
+                dir={loc === "ar" ? "rtl" : "ltr"} placeholder="Titel"
                 className="w-full rounded border border-input bg-white px-2 py-1.5 text-sm" />
               <textarea value={tr.desc} onChange={e => setDraft({ ...draft, translations: { ...draft.translations, [loc]: { ...tr, desc: e.target.value } } })}
-                dir={loc === "ar" ? "rtl" : "ltr"} placeholder="Description" rows={2}
+                dir={loc === "ar" ? "rtl" : "ltr"} placeholder="Beschrijving" rows={2}
                 className="mt-2 w-full rounded border border-input bg-white px-2 py-1.5 text-sm" />
             </div>
           );
         })}
       </div>
       <div className="mt-4 flex justify-end gap-2">
-        <button onClick={onDelete} className="inline-flex items-center gap-1 rounded-full border border-destructive/40 px-3 py-1.5 text-xs text-destructive transition hover:bg-destructive/5">
-          <Trash2 className="h-3.5 w-3.5" /> Delete
+        <button onClick={onDelete} className="inline-flex items-center gap-1 rounded-full border border-destructive/40 px-3 py-1.5 text-xs text-destructive transition hover:bg-destructive/5 cursor-pointer">
+          <Trash2 className="h-3.5 w-3.5" /> Verwijderen
         </button>
-        <button onClick={() => onSave(draft)} className="inline-flex items-center gap-1 rounded-full bg-primary px-4 py-1.5 text-xs text-primary-foreground">
-          <Save className="h-3.5 w-3.5" /> Save
+        <button onClick={() => onSave(draft)} className="inline-flex items-center gap-1 rounded-full bg-primary px-4 py-1.5 text-xs text-primary-foreground cursor-pointer">
+          <Save className="h-3.5 w-3.5" /> Opslaan
         </button>
       </div>
     </div>

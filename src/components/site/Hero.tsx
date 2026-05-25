@@ -19,7 +19,7 @@ export function Hero() {
             src={heroBg}
             alt="MondVita dental clinic interior"
             loading="eager"
-            className="h-full w-full object-cover object-[80%_center] md:object-[right_center] scale-102 animate-scale-reveal"
+            className="h-full w-full object-cover object-center md:object-[25%_center] scale-102 animate-scale-reveal"
           />
         </div>
 

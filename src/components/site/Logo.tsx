@@ -24,8 +24,8 @@ export function Logo({ className = "", isNavbar = false }: { className?: string;
         alt="MondVita Logo"
         className={`w-auto object-contain ${
           isNavbar
-            ? "h-28 md:h-32 max-w-[260px] md:max-w-[320px] -my-7 md:-my-8 scale-102 md:scale-110 origin-left"
-            : "h-24 md:h-28 max-w-[220px] md:max-w-[280px] -my-6 md:-my-7"
+            ? "h-14 md:h-16 max-w-[180px] md:max-w-[220px] -my-2 md:-my-3 object-contain origin-left"
+            : "h-20 md:h-24 max-w-[220px] md:max-w-[280px] -my-4 md:-my-5"
         } ${isWhite ? "brightness-0 invert" : ""}`}
       />
     </div>

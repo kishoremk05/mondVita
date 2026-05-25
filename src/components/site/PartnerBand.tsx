@@ -84,11 +84,12 @@ export function PartnerBand({ title }: { title?: string }) {
 
         {/* Section 1: Zorgpartners & Registers (Moving Forward) */}
         <div className="mt-14 space-y-4">
-          <div className="mx-auto max-w-7xl px-6 flex items-center gap-4">
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-brand-accent whitespace-nowrap">
+          <div className="mx-auto max-w-7xl px-6 flex items-center gap-4 justify-center">
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-border/60 max-w-[200px]" />
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-brand-accent whitespace-nowrap text-center">
               {t("partner.zorgpartners")}
             </h3>
-            <div className="h-px w-full bg-gradient-to-r from-border/60 to-transparent" />
+            <div className="h-px flex-grow bg-gradient-to-l from-transparent to-border/60 max-w-[200px]" />
           </div>
           
           <div className="relative w-full overflow-hidden py-4">
@@ -116,11 +117,12 @@ export function PartnerBand({ title }: { title?: string }) {
 
         {/* Section 2: Zorgverzekeringen (Moving in Reverse) */}
         <div className="mt-12 space-y-4">
-          <div className="mx-auto max-w-7xl px-6 flex items-center gap-4">
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-brand-accent whitespace-nowrap">
+          <div className="mx-auto max-w-7xl px-6 flex items-center gap-4 justify-center">
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent to-border/60 max-w-[200px]" />
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-brand-accent whitespace-nowrap text-center">
               {t("partner.verzekeraars")}
             </h3>
-            <div className="h-px w-full bg-gradient-to-r from-border/60 to-transparent" />
+            <div className="h-px flex-grow bg-gradient-to-l from-transparent to-border/60 max-w-[200px]" />
           </div>
           
           <div className="relative w-full overflow-hidden py-4">

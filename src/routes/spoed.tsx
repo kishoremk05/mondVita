@@ -90,31 +90,31 @@ function Page() {
               <div className="flex items-center gap-3">
                 <Clock className="h-5.5 w-5.5 text-brand-accent" />
                 <h3 className="font-display text-lg font-bold text-primary uppercase tracking-wider">
-                  {t("spoed.hours_title")}
+                  {c("spoed.hours_title")}
                 </h3>
               </div>
               
               <p className="text-sm text-muted-foreground mt-3 leading-relaxed font-light">
-                {t("spoed.hours_desc")}
+                {c("spoed.hours_desc")}
               </p>
               
               <div className="mt-6 space-y-4">
                 <div className="flex justify-between border-b border-border/55 pb-2 text-sm">
-                  <span className="font-medium text-foreground/80">{t("spoed.hours_wd")}</span>
+                  <span className="font-medium text-foreground/80">{c("spoed.hours_wd")}</span>
                   <span className="font-bold text-primary">08:00 - 22:00</span>
                 </div>
                 <div className="flex justify-between border-b border-border/55 pb-2 text-sm">
-                  <span className="font-medium text-foreground/80">{t("spoed.hours_we")}</span>
-                  <span className="font-bold text-primary">{t("spoed.hours_24")}</span>
+                  <span className="font-medium text-foreground/80">{c("spoed.hours_we")}</span>
+                  <span className="font-bold text-primary">{c("spoed.hours_24")}</span>
                 </div>
                 <div className="flex justify-between border-b border-border/55 pb-2 text-sm">
-                  <span className="font-medium text-foreground/80">{t("spoed.hours_h")}</span>
-                  <span className="font-bold text-primary">{t("spoed.hours_24")}</span>
+                  <span className="font-medium text-foreground/80">{c("spoed.hours_h")}</span>
+                  <span className="font-bold text-primary">{c("spoed.hours_24")}</span>
                 </div>
               </div>
               
               <div className="mt-8 rounded-xl bg-primary text-primary-foreground p-5 text-center shadow-md">
-                <p className="text-xs uppercase tracking-widest opacity-70">{t("spoed.call_now")}</p>
+                <p className="text-xs uppercase tracking-widest opacity-70">{c("spoed.call_now")}</p>
                 <a
                   href="tel:09001515"
                   className="block text-2xl font-black text-white hover:text-brand-accent transition mt-1 tracking-wider"

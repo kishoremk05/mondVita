@@ -16,7 +16,7 @@ function getLocale(language: string) {
   return locale === "nl" || locale === "en" || locale === "ar" ? locale : "en";
 }
 
-function resolveCardImage(row: ServiceRow, index: number, dynFallbacks: string[]) {
+function resolveCardImage(row: ServiceRow, dynImages: Record<string, string>) {
   const imageUrl = row.image_url?.trim();
   if (imageUrl) {
     return imageUrl.startsWith("http://") || imageUrl.startsWith("https://") || imageUrl.startsWith("/")
@@ -24,7 +24,15 @@ function resolveCardImage(row: ServiceRow, index: number, dynFallbacks: string[]
       : publicUrl(imageUrl);
   }
 
-  return dynFallbacks[index % dynFallbacks.length];
+  const icon = row.icon?.toLowerCase() || "";
+  if (icon.includes("stethoscope") || icon.includes("doctor")) return dynImages.mondzorg;
+  if (icon.includes("shield") || icon.includes("implant")) return dynImages.implant;
+  if (icon.includes("smile") || icon.includes("prothese")) return dynImages.prothese;
+  if (icon.includes("zap") || icon.includes("spoed")) return dynImages.spoed;
+  if (icon.includes("spark") || icon.includes("esth")) return dynImages.esth;
+  if (icon.includes("heart") || icon.includes("kinder")) return dynImages.kinder;
+
+  return dynImages.mondzorg;
 }
 
 function getCardCopy(row: ServiceRow, locale: ReturnType<typeof getLocale>) {
@@ -50,19 +58,26 @@ export function Services() {
   const { data: services = [] } = useQuery({ queryKey: ["services"], queryFn: fetchServices });
   const locale = getLocale(i18n.language);
 
-  const dynMondzorg = useSiteImage("images.shared_doctor_explaining", imgDoctorExplaining);
-  const dynImplant = useSiteImage("images.implant_bg", imgTeeth);
-  const dynProthese = useSiteImage("images.shared_teeth_cap", imgTeethCap);
+  const dynMondzorg = useSiteImage("images.services_mondzorg", imgDoctorExplaining);
+  const dynImplant = useSiteImage("images.services_implant", imgTeeth);
+  const dynProthese = useSiteImage("images.services_prothese", imgTeethCap);
   const dynSpoed = useSiteImage("images.services_spoed", imgSpoedImg);
   const dynEsth = useSiteImage("images.esth_bg", imgUvLight);
   const dynKinder = useSiteImage("images.kinder_bg", imgChild);
 
-  const dynFallbacks = [dynMondzorg, dynImplant, dynProthese, dynSpoed, dynEsth, dynKinder];
+  const dynImages = {
+    mondzorg: dynMondzorg,
+    implant: dynImplant,
+    prothese: dynProthese,
+    spoed: dynSpoed,
+    esth: dynEsth,
+    kinder: dynKinder,
+  };
 
   const cards = services.length > 0
-    ? services.map((row, index) => ({
+    ? services.map((row) => ({
         id: row.id,
-        image: resolveCardImage(row, index, dynFallbacks),
+        image: resolveCardImage(row, dynImages),
         link: normalizeLink(row.link_path),
         ...getCardCopy(row, locale),
       }))
