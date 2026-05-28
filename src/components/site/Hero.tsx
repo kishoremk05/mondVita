@@ -23,8 +23,8 @@ export function Hero() {
           />
         </div>
 
-        {/* Soft white gradient overlay on the left 50% of the screen, fading to transparent on the right (mirrored for RTL) */}
-        <div className="absolute inset-y-0 left-0 rtl:left-auto rtl:right-0 w-full md:w-[50%] bg-gradient-to-r rtl:bg-gradient-to-l from-white via-white/65 to-transparent hidden md:block" />
+      {/* Soft white gradient overlay - fading from RIGHT so text on right side is readable, left wall logo stays visible */}
+        <div className="absolute inset-y-0 right-0 rtl:right-auto rtl:left-0 w-full md:w-[55%] bg-gradient-to-l rtl:bg-gradient-to-r from-white via-white/70 to-transparent hidden md:block" />
         
         {/* Mobile-only overlay to ensure text is fully readable on small screens */}
         <div className="absolute inset-0 bg-white/35 block md:hidden" />
@@ -33,8 +33,8 @@ export function Hero() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-8 pb-16">
-        <div className="max-w-2xl space-y-6 md:space-y-8 animate-fade-up">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-8 pb-16 md:flex md:justify-end">
+        <div className="max-w-2xl space-y-6 md:space-y-8 animate-fade-up md:max-w-xl lg:max-w-2xl">
           {/* Micro-badge accent */}
           <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary backdrop-blur-sm">
             {c("hero.badge")}

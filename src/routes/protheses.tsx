@@ -33,10 +33,10 @@ function Page() {
   const prothesesBg = useSiteImage("images.protheses_bg", imgTeethCap1);
   const { hash } = useLocation();
 
-  const dynAdultMatch = useSiteImage("images.shared_adult_match", imgAdultMatch);
-  const dynTeethCap = useSiteImage("images.shared_teeth_cap", imgTeethCap);
-  const dynMenVisual = useSiteImage("images.shared_men_visual", imgMenVisual);
-  const dynClientXray = useSiteImage("images.shared_client_xray", imgClientXray);
+  const dynAdultMatch = useSiteImage("images.protheses_adult_match", imgAdultMatch);
+  const dynTeethCap = useSiteImage("images.protheses_teeth_cap", imgTeethCap);
+  const dynMenVisual = useSiteImage("images.protheses_men_visual", imgMenVisual);
+  const dynClientXray = useSiteImage("images.protheses_client_xray", imgClientXray);
 
   useEffect(() => {
     if (hash) {

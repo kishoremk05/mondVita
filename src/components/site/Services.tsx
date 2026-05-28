@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import imgDoctorExplaining from "@/assets/new client images/doctor explaining teeth to patient.png";
 import imgTeeth from "@/assets/new client images/teeth.png";
@@ -10,6 +10,7 @@ import imgUvLight from "@/assets/new client images/doctor fixing the teeth using
 import imgChild from "@/assets/new client images/child in dental office.png";
 import { useSiteImage } from "@/hooks/useSiteImage";
 import { fetchServices, publicUrl, type ServiceRow } from "@/lib/site-data";
+import { useAuth } from "@/hooks/useAuth";
 
 function getLocale(language: string) {
   const locale = language.slice(0, 2);
@@ -57,6 +58,7 @@ export function Services() {
   const { t, i18n } = useTranslation();
   const { data: services = [] } = useQuery({ queryKey: ["services"], queryFn: fetchServices });
   const locale = getLocale(i18n.language);
+  const { isAdmin } = useAuth();
 
   const dynMondzorg = useSiteImage("images.services_mondzorg", imgDoctorExplaining);
   const dynImplant = useSiteImage("images.services_implant", imgTeeth);
@@ -175,6 +177,28 @@ export function Services() {
                 );
               })()
             ))}
+
+            {/* Admin-only: Add new service shortcut */}
+            {isAdmin && (
+              <Link
+                to="/admin"
+                search={{ tab: "services" } as any}
+                className="group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-border/80 bg-white/50 shadow-sm transition-all duration-300 hover:border-brand-accent/60 hover:shadow-[0_16px_36px_-12px_rgba(12,35,64,0.10)] hover:bg-white animate-fade-up min-h-[260px]"
+                style={{ animationDelay: `${cards.length * 150}ms` }}
+              >
+                <div className="flex flex-col items-center gap-3 p-8 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/8 transition-colors duration-300 group-hover:bg-brand-accent/15">
+                    <Plus className="h-7 w-7 text-primary/60 transition-colors duration-300 group-hover:text-brand-accent" />
+                  </div>
+                  <p className="font-display text-sm font-bold text-primary/70 tracking-tight group-hover:text-primary transition-colors duration-300">
+                    Nieuwe Dienst Toevoegen
+                  </p>
+                  <p className="text-[11px] text-muted-foreground font-light">
+                    Beheer via Admin Panel
+                  </p>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </div>

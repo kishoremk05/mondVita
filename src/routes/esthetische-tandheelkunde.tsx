@@ -30,9 +30,9 @@ function Page() {
   const { c } = useSiteContent();
   const esthBg = useSiteImage("images.esth_bg", imgUvLight);
 
-  const dynTeethCap = useSiteImage("images.shared_teeth_cap", imgTeethCap);
-  const dynTeethCap1 = useSiteImage("images.shared_teeth_cap1", imgTeethCap1);
-  const dynMenVisual = useSiteImage("images.shared_men_visual", imgMenVisual);
+  const dynTeethCap = useSiteImage("images.esthetische_teeth_cap", imgTeethCap);
+  const dynTeethCap1 = useSiteImage("images.esthetische_teeth_cap1", imgTeethCap1);
+  const dynMenVisual = useSiteImage("images.esthetische_men_visual", imgMenVisual);
 
   const items = [
     { t: c("esthCare.p1_t"), d: c("esthCare.p1_d"), Icon: Sparkles, img: esthBg },

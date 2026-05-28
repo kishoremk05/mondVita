@@ -30,10 +30,10 @@ function Page() {
   const { c } = useSiteContent();
 
   const rootCanalBg = useSiteImage("images.root_canal_bg", imgTools);
-  const imgExpl = useSiteImage("images.shared_doctor_explaining", imgDoctorExplaining);
-  const imgStp = useSiteImage("images.shared_setup_place", imgSetup);
-  const imgMch = useSiteImage("images.shared_adult_match", imgAdultMatch);
-  const imgTls = useSiteImage("images.shared_tools", imgTools);
+  const imgExpl = useSiteImage("images.wortel_doctor_explaining", imgDoctorExplaining);
+  const imgStp = useSiteImage("images.wortel_setup_place", imgSetup);
+  const imgMch = useSiteImage("images.wortel_adult_match", imgAdultMatch);
+  const imgTls = useSiteImage("images.wortel_tools", imgTools);
 
   const items = [
     { id: "p1", t: c("wortelCare.p1_t"), d: c("wortelCare.p1_d"), Icon: Sparkles, img: imgExpl },

@@ -58,21 +58,21 @@ function Page() {
   }, [hash]);
 
   const getDetails = (key: string): string[] => {
-    const res = t(key, { returnObjects: true });
+    const res = t(key, { returnObjects: true }) as unknown;
     if (Array.isArray(res)) {
-      return res.filter(item => typeof item === "string") as string[];
+      return res.filter((item: unknown): item is string => typeof item === "string");
     }
     if (typeof res === "string" && res.trim()) {
-      return res.split("\n").map(s => s.trim()).filter(Boolean);
+      return res.split("\n").map((s: string) => s.trim()).filter(Boolean);
     }
     return [];
   };
 
-  const dynMondzorg = useSiteImage("images.shared_doctor_explaining", imgDoctorExplaining);
+  const dynMondzorg = useSiteImage("images.behandelingen_doctor_explaining", imgDoctorExplaining);
   const dynImplant = useSiteImage("images.implant_bg", imgTeeth);
-  const dynProthese = useSiteImage("images.shared_teeth_cap", imgTeethCap);
+  const dynProthese = useSiteImage("images.behandelingen_teeth_cap", imgTeethCap);
   const dynEsth = useSiteImage("images.esth_bg", imgUvLight);
-  const dynWortel = useSiteImage("images.shared_tools", imgTools);
+  const dynWortel = useSiteImage("images.behandelingen_tools", imgTools);
   const dynKinder = useSiteImage("images.kinder_bg", imgChild);
 
   const items = [

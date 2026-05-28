@@ -30,9 +30,9 @@ function Page() {
   const { c } = useSiteContent();
   const kinderBg = useSiteImage("images.kinder_bg", imgChild);
 
-  const dynExplain = useSiteImage("images.shared_doctor_explaining", imgExplain);
-  const dynSetup = useSiteImage("images.shared_setup_place", imgSetup);
-  const dynAdultMatch = useSiteImage("images.shared_adult_match", imgAdultMatch);
+  const dynExplain = useSiteImage("images.kinder_doctor_explaining", imgExplain);
+  const dynSetup = useSiteImage("images.kinder_setup_place", imgSetup);
+  const dynAdultMatch = useSiteImage("images.kinder_adult_match", imgAdultMatch);
 
   const items = [
     { t: c("kinderCare.p1_t"), d: c("kinderCare.p1_d"), Icon: Gift, img: kinderBg },

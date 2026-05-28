@@ -31,10 +31,10 @@ function Page() {
   const { c } = useSiteContent();
   const implantBg = useSiteImage("images.implant_bg", imgTeeth);
 
-  const dynAdultMatch = useSiteImage("images.shared_adult_match", imgAdultMatch);
-  const dynSetup = useSiteImage("images.shared_setup_place", imgSetup);
-  const dynExplain = useSiteImage("images.shared_doctor_explaining", imgExplain);
-  const dynClientXray = useSiteImage("images.shared_client_xray", imgClientXray);
+  const dynAdultMatch = useSiteImage("images.implantologie_adult_match", imgAdultMatch);
+  const dynSetup = useSiteImage("images.implantologie_setup_place", imgSetup);
+  const dynExplain = useSiteImage("images.implantologie_doctor_explaining", imgExplain);
+  const dynClientXray = useSiteImage("images.implantologie_client_xray", imgClientXray);
 
   const items = [
     { t: c("implantCare.p1_t"), d: c("implantCare.p1_d"), Icon: Layers, img: dynAdultMatch },

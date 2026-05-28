@@ -348,20 +348,42 @@ const IMAGE_CONFIGS = [
   { key: "images.kinder_bg", label: "Kindertandheelkunde Banner", defaultAsset: "/src/assets/new client images/child in dental office.png", description: "De banner achtergrond bovenaan de kindertandheelkundepagina." },
   { key: "images.general_care_bg", label: "Algemene Mondzorg Banner", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "De banner achtergrond bovenaan de algemene mondzorgpagina." },
   { key: "images.footer_location", label: "Footer Locatie Afbeelding", defaultAsset: "/src/assets/new client images/address.png", description: "De locatiekaart die in de footer wordt weergegeven." },
-  { key: "images.shared_doctor_explaining", label: "Stock: Dokter legt gebit uit", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "Gebruikt voor behandelingen, kindertandheelkunde en diensten." },
-  { key: "images.shared_setup_place", label: "Stock: Tandartsstoel & apparatuur", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "Gebruikt voor behandelingen, spoed en over-ons." },
-  { key: "images.shared_adult_match", label: "Stock: Tandkleur matching", defaultAsset: "/src/assets/new client images/adult with teeth  match checking.png", description: "Gebruikt voor protheses, implantologie en wortelkanaalbehandeling." },
-  { key: "images.shared_tools", label: "Stock: Behandeling met gereedschap", defaultAsset: "/src/assets/new client images/doctor fixing the teeth using tools.png", description: "Gebruikt voor wortelkanaalbehandeling en behandelingen." },
-  { key: "images.shared_men_visual", label: "Stock: Man bekijkt 3D gebitsmodel", defaultAsset: "/src/assets/new client images/men with teeth fixing seeing visual.png", description: "Gebruikt voor protheses en esthetische tandheelkunde." },
-  { key: "images.shared_client_xray", label: "Stock: Röntgenfoto van patiënt", defaultAsset: "/src/assets/new client images/client with teeth xray.png", description: "Gebruikt voor implantologie en protheses." },
-  { key: "images.shared_teeth_cap", label: "Stock: Losse tand / kroon model", defaultAsset: "/src/assets/new client images/teeth cap.png", description: "Gebruikt voor behandelingen, diensten en protheses." },
-  { key: "images.shared_teeth_cap1", label: "Stock: Kroon model zijaanzicht", defaultAsset: "/src/assets/new client images/teeth cap 1.png", description: "Gebruikt voor protheses en esthetische tandheelkunde." },
-  { key: "images.shared_desktop_table", label: "Stock: Tandarts bureau instrumenten", defaultAsset: "/src/assets/new client images/doctor desktop table with some components.png", description: "Gebruikt voor behandelingen en over-ons." }
+  { key: "images.behandelingen_doctor_explaining", label: "Behandelingen: Dokter legt gebit uit", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "Foto op de behandelingen overzichtspagina (mondzorg kaart)." },
+  { key: "images.behandelingen_teeth_cap", label: "Behandelingen: Kroon model", defaultAsset: "/src/assets/new client images/teeth cap.png", description: "Foto op de behandelingen overzichtspagina (prothese kaart)." },
+  { key: "images.behandelingen_tools", label: "Behandelingen: Gereedschap", defaultAsset: "/src/assets/new client images/doctor fixing the teeth using tools.png", description: "Foto op de behandelingen overzichtspagina (wortelkanaal kaart)." },
+  { key: "images.protheses_adult_match", label: "Protheses: Tandkleur matching", defaultAsset: "/src/assets/new client images/adult with teeth  match checking.png", description: "Foto op de prothesespagina (tandkleur matching sectie)." },
+  { key: "images.protheses_teeth_cap", label: "Protheses: Kroon model", defaultAsset: "/src/assets/new client images/teeth cap.png", description: "Foto op de prothesespagina (kroon model sectie)." },
+  { key: "images.protheses_men_visual", label: "Protheses: Man bekijkt 3D model", defaultAsset: "/src/assets/new client images/men with teeth fixing seeing visual.png", description: "Foto op de prothesespagina (3D model sectie)." },
+  { key: "images.protheses_client_xray", label: "Protheses: Röntgenfoto", defaultAsset: "/src/assets/new client images/client with teeth xray.png", description: "Foto op de prothesespagina (röntgenfoto sectie)." },
+  { key: "images.implantologie_adult_match", label: "Implantologie: Tandkleur matching", defaultAsset: "/src/assets/new client images/adult with teeth  match checking.png", description: "Foto op de implantologiepagina (tandkleur matching sectie)." },
+  { key: "images.implantologie_setup_place", label: "Implantologie: Tandartsstoel", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "Foto op de implantologiepagina (tandartsstoel sectie)." },
+  { key: "images.implantologie_doctor_explaining", label: "Implantologie: Dokter legt uit", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "Foto op de implantologiepagina (dokter sectie)." },
+  { key: "images.implantologie_client_xray", label: "Implantologie: Röntgenfoto", defaultAsset: "/src/assets/new client images/client with teeth xray.png", description: "Foto op de implantologiepagina (röntgenfoto sectie)." },
+  { key: "images.esthetische_teeth_cap", label: "Esthetische: Kroon model", defaultAsset: "/src/assets/new client images/teeth cap.png", description: "Foto op de esthetische tandheelkundepagina (kroon model sectie)." },
+  { key: "images.esthetische_teeth_cap1", label: "Esthetische: Kroon zijaanzicht", defaultAsset: "/src/assets/new client images/teeth cap 1.png", description: "Foto op de esthetische tandheelkundepagina (kroon zijaanzicht sectie)." },
+  { key: "images.esthetische_men_visual", label: "Esthetische: Man bekijkt 3D model", defaultAsset: "/src/assets/new client images/men with teeth fixing seeing visual.png", description: "Foto op de esthetische tandheelkundepagina (3D model sectie)." },
+  { key: "images.wortel_doctor_explaining", label: "Wortelkanaal: Dokter legt uit", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "Foto op de wortelkanaalbehandelingpagina (dokter sectie)." },
+  { key: "images.wortel_setup_place", label: "Wortelkanaal: Tandartsstoel", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "Foto op de wortelkanaalbehandelingpagina (tandartsstoel sectie)." },
+  { key: "images.wortel_adult_match", label: "Wortelkanaal: Tandkleur matching", defaultAsset: "/src/assets/new client images/adult with teeth  match checking.png", description: "Foto op de wortelkanaalbehandelingpagina (tandkleur matching sectie)." },
+  { key: "images.wortel_tools", label: "Wortelkanaal: Gereedschap", defaultAsset: "/src/assets/new client images/doctor fixing the teeth using tools.png", description: "Foto op de wortelkanaalbehandelingpagina (gereedschap sectie)." },
+  { key: "images.kinder_doctor_explaining", label: "Kinder: Dokter legt uit", defaultAsset: "/src/assets/new client images/doctor explaining teeth to patient.png", description: "Foto op de kindertandheelkundepagina (dokter sectie)." },
+  { key: "images.kinder_setup_place", label: "Kinder: Tandartsstoel", defaultAsset: "/src/assets/new client images/dental setup place.png", description: "Foto op de kindertandheelkundepagina (tandartsstoel sectie)." },
+  { key: "images.kinder_adult_match", label: "Kinder: Tandkleur matching", defaultAsset: "/src/assets/new client images/adult with teeth  match checking.png", description: "Foto op de kindertandheelkundepagina (tandkleur matching sectie)." },
+  { key: "images.shared_desktop_table", label: "Stock: Tandarts bureau instrumenten", defaultAsset: "/src/assets/new client images/doctor desktop table with some components.png", description: "Gebruikt voor over-ons pagina." }
 ];
 
 function AdminPage() {
   const { t } = useTranslation();
   const [tab, setTab] = useState<"content" | "images" | "services" | "gallery" | "contact" | "appointments" | "custom_pages">("content");
+
+  // Deep-link: read ?tab=... from URL search params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlTab = params.get("tab");
+    if (urlTab && ["content", "images", "services", "gallery", "contact", "appointments", "custom_pages"].includes(urlTab)) {
+      setTab(urlTab as typeof tab);
+    }
+  }, []);
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-10">
@@ -651,14 +673,18 @@ function ServicesEditor() {
       const { error } = await supabase.from("services").insert({ icon: "Sparkles", image_url: "", link_path: "/behandelingen", sort_order: services.length + 1, translations: { nl: { title: "Nieuwe dienst", desc: "" }, en: { title: "New service", desc: "" }, ar: { title: "خدمة جديدة", desc: "" } } });
       if (error) throw error;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["services"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["services"] });
+      toast.success("Nieuwe dienst succesvol toegevoegd!");
+    },
+    onError: e => toast.error("Fout bij toevoegen: " + String(e)),
   });
 
   const addProtheses = useMutation({
     mutationFn: async () => {
       const { error } = await supabase.from("services").insert({
         icon: "Smile",
-        image_url: "images.shared_teeth_cap",
+        image_url: "images.services_prothese",
         link_path: "/protheses",
         sort_order: services.length + 1,
         translations: {

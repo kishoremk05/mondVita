@@ -96,8 +96,8 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 bg-white/97 backdrop-blur-lg border-b border-border/60 shadow-[0_2px_12px_rgba(12,35,64,0.04)] ${
         scrolled
-          ? "h-14"
-          : "h-16"
+          ? "h-16"
+          : "h-20"
       }`}
     >
       <nav className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 transition-all duration-300">
