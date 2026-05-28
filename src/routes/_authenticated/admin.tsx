@@ -1006,7 +1006,27 @@ function GalleryEditor() {
 function ContactEditor() {
   const qc = useQueryClient();
   const { data } = useQuery({ queryKey: ["contact"], queryFn: fetchContact });
-  const [draft, setDraft] = useState({ address: "", phone: "", email: "", hours: { morning: "", lunch: "", afternoon: "" }, socials: { instagram: "", tiktok: "" }, map_embed: "" });
+  const [draft, setDraft] = useState({
+    address: "",
+    phone: "",
+    email: "",
+    hours: {
+      morning: "",
+      lunch: "",
+      afternoon: "",
+      monday: "",
+      tuesday: "",
+      wednesday: "",
+      thursday: "",
+      friday: "",
+      saturday: "",
+      sunday: "",
+      special: ""
+    },
+    socials: { instagram: "", tiktok: "" },
+    map_embed: ""
+  });
+
   useEffect(() => {
     if (data) {
       setDraft({
@@ -1017,6 +1037,14 @@ function ContactEditor() {
           morning: data.hours?.morning ?? data.hours?.mon_fri ?? "09:00 - 12:00",
           lunch: data.hours?.lunch ?? data.hours?.sat ?? "12:00 - 13:00",
           afternoon: data.hours?.afternoon ?? data.hours?.sun ?? "13:00 - 17:00",
+          monday: data.hours?.monday ?? "09:00 - 17:00",
+          tuesday: data.hours?.tuesday ?? "09:00 - 17:00",
+          wednesday: data.hours?.wednesday ?? "09:00 - 17:00",
+          thursday: data.hours?.thursday ?? "09:00 - 17:00",
+          friday: data.hours?.friday ?? "09:00 - 17:00",
+          saturday: data.hours?.saturday ?? "09:00 - 12:00",
+          sunday: data.hours?.sunday ?? "Gesloten",
+          special: data.hours?.special ?? "",
         },
         socials: {
           instagram: data.socials?.instagram ?? "",
@@ -1043,8 +1071,23 @@ function ContactEditor() {
         <Field label="Phone" value={draft.phone} onChange={v => setDraft({ ...draft, phone: v })} />
         <Field label="Email" value={draft.email} onChange={v => setDraft({ ...draft, email: v })} />
       </div>
+
       <div className="rounded-2xl border border-border bg-white p-6 space-y-4">
-        <h3 className="font-serif text-lg font-semibold text-primary">Opening hours</h3>
+        <h3 className="font-serif text-lg font-semibold text-primary">Opening hours (Per Day - Footer & Card)</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Monday" value={draft.hours.monday} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, monday: v } })} />
+          <Field label="Tuesday" value={draft.hours.tuesday} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, tuesday: v } })} />
+          <Field label="Wednesday" value={draft.hours.wednesday} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, wednesday: v } })} />
+          <Field label="Thursday" value={draft.hours.thursday} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, thursday: v } })} />
+          <Field label="Friday" value={draft.hours.friday} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, friday: v } })} />
+          <Field label="Saturday" value={draft.hours.saturday} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, saturday: v } })} />
+          <Field label="Sunday" value={draft.hours.sunday} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, sunday: v } })} />
+          <Field label="Special note / Holidays (e.g. 'Hemelvaartsdag gesloten')" value={draft.hours.special} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, special: v } })} />
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-border bg-white p-6 space-y-4">
+        <h3 className="font-serif text-lg font-semibold text-primary">Opening hours (Legacy - backups)</h3>
         <Field label="Monday – Saturday morning" value={draft.hours.morning} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, morning: v } })} />
         <Field label="Lunch break" value={draft.hours.lunch} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, lunch: v } })} />
         <Field label="Afternoon" value={draft.hours.afternoon} onChange={v => setDraft({ ...draft, hours: { ...draft.hours, afternoon: v } })} />

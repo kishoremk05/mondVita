@@ -5,6 +5,8 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
+import { fetchSiteContent, fetchContact } from "@/lib/site-data";
+import logoImg from "@/assets/new client images/logo.png";
 
 import "@/i18n";
 
@@ -75,6 +77,7 @@ function nestBundle(flat: Record<string, string>): Record<string, any> {
 function RootComponent() {
   const { i18n } = useTranslation();
   const [hydrated, setHydrated] = useState(false);
+  const [isAppLoading, setIsAppLoading] = useState(true);
 
   // Phase 1: Mark hydration complete after the first client-side commit.
   // useEffect never runs during SSR or during the synchronous hydration pass,
@@ -102,10 +105,11 @@ function RootComponent() {
     document.documentElement.dir = i18n.language === "ar" ? "rtl" : "ltr";
   }, [i18n.language]);
 
-  // Load A-to-Z Dynamic Text overrides from Supabase
+  // Prefetch dynamic translations and core site configurations from Supabase
   useEffect(() => {
-    async function loadDynamicContent() {
+    async function loadDynamicContentAndPrefetch() {
       try {
+        // 1. Fetch translation content overrides first
         const { data, error } = await supabase
           .from("site_content")
           .select("key, locale, value");
@@ -119,7 +123,7 @@ function RootComponent() {
             }
           });
           
-          // Merge dynamic values into active i18n translation namespaces.
+          // Merge dynamic values into active i18n translation namespaces
           Object.entries(bundles).forEach(([loc, bundle]) => {
             if (Object.keys(bundle).length > 0) {
               const nested = nestBundle(bundle);
@@ -127,15 +131,81 @@ function RootComponent() {
             }
           });
           
-          // Re-trigger rendering so components pick up the new resource bundles.
-          i18n.changeLanguage(i18n.language);
+          await i18n.changeLanguage(i18n.language);
         }
+
+        // 2. Prefetch key React Queries using React Query Cache
+        await Promise.all([
+          queryClient.prefetchQuery({
+            queryKey: ["site_content"],
+            queryFn: fetchSiteContent,
+          }),
+          queryClient.prefetchQuery({
+            queryKey: ["contact"],
+            queryFn: fetchContact,
+          }),
+          queryClient.prefetchQuery({
+            queryKey: ["site_content_images"],
+            queryFn: async () => {
+              const { data, error } = await supabase
+                .from("site_content")
+                .select("key, value")
+                .like("key", "images.%");
+              if (error) throw error;
+
+              const map: Record<string, string> = {};
+              (data ?? []).forEach(r => {
+                map[r.key] = r.value;
+              });
+              return map;
+            },
+          }),
+        ]);
+
       } catch (e) {
-        console.error("Error loading dynamic site translations:", e);
+        console.error("Error loading dynamic content and prefetching:", e);
+      } finally {
+        // Enforce a tiny, premium fade delay to guarantee a super smooth transition
+        setTimeout(() => {
+          setIsAppLoading(false);
+        }, 600);
       }
     }
-    loadDynamicContent();
+    loadDynamicContentAndPrefetch();
   }, [i18n]);
+
+  if (isAppLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center fixed inset-0 bg-[#0c2340] z-[99999] font-sans selection:bg-transparent">
+        <style>{`
+          .loading-logo {
+            width: 200px;
+            height: auto;
+            animation: logoPulse 2.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(0) invert(1);
+            margin-bottom: 28px;
+          }
+          .loading-ring {
+            width: 28px;
+            height: 28px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-top-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: spinRing 0.85s linear infinite;
+          }
+          @keyframes logoPulse {
+            0%, 100% { transform: scale(0.96); opacity: 0.75; }
+            50% { transform: scale(1.02); opacity: 1; }
+          }
+          @keyframes spinRing {
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
+        <img src={logoImg} className="loading-logo" alt="MondVita" />
+        <div className="loading-ring" />
+      </div>
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

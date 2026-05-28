@@ -82,6 +82,7 @@ function Page() {
               morning={hours.morning}
               breakLabel={hours.lunch}
               afternoon={hours.afternoon}
+              hours={contact?.hours}
             />
             <div className="rounded-2xl border border-border/80 bg-white p-6 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-widest text-brand-accent">{c("generalCare.map_title")}</p>

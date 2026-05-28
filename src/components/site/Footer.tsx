@@ -34,6 +34,48 @@ export function Footer() {
   const hours = contact?.hours ?? {};  const morning = hours.morning ?? "09:00 - 12:00";
   const lunch = hours.lunch ?? "12:00 - 13:00";
   const afternoon = hours.afternoon ?? "13:00 - 17:00";
+
+  const dayNames = {
+    nl: {
+      monday: "Maandag",
+      tuesday: "Dinsdag",
+      wednesday: "Woensdag",
+      thursday: "Donderdag",
+      friday: "Vrijdag",
+      saturday: "Zaterdag",
+      sunday: "Zondag",
+    },
+    en: {
+      monday: "Monday",
+      tuesday: "Tuesday",
+      wednesday: "Wednesday",
+      thursday: "Thursday",
+      friday: "Friday",
+      saturday: "Saturday",
+      sunday: "Sunday",
+    },
+    ar: {
+      monday: "الإثنين",
+      tuesday: "الثلاثاء",
+      wednesday: "الأربعاء",
+      thursday: "الخميس",
+      friday: "الجمعة",
+      saturday: "السبت",
+      sunday: "الأحد",
+    }
+  };
+
+  const currentDayNames = dayNames[activeLocale] || dayNames.nl;
+  const daysList = [
+    { key: "monday", label: currentDayNames.monday, defaultTime: "09:00 - 17:00" },
+    { key: "tuesday", label: currentDayNames.tuesday, defaultTime: "09:00 - 17:00" },
+    { key: "wednesday", label: currentDayNames.wednesday, defaultTime: "09:00 - 17:00" },
+    { key: "thursday", label: currentDayNames.thursday, defaultTime: "09:00 - 17:00" },
+    { key: "friday", label: currentDayNames.friday, defaultTime: "09:00 - 17:00" },
+    { key: "saturday", label: currentDayNames.saturday, defaultTime: "09:00 - 12:00" },
+    { key: "sunday", label: currentDayNames.sunday, defaultTime: activeLocale === "nl" ? "Gesloten" : activeLocale === "ar" ? "مغلق" : "Closed" },
+  ];
+
   return (
     <footer className="border-t border-brand-accent/20 bg-primary pt-16 pb-8 text-white/80">
       <div className="mx-auto grid max-w-7xl gap-8 px-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -126,13 +168,34 @@ export function Footer() {
           <h4 className="text-xs font-bold uppercase tracking-wider text-brand-accent">
             {t("generalCare.hours_title")}
           </h4>
-          <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-white/80 font-light">
-            <p className="text-xs font-bold uppercase tracking-wider text-white">{t("generalCare.hours_day")}</p>
-            <div className="mt-2.5 space-y-1 text-xs">
-              <p className="font-medium text-white">{morning}</p>
-              <p className="text-white/60">{t("generalCare.hours_break_label")}: {lunch}</p>
-              <p className="font-medium text-white">{afternoon}</p>
-            </div>
+          <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4 text-xs text-white/80 font-light">
+            {hours.monday ? (
+              <div className="space-y-1.5">
+                {daysList.map((d) => {
+                  const time = hours[d.key] ?? d.defaultTime;
+                  return (
+                    <div key={d.key} className="flex justify-between border-b border-white/5 pb-1 last:border-0 last:pb-0">
+                      <span className="text-white/60 font-light">{d.label}</span>
+                      <span className="font-semibold text-white">{time}</span>
+                    </div>
+                  );
+                })}
+                {hours.special && (
+                  <p className="mt-2 pt-2 border-t border-brand-accent/20 text-[10px] italic text-brand-accent text-center">
+                    {hours.special}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <>
+                <p className="text-xs font-bold uppercase tracking-wider text-white">{t("generalCare.hours_day")}</p>
+                <div className="mt-2.5 space-y-1 text-xs">
+                  <p className="font-medium text-white">{morning}</p>
+                  <p className="text-white/60">{t("generalCare.hours_break_label")}: {lunch}</p>
+                  <p className="font-medium text-white">{afternoon}</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
